@@ -1,0 +1,47 @@
+Tyler Reilly
+Prof. Russell
+Capstone
+14 February 2021
+Deliverable 1 Contribution
+
+For deliverable 1, we were to complete the requirements document. My group decided to 
+divvy up the work in the following way: Jakob was to work on section 1, 3.3, and 3.4. I was to work on section 2, 3.5, and 3.6. Yixun was to do 3.1 and 3.2. Moreover, I took the lead on this deliverable to get some experience leading a group of people to complete a task. Overall, I would say the strategy we implemented worked well. During our first meeting, we decided that we would get a working rough draft by our next meeting, approximately 1 week in time, and then go over the document as a team and refine it as necessary. 
+
+	During the week while we were all working on our parts, I kept in contact with the other group members via Discord to ask questions regarding any further ideas they had for general constraints, dependencies, and security requirements. Furthermore, discord was used to check on their progress. Along the way while writing my sections, I noticed that it would be beneficial to change some aspects of the design that we had discussed previously as a group at our meetings. When this occurred, I reached out to Jakob and Yixun to explain to them the change I thought necessary and asked for their input. For example, we had talked about using MySQL to handle the database, however I thought it would be better if we used MongoDB instead because this system does not require relationships between the datasets. The only data being stored is tailored towards the patients, not the staff members. The staff will only have basic data that allows them to log in. Ultimately, I felt the need to do this because it is important to keep the other team members informed as to any changes that are happening to the requirements. 
+
+	I also took the liberty of setting up the GitHub repository to give us a workspace to store all of our documents and for future source code. Furthermore, I connected GitHub to a Discord channel so everyone would be able to keep up with any new changes to the repo.
+
+	In order to draw up some of the requirements for this system, I researched some of the practices employed by others over the years. Particularly in regard to fault tolerance, as this system is mission critical and will need to be running 24/7. Also, since the data that is being kept in our database is confidential, the system must be kept secure from any breaches. To accomplish this I decided that a one way hashing algorithm, SHA256, should be used to encrypt the passwords of all users within the system, regardless of the level of information they have access to. 
+
+	Below will be the sections that I wrote. That is, all of 2, 3.5, and 3.6.
+
+2 General Description
+2.1 Product Perspective 
+This is an independent product that assists hospital staff with storing patient data and retrieving patient data for any analysis by their doctor. The hardware to be used will be standard computers used within a hospital setting. Preferably, the systems should use Windows 10, with a multi core processor that supports multi-threading. Moreover, standard I/O such as a mouse and keyboard is necessary.
+
+
+2.2 Product Functions
+	The functions of this system include those of persistent storage. That is, CRUD, (Create, Read, Upload, and Delete). Information is to be served to the four use cases of the system; Doctors, Nurses, Billing, and InfoTaker. Along with this, there will be an authentication mechanism that will login authorized personnel. Moreover, each type of user will have different information displayed to them, depending on their job description. 
+
+
+2.3 User Characteristics
+	The user group will be the hospital staff. Each staff member responsible for the care of a patient will have some level of access to the system; using a hierarchical system. From bottom to top:  Billing, Check-in, Nurse, Doctor.  More features are available the higher the level of the user is.  The doctor and nurses  will preferably have some medical school background as the system is designed to be used by hospital staff. The billing and check-in person should have knowledge of basic terminology used by hospital professionals.  The age range ties into the educational background of the staff member. 
+
+
+2.4 General Constraints
+Only accessible inside of the hospital. There will be no web interface. Furthermore, as will be outlined more in section 3, we will be constrained by HIPPA guidelines. Most importantly, the system will need to be able to run on a standard hospital computer without the need of any upgrades to hardware.
+
+
+2.5 Assumptions and Dependencies
+	It is assumed that there will be training for hospital staff to use the system.  As we will be running our software within the Java Virtual Machine, the computers in the hospital will require Java. Additionally, to avoid any system downtime in the case of a power outage, the computers running the system must be dependent on the backup generator.
+
+
+3.5 Attributes
+Any updates to the system will be deployed during any ‘off hours’ of the hospital. Wherein, it is safe to do so without any hindrance of Hospital operations. In regard to fault tolerance, this system would be described as mission critical and will  need to be kept running in the case of new arrivals. We will need to ensure that the system is always available, functional, and accessible. Once we have the system implemented we will push the system past its limits to ensure reliability. For instance, we will have a replica set for the MongoDB instance in case the primary instance of the database were to go down.
+To ensure confidentiality and overall security of the system, a hashing algorithm, SHA256, will be used to secure password data of all users. Since it is a one-way function, if the database is breached, the passwords will remain secure. The system will only be accessible within the hospital, where the data is needed. There could potentially be an interface for outside access for patients to check their data, (such as MyChart), but that would be integrated at a later date specified by any further client needs.
+The goal will be to have a low level of coupling to allow maintainability of the system. With low coupling, if one function is changed, others will not break. With this approach in mind, we will be able to afford more fault tolerance. If there is an error with one component, then another will continue to run without any dependency on the other.
+
+3.6 Other Requirements
+	Our system will rely on a MongoDB server to store the patient information.
+
+	As you see, our system does not rely on any other requirements besides MongoDB  being run to handle information storage. 
