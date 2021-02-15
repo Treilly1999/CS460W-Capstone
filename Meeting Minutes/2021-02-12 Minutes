@@ -1,0 +1,25 @@
+Date: February 12, 2021
+Members Present: Jakob, Tyler, Yixun
+Team Leader: Tyler
+Recorder: Jakob 
+Work Completed Prior to Meeting: 
+• Sections 1, 3.3, and 3.4 - Jakob
+• Sections 2, 3.5, and 3.6 - Tyler
+• Sections 3.1 and 3.2 - Yixun
+Start of Meeting: 12:00 pm
+Meeting Details: 
+• This meeting primarily focused on reviewing the nearly completed SRS and planning for its completion by Monday February 15.
+• Document formatting was discussed. Garamond with slightly larger fonts for titles and bolded section numbers was selected.
+• Section 2 will be revised to contain a better overview of the requirements with fewer details on the implementation
+• Section 3.5 will be updated to contain better fault toleration information. Hospitals do not have off hours so the primary focus will be on quick (possibly live) updates and a robust system that can remain online for many consecutive hours.
+• The user interfaces outlined in section 3.2 will be expanded to include further details about how different types of users will interact with the system.
+• Yixun is selected as project leader for deliverable 2.
+• Tyler is selected as recorder for deliverable 2.
+Action Items:
+• Edit sections 2 and 3.5 based on today’s discussion - Tyler
+• Add user functions and additional user interface descriptions to the SRS - Yixun
+• Update definitions and references to reflect content in sections completed by Tyler and Yixun, format SRS - Jakob
+• Format minutes and post to github - Jakob
+End of Meeting: 12:32 pm
+
+
