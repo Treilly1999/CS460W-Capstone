@@ -1,0 +1,20 @@
+Date: February 8, 2021
+Members Present: Jakob, Tyler, Yixun, Client
+Team Leader: Tyler
+Recorder: Jakob
+Work Completed Prior to Meeting: n/a
+Start of Meeting: 12:08 pm
+Meeting Details: 
+• This meeting primarily focused on clarifying details of the system with the client.
+• The code base will be primarily in Java with a currently unspecified second language used for database management.
+• Client clarifies expected functioning of system. There will be four types of users that need differing levels of access to the system. 
+• Registration staff is responsible for taking patient info when they first arrive at the emergency room.  Registration staff will have the ability to record various pieces of information in the system such as patient name and address, physician information, symptoms, and medical history.
+• Nurses are responsible for assisting the physicians. They will have the ability to see and add to patient information in the system. They will also be able to print discharge instructions for the patient.
+• Physicians are responsible for diagnosing the patient and providing appropriate medical care. Physicians will have the ability to see and add to patient information as well as being able to order tests, record diagnoses, and prescribe medications.
+• Billing staff is responsible for billing the patient based on treatment given. They will not be able to access most patient medical records but will be able to see patient insurance information, name, address, and phone number as well as what procedures were done by the physician and how many nights the patient stayed. Finally, billing staff will have the ability to print bills.
+Action Items: 
+• Sections 1, 3.3, and 3.4 - Jakob
+• Sections 2, 3.5, and 3.6 - Tyler
+• Sections 3.1 and 3.2 - Yixun
+End of Meeting: 12:31 pm
+
