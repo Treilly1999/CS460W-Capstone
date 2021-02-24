@@ -1,8 +1,13 @@
 Client Meeting 2/17/2021 Deliverable 1 Feedback
 Members present: Yixun, Jakob, Tyler
+Lead: Yixun
+Recorded: Tyler
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
 
 Going over clarifications for Deliverable 1 with Client
 HERE: Client (Prof Russell), Jakob, Tyler, Yixun
+
+Work Completed Prior: N/A
 
 11:30 - Start
 11:32 - Add team lead and recorder to top
