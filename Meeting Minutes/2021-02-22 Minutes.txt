@@ -1,0 +1,20 @@
+Members present: Tyler, Jakob, Yixun
+Work to be completed prior to meeting: Use cases
+
+11:20 - Going over use cases
+11:21 - Having a general use case for logging in and then subclasses for the actors.
+11:23 - Explaing the difference between use case and scenarios for clarification.
+11:26 - Document created for Use Cases
+11:35 - Login logout should be general
+    Billing: Mark bills paid/unpaid, add fees to bill, print bills
+11:42 - Registration staff is fine as is. Nurse should have a use case where they read information from database.
+11:43 - Nurse just prints the discharge papers
+11:47 - Doctor needs to pick diagnosis, prescribe medication, and order tests/procedurers, and write discharge instructions
+
+
+TODO
+
+Billing: Mark bills paid/unpaid, add fees to bill -- Tyler
+Doctor: Pick diagnosis, prescribe medication, order tests/procedures, and write discharge instructions -- Yixun
+Nurse: Fix addDischargePapers -- Tyler
+Fomatting Document: All comply to same standards -- Jakob.

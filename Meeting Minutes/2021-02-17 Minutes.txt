@@ -1,0 +1,30 @@
+Client Meeting 2/17/2021 Deliverable 1 Feedback
+Members present: Yixun, Jakob, Tyler
+
+Going over clarifications for Deliverable 1 with Client
+HERE: Client (Prof Russell), Jakob, Tyler, Yixun
+
+11:30 - Start
+11:32 - Add team lead and recorder to top
+11:32 - Clarify users Registration Staff, Nurse, Doctor, Finance
+11:33 - Calrify access for users; read, write, ect.
+11:34 - Nurse can write blood preasusre, height, weight. Assigns phasician. Write access for comments (observsations), # of nights patient stayed.
+11:36 - Doctor write access to all medical records, comments. Requests needs to be explained in req doc -> doctor can request tests. 
+11:37 - Spell out the diagnoses in the doc (10). 
+11:38 - Only resubmit the Requirements Document for Friday.
+11:41 - end with client
+
+
+11:42 - Meeting in Discord to go over client specifications.
+11:45 - We will meet next week Monday 2:00pm to discuss Dilverable 2.
+11:47 - Jakob will do the Registration Staff for Deliverable 2.
+11:49 - Tyler will do the Nurse, Yixun will do the Doctor, and we will all contribute to the Billing staff.
+11:50 - All the additions should go into section 3.1, and flesh out the access for the each actor. 
+11:58 - Meeting end.
+
+TODO
+Tyler - Use cases for the Nurse
+Yixun - Use cases for the Doctor
+Jakob - Use cases for the Registration Staff
+
+//Billing staff will be worked on by everyone
