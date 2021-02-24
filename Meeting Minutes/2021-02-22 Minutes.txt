@@ -1,4 +1,7 @@
 Members present: Tyler, Jakob, Yixun
+Lead: Yixun
+Recorder: Tyler
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
 Work to be completed prior to meeting: Use cases
 
 11:20 - Going over use cases
