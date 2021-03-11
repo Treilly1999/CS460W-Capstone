@@ -157,9 +157,10 @@ public class DBConnection {
         } finally {
             cursor.close();
         }
-        System.out.println(patients.size());
+        //System.out.println(patients.size());
         patients.forEach((n) -> buildPatients(n));
         
+        //System.out.println(patientList);        
         return patientList;
     }
     
@@ -168,7 +169,8 @@ public class DBConnection {
     {
           
         String documentString = patients.toString();
-       
+        //System.out.println(documentString);
+        
         Map<String,String> queryParameters = Splitter
             .on(", ")
             .withKeyValueSeparator("=")

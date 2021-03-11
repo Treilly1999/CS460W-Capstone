@@ -35,11 +35,15 @@ public class Patient {
         
     }
     
-    public Patient(String name, Integer age, String phoneNumber)
+    public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, String physicianNumber)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.ssn = new SimpleIntegerProperty(ssn);
+        this.physicianName = new SimpleStringProperty(physicianName);
+        this.physicianNumber = new SimpleStringProperty(physicianNumber);
+        
     }
     
     public String getName() { return name.get(); }    
