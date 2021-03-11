@@ -16,121 +16,60 @@ import javafx.beans.property.SimpleLongProperty;
 public class Patient {
     
     
-    public String name;
-    public int  age;     
-    public  String phoneNumber;
+    public static SimpleStringProperty  name;
+    public static SimpleIntegerProperty  age;     
+    public static SimpleStringProperty phoneNumber;
     
     //RESEARCH WHAT INSURANCE INFO WILL BE NEEDED
     
-    private int socialSecurity;
+    private SimpleIntegerProperty ssn;
     
-    private String physicianName;
-    private String physicianNumber;
+    private SimpleStringProperty physicianName;
+    private SimpleStringProperty physicianNumber;
     
-    private String medicalHistory;
-    private String symptoms;
+    private SimpleStringProperty medicalHistory;
+    private SimpleStringProperty symptoms;
     
     public Patient()
     {
         
     }
     
-    public Patient(String name, Integer age, String phoneNumber, Integer socialSecurity, String physicianName, String physicianNumber)
+    public Patient(String name, Integer age, String phoneNumber)
     {
-        this.name = name;
-        this.age = age;
-        this.phoneNumber = phoneNumber;
-        this.socialSecurity = socialSecurity;
-        this.physicianName = physicianName;
-        this.physicianNumber = physicianNumber;
+        this.name = new SimpleStringProperty(name);
+        this.age = new SimpleIntegerProperty(age);
+        this.phoneNumber = new SimpleStringProperty(phoneNumber);
     }
     
-    public String getName()
-    {
-        return name;
-    }    
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-    public final String nameProperty() { return name; }
+    public String getName() { return name.get(); }    
+    public void setName(String name) { this.name = new SimpleStringProperty(name); }
+    public final SimpleStringProperty nameProperty() { return name; }
     
     
-    public int getAge()
-    {
-        return age;
-    }    
-    public void setAge(int age)
-    {
-        this.age = age;
-    }
-    public final int ageProperty() { return age; }
+    public int getAge() { return age.get(); }    
+    public void setAge(int age) { this.age = new SimpleIntegerProperty(age); }
+    public final SimpleIntegerProperty ageProperty() { return age; }
    
     
-    public String getPhone()
-    {
-        return phoneNumber;
-    }
-    public void setPhone(String number)
-    {
-        this.phoneNumber = number;
-    }
-    public final String phoneNumberProperty() { return phoneNumber; }
+    public String getPhone() { return phoneNumber.get(); }
+    public void setPhone(String number) { this.phoneNumber = new SimpleStringProperty(number); }
+    public final SimpleStringProperty phoneNumberProperty() { return phoneNumber; }
     
-    public int getSS()
-    {
-        return socialSecurity;
-    }
-    public void setSS(int social)
-    {
-        this.socialSecurity = social;
-    }
+    public int getSSN(){ return ssn.get(); }
     
-    public String getPhysician()
-    {
-        return physicianName;
-    }
-    public void setPhysician(String physician)
-    {
-        this.physicianName = physician;
-    } 
+    public void setSSN(int social) { this.ssn = new SimpleIntegerProperty(social); }
     
-    public String getPhysicianNumber()
-    {
-        return physicianNumber;
-    }
-    public void setPhysicianNumber(String physNum)
-    {
-        this.physicianNumber = physNum;
-    }
+    public String getPhysician() { return physicianName.get(); }
+    public void setPhysician(String physician){ this.physicianName = new SimpleStringProperty(physician); } 
     
-    public String getMedicalHistory()
-    {
-        return medicalHistory;
-    }
-    public void setMedicalHistory(String medHist)
-    {
-        this.medicalHistory = medHist;
-    }
+    public String getPhysicianNumber() { return physicianNumber.get(); }
+    public void setPhysicianNumber(String physNum) { this.physicianNumber = new SimpleStringProperty(physNum); }
     
-    public String getSymptoms()
-    {
-        return symptoms;
-    }
-    public void setSymptoms(String symptoms)
-    {
-        this.symptoms = symptoms;
-    }
+    public String getMedicalHistory() { return medicalHistory.get(); }
+    public void setMedicalHistory(SimpleStringProperty medHist) { this.medicalHistory = medHist; }
     
-    
-    public String toString()
-    {
-        String ret = "Name: " + name + ". Age: " + age + 
-                ". Phone Number: " + phoneNumber + ". SSN: " + socialSecurity +
-                ". Physician: " + physicianName + ". Physicians Number: " + physicianNumber;
-       
-        return ret;
-    }
-    
-    
+    public String getSymptoms() { return symptoms.get(); }
+    public void setSymptoms(SimpleStringProperty symptoms) { this.symptoms = symptoms; }
+
 }
