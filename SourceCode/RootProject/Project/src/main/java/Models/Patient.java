@@ -16,9 +16,9 @@ import javafx.beans.property.SimpleLongProperty;
 public class Patient {
     
     
-    public static SimpleStringProperty  name;
-    public static SimpleIntegerProperty  age;     
-    public static SimpleStringProperty phoneNumber;
+    public SimpleStringProperty  name;
+    public SimpleIntegerProperty  age;     
+    public SimpleStringProperty phoneNumber;
     
     //RESEARCH WHAT INSURANCE INFO WILL BE NEEDED
     
@@ -76,4 +76,9 @@ public class Patient {
     public String getSymptoms() { return symptoms.get(); }
     public void setSymptoms(SimpleStringProperty symptoms) { this.symptoms = symptoms; }
 
+    public String toString()
+    {
+        return "Name: " + getName();
+    }
+    
 }

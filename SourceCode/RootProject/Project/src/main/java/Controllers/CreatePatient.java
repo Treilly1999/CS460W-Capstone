@@ -15,8 +15,12 @@ import org.bson.Document;
  *
  * @author Tyler
  */
-public class createPatient {
+public class CreatePatient {
     
+    /*
+    Author: Tyler
+    Description: Testing method that uses createPatient from console inputs
+    */
     public static void startTestCreate()
     {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
@@ -47,6 +51,10 @@ public class createPatient {
         
     }
     
+    /*
+    Author: Tyler
+    Description: Inserts a patient into the database HOSPITAL
+    */
     public static void createPatient(MongoDatabase database, String name, int age, String phoneNumber, 
             int ssn, String physicianName, String physicianNumber)
     {

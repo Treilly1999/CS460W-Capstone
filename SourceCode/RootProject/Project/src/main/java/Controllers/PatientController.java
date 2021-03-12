@@ -23,18 +23,15 @@ import java.util.ResourceBundle;
  * @author Tyler
  */
 public class PatientController implements Initializable {
-    
-    private Patient model;
-    private PatientView view;
-    
+        
     DBConnection dbCalls = new DBConnection();
     
     //NULL MEANS NO QUERY
     static ArrayList<Patient> patientList = DBConnection.parsePatients(null);
     
+    //These variables are called within the FXMLDocument
     @FXML
     private TableView<Patient> pData;
-    
     @FXML
     private TableColumn<Patient, String> name;
     @FXML
@@ -48,8 +45,10 @@ public class PatientController implements Initializable {
     @FXML
     private TableColumn<Patient, String> physicianNumber;
     
+    //This list is filled with ArrayList<Patient>
     ObservableList<Patient> patients = FXCollections.observableList(dbCalls.getPatients());
     
+    //Sets all the variables for the FXML document
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -62,50 +61,5 @@ public class PatientController implements Initializable {
         
         pData.setItems(patients);
     }
-    
-   
-    
-    /*
-    public PatientController(Patient model, PatientView view)
-    {
-        this.model = model;
-        this.view = view;
-    }
-    
-    
-    public void setName(String  name)
-    {
-        model.setName(name);
-    }
-    public String getName()
-    {
-        return model.getName();
-    }
-    
-    public void setPatientAge(int age)
-    {
-        model.setAge(age);
-    }
-    public int getPatientAge()
-    {
-        return model.getAge();
-    }
-    
-    public void setPatientPhoneNumber(String phoneNumber)
-    {
-        model.setPhone(phoneNumber);
-    }
-    public String getPatientPhoneNumber()
-    {
-        return model.getPhone();
-    }
-    
-    public void updateView()
-    {
-        view.printPatientDetaisl(model.getName(), model.getAge(), model.getPhone());
-        //ptable.s
-    }
-    */
-    
     
 }

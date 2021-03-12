@@ -40,11 +40,10 @@ public class DBConnection {
         return patientList;
     }
     
-    
     /*
-    TODO: Integrate mongoclient with javafx
-    How to setup controller?   //.
-    */     
+    Author: Tyler
+    Description: Main is for testing mongoDB commands with output to the console.
+    */
     public static void main(String[] args)
     {
           
@@ -58,7 +57,10 @@ public class DBConnection {
         
     }  
     
-    
+    /*
+    Author: Tyler
+    Description: For testing purposes.
+    */
     public static void startQuery(MongoDatabase database)
     {
         patientList.clear();
@@ -126,6 +128,11 @@ public class DBConnection {
         patients.forEach((n) -> buildPatients(n));
     }
     
+    /*
+    Author: Tyler
+    Description: Parses the database for all patients or specific patients that
+    match a query. 
+    */
      public static ArrayList<Patient> parsePatients(Document query)
     {
         
@@ -157,19 +164,23 @@ public class DBConnection {
         } finally {
             cursor.close();
         }
-        //System.out.println(patients.size());
-        patients.forEach((n) -> buildPatients(n));
+        //patients.forEach((n) -> System.out.println(n.toString()));
         
-        //System.out.println(patientList);        
+        patients.forEach((n) -> buildPatients(n));
+              
         return patientList;
     }
     
-    
+    /*
+     Author: Tyler
+     Description: Builds individual patient's models based on the patients parsed
+     from parsePatients.
+     */
     public static void buildPatients(Document patients)
     {
           
         String documentString = patients.toString();
-        //System.out.println(documentString);
+        System.out.println(documentString);
         
         Map<String,String> queryParameters = Splitter
             .on(", ")
