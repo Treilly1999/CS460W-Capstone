@@ -31,6 +31,7 @@ public class DeleteFromDB
     Author: Tyler
     Description: Removes an entry from specified DB based on the query provided,
     either deleting a specific entry or all that match.
+    TODO: Deletion requires testing.
     */
     public static void removeEntry(MongoDatabase database, Document query, Boolean allMatch)
     {

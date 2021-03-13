@@ -6,6 +6,8 @@ package Controllers;
  * and open the template in the editor.
  */
 
+//import static Controllers.CreatePatient.startTestCreate;
+import static Controllers.Update.updateTest;
  import com.mongodb.*;
  import com.mongodb.MongoClient;
  import Models.Patient;
@@ -53,8 +55,9 @@ public class DBConnection {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         MongoDatabase database = mongoClient.getDatabase("hospital");
         
-        startQuery(database);
-        
+        //startQuery(database);
+        //startTestCreate(true);
+        updateTest();
     }  
     
     /*
