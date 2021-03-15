@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.util.ArrayList;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -19,8 +20,12 @@ public class Patient {
     public SimpleStringProperty  name;
     public SimpleIntegerProperty  age;     
     public SimpleStringProperty phoneNumber;
+    public SimpleIntegerProperty  id; 
     
     //RESEARCH WHAT INSURANCE INFO WILL BE NEEDED
+    private SimpleStringProperty provider; 
+    
+    ArrayList<String> progressReports;
     
     private SimpleIntegerProperty ssn;
     
@@ -30,12 +35,18 @@ public class Patient {
     private SimpleStringProperty medicalHistory;
     private SimpleStringProperty symptoms;
     
+    private SimpleStringProperty dischargeInstructions;
+    private SimpleStringProperty assignedDoctor;
+    private Boolean admitted;
+     
+    
     public Patient()
     {
         
     }
     
-    public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, String physicianNumber)
+    public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+            String physicianNumber)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -76,6 +87,21 @@ public class Patient {
     public String getSymptoms() { return symptoms.get(); }
     public void setSymptoms(SimpleStringProperty symptoms) { this.symptoms = symptoms; }
 
+    public String getProvider() { return provider.get(); }
+    public void setProvider(SimpleStringProperty provider) { this.provider = provider; }
+    
+    public String getDischargeInstructions() { return dischargeInstructions.get(); }
+    public void setDischargeInstructions(SimpleStringProperty dischargeInstructions) { this.dischargeInstructions = dischargeInstructions; }
+    
+    public String getAssignedDoctor() { return assignedDoctor.get(); }
+    public void setAssignedDoctor(SimpleStringProperty assignedDoctor) { this.assignedDoctor = assignedDoctor; }
+    
+    public Boolean getAdmitted() { return admitted; }
+    public void setAdmitted(Boolean isAdmitted) { this.admitted = admitted; }
+    
+    public ArrayList<String> getProgressReports() { return progressReports; }
+    public void setProgressReports(String report) { progressReports.add(report); }
+    
     public String toString()
     {
         return "Name: " + getName();
