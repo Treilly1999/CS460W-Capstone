@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.net.URL;
 import javafx.scene.layout.StackPane;
+import login.LoginManager;
 /**
  *
  * @author Tyler
@@ -21,12 +22,18 @@ public class HospitalSystem extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        
+        /*
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/FXMLDocument.fxml"));
+        loader.setLocation(getClass().getResource("/login.fxml"));
         Parent root = loader.load();
+        */
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(new StackPane());
+    
+        LoginManager loginManager = new LoginManager(scene);
+        loginManager.showLoginScreen();        
+        
+        //Scene scene = new Scene(root);
         
         stage.setTitle("Patients");
         stage.setWidth(1920);
