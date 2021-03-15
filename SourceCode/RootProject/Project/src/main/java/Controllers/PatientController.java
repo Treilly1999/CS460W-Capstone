@@ -8,6 +8,7 @@ package Controllers;
 import static Controllers.DBConnection.patientList;
 import Models.Patient;
 import Views.*;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,12 +19,27 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import login.LoginManager;
+import login.MainViewController;
 /**
  *
  * @author Tyler
  */
 public class PatientController implements Initializable {
         
+    private Scene scene;
+
+    /*
+    public PatientController(Scene scene) {
+      this.scene = scene;
+    }
+    */
+    
     DBConnection dbCalls = new DBConnection();
     
     //NULL MEANS NO QUERY
@@ -61,5 +77,21 @@ public class PatientController implements Initializable {
         
         pData.setItems(patients);
     }
+    /*
+    private void showPatientController(String sessionID) {
+    try {
+
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/FXMLDocument.fxml"));
+    Parent root = loader.load();        
+      scene.setRoot(root);
+      MainViewController controller = 
+        loader.<MainViewController>getController();
+      controller.initSessionID(this, sessionID);
+    } catch (IOException ex) {
+      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+*/
     
 }

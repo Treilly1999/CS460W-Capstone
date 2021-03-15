@@ -6,6 +6,7 @@ package Controllers;
  * and open the template in the editor.
  */
 
+//import static Controllers.CreatePatient.startTestCreate;
  import com.mongodb.*;
  import com.mongodb.MongoClient;
  import Models.Patient;
@@ -40,29 +41,26 @@ public class DBConnection {
         return patientList;
     }
     
+    
     /*
     Author: Tyler
     Description: Main is for testing mongoDB commands with output to the console.
     */
     public static void main(String[] args)
     {
-          
-        
-        
         //createPatient(database, "Billy", 21, "123-123-1234", 12345678, "Dr. Craig", "3243245643");        
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
-        
-        startQuery(database);
-        
+                
+        //startQuery(database);
+        //startTestCreate(true);
+        //updateTest();
     }  
     
     /*
     Author: Tyler
     Description: For testing purposes.
     */
-    public static void startQuery(MongoDatabase database)
-    {
+    public static void startQuery()
+    {        
         patientList.clear();
         Scanner sc = new Scanner(System.in);
 
@@ -84,7 +82,7 @@ public class DBConnection {
             query.put(param1, param2);  
         }      
         
-        parsePatients(database, query);  
+        parsePatients(query);  
        
         patientList.forEach((n) -> System.out.println(n));
         
@@ -92,12 +90,16 @@ public class DBConnection {
         int cont = sc.nextInt();
         if(cont == 1)
         {
-            startQuery(database);
+            startQuery();
         }
     }
     
-    public static void parsePatients(MongoDatabase database, Document query)
+    public static void parsePatient(Document query)
     {
+        
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+
         MongoCollection<Document> collection = database.getCollection("patients");    
         
         ArrayList<Document> patients = new ArrayList<Document>();
@@ -133,7 +135,7 @@ public class DBConnection {
     Description: Parses the database for all patients or specific patients that
     match a query. 
     */
-     public static ArrayList<Patient> parsePatients(Document query)
+    public static ArrayList<Patient> parsePatients(Document query)
     {
         
         MongoClient mongoClient = new MongoClient("localhost", 27017);
@@ -197,6 +199,168 @@ public class DBConnection {
         patientList.add(new Patient(name, age, phoneNumber, ssn, physicianName, physicianNumber));
       
     }   
+    
+ // ---------------------------------------------------------
+    public static void updateTest()
+    {
+        
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+
+        
+        Scanner sc = new Scanner(System.in);
+        Document before = new Document();       
+        Document afterQuery = new Document();
+        
+        System.out.println("What would you like to update?");
+        String param1 = sc.nextLine();
+        sc.nextLine();
+        
+        System.out.printf("What is the value of %s%n", param1);
+        String param2 = sc.next();
+        sc.nextLine();
+        
+        System.out.printf("What would you like to change %s%n to?", param1);
+        String after = sc.next();
+        
+        before.put(param1, param2);
+        afterQuery.put(param1, after);
+        
+        parsePatient(before);
+        
+        updateEntry("patients", param1, param2, param1, after, true);
+        
+        parsePatient(afterQuery);
+    }
+     
+     
+     /*
+     Author: Tyler Reilly
+     Description: Updates a single entry or all entries in the given collection.
+     TODO: NEEDS DYNAMIC TYPES, Object type?
+     */
+    public static void updateEntry(String collectionName, String field, Object value, String afterField, Object afterValue, Boolean isMultiple)
+    {
+        
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+
+        MongoCollection<Document> collection = database.getCollection(collectionName);    
+        
+        if(isMultiple)
+        {
+            collection.updateMany(eq(field, value), new Document("$set", new Document(afterField, afterValue)));
+            System.out.println("Update all entries from " + value + " to " + afterValue);
+        }
+        else
+        {
+            
+            collection.updateOne(eq(field, value), new Document("$set", new Document(afterField, afterValue)));
+            System.out.println("Updated the entry where " + value
+            + " is met and changed it to " + afterValue);
+        }
+        
+    }
+    
+//---------------------------------------------------
+    
+    public static void removeEntry(Document query, Boolean allMatch)
+    {
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+        MongoCollection<Document> collection = database.getCollection("patients");    
+                 
+        if(allMatch == true)
+        {
+            collection.deleteMany(query);
+            System.out.println("Deleted all documents in " + database.getName() + " that matched " + query.toString());
+        }
+        else
+        {
+            collection.deleteOne(query);
+            System.out.println("Deleted a single document in " + database.getName() + " that matched " + query.toString());
+        }
+        
+    }   
+    
+//----------------------------------------------------
+    
+     /*
+    Author: Tyler
+    Description: Testing method that uses createPatient from console inputs
+    */
+    public static void startTestCreate(Boolean firstTry)
+    {
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+        
+        Scanner sc = new Scanner(System.in);
+        int opt;
+        
+        if(firstTry == true)
+        {
+            System.out.println("Do you want to create a patient profile? If yes, enter 0. Else 1.");
+            opt = sc.nextInt();
+        }
+        else
+        {
+            opt = 0;
+        }
+        
+        
+        if(opt == 0)
+        {
+            System.out.println("Enter patient name.");
+            String name = sc.next();
+            System.out.println("Enter patient age.");
+            int age = sc.nextInt();
+            sc.nextLine();
+            System.out.println("What is the patient's SSN?");
+            int ssn = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Enter patient phone number.");
+            String phoneNumber = sc.next();
+            System.out.println("Enter patient's physician.");
+            sc.nextLine();
+            String physicianName = sc.nextLine();
+            System.out.println("Enter patient physician's phone number.");
+            String physicianNumber = sc.nextLine();
+            
+            createPatient(database, name, age, phoneNumber, ssn, physicianName, physicianNumber); 
+            
+            System.out.println("more? 1 yes 2 no");
+            int cont = sc.nextInt();
+            
+            if(cont == 1)
+            {
+                startTestCreate(false);
+            }
+        }
+        
+        
+    }
+    
+    /*
+    Author: Tyler
+    Description: Inserts a patient into the database HOSPITAL
+    */
+    public static void createPatient(MongoDatabase database, String name, int age, String phoneNumber, 
+            int ssn, String physicianName, String physicianNumber)
+    {
+        MongoCollection<Document> collection = database.getCollection("patients");    
+            
+        Document document = new Document();
+        
+        document.put("name", name);
+        document.put("age", age);
+        document.put("phoneNumber", phoneNumber);
+        document.put("ssn", ssn);
+        document.put("physicianName", physicianName);
+        document.put("physicianNumber", physicianNumber);
+        
+        collection.insertOne(document);
+    }
+    
 }
     
     
