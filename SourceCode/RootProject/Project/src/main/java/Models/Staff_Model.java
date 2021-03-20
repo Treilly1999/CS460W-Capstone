@@ -6,7 +6,7 @@
 package Models;
 
 /**
- *
+// *
  * @author Tyler
  */
 public class Staff_Model {
@@ -21,26 +21,29 @@ public class Staff_Model {
     
     USER_ROLE role;
     int id;
-    String name, userName;
+    String name, userName, password;
+    
+    //uses google Guava library to encrypt password
+    //will need revision
    
-    public Staff_Model(USER_ROLE role, int id, String name, String userName)
+    public Staff_Model(USER_ROLE role, int id, String name, String userName, String password)
     {
         this.role = role;
         this.id = id;
         this.name = name;
         this.userName = userName;
+        this.password = password;
     }
     
     public USER_ROLE getUSER_ROLE() { return role; }
-    public void setUSER_ROLE(USER_ROLE role) { this.role = role; }
     
     public int getID() { return id; }
-    public void setID(int id) { this.id = id; }
     
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     
     public String getUserName() { return userName; }
-    public void setUserName() { this.userName = userName; }  
+
+    public String getPassword() { return password; }
+
     
 }

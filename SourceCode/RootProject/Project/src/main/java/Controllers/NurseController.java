@@ -9,6 +9,17 @@ package Controllers;
  *
  * @author Tyler
  */
-public class NurseController {
+public class NurseController
+{
+
+    @FXML private String nurseName;
+    
+    Staff_Model nurse = new Staff_Model();
+
+    if(Staff_Model.USER_ROLE != NURSE)
+    {
+        logout();
+    }
+
     
 }

@@ -20,11 +20,31 @@ public class LoginManager {
    * Callback method invoked to notify that a user has been authenticated.
    * Will show the main application screen.
    */ 
-  public void authenticated(String sessionID) {
-    //showMainView(sessionID);
-    showPatientList(sessionID);
+    public void authenticated(USER_ROLE role, String sessionID);
+    {
+        //showMainView(sessionID);
+        if(role == "NURSE")
+        {
+            showNurseView();
+        }
+        if(role == "DOCTOR")
+        {
+            //Show doctor screen
+        }
+        if(role == "BILLING")
+        {
+            //Show billing screen
+        }
+        if(role == "REGISTER")
+        {
+            //Show register screen
+        }
+        else
+        {
+            showPatientList(sessionID);
+        }
+    
   }
-
   /**
    * Callback method invoked to notify that a user has logged out of the main application.
    * Will show the login application screen.
@@ -48,16 +68,16 @@ public class LoginManager {
     }
   }
 
-  private void showMainView(String sessionID) {
+  private void showNurseView() {
     try {
 
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/mainview.fxml"));
+    loader.setLocation(getClass().getResource("/nurseView.fxml"));
     Parent root = loader.load();        
     scene.setRoot(root);
-    MainViewController controller = 
-    loader.<MainViewController>getController();
-    controller.initSessionID(this, sessionID);
+    NurseController controller = 
+    loader.<NurseController>getController();
+    //controller.initSessionID(this, sessionID);
     } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
     }
