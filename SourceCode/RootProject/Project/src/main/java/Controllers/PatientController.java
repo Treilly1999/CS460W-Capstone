@@ -6,6 +6,7 @@
 package Controllers;
 
 import Models.Patient;
+import Models.Staff_Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,9 +30,8 @@ import login.*;
  */
 public class PatientController implements Initializable {
         
-    
     @FXML private Button logoutButton;
-    
+     
     DBConnection dbCalls = new DBConnection();
     
     //NULL MEANS NO QUERY
@@ -61,7 +62,8 @@ public class PatientController implements Initializable {
     //Sets all the variables for the FXML document
     @Override
     public void initialize(URL location, ResourceBundle resources)
-    {      
+    {    
+        /*
         name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         age.setCellValueFactory(new PropertyValueFactory<>("Age"));
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
@@ -69,14 +71,28 @@ public class PatientController implements Initializable {
         physicianName.setCellValueFactory(new PropertyValueFactory<>("Physician"));
         physicianNumber.setCellValueFactory(new PropertyValueFactory<>("PhysicianNumber"));
 
-        pData.setItems(patients);
+        pData.setItems(patients);        
+        */
     }
     
-    @FXML
-    public void logout(ActionEvent event) {
-        Scene scene = new Scene(new StackPane());    
-        LoginManager loginManager = new LoginManager(scene);
-        loginManager.logout();        
+    public void initPatientList(final LoginManager loginManager)
+    {
+        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        age.setCellValueFactory(new PropertyValueFactory<>("Age"));
+        phoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+        socialSecurity.setCellValueFactory(new PropertyValueFactory<>("SSN"));
+        physicianName.setCellValueFactory(new PropertyValueFactory<>("Physician"));
+        physicianNumber.setCellValueFactory(new PropertyValueFactory<>("PhysicianNumber"));
+
+        pData.setItems(patients);     
+        
+        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                loginManager.logout();
+          }
+        }); 
     }
+    
+    
     
 }

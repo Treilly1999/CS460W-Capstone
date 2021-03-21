@@ -18,10 +18,8 @@
           <TableColumn fx:id="physicianNumber" prefWidth="75.0" text="Physician Number" />
         </columns>
       </TableView>
-      
-      <HBox spacing="10" alignment="bottom_right" >
-        <Button text="Sign In" onAction="#logout"/>
-    </HBox>
+    
+    <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" text="Logout" StackPane.alignment="CENTER_RIGHT" />
   </AnchorPane>
   
   

@@ -1,8 +1,24 @@
 package login;
 
+import Models.Staff_Model;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
+import com.google.common.hash.Hashing;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Map;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import org.bson.Document;
 
 /** Controls the login screen */
 public class LoginController {
@@ -11,20 +27,19 @@ public class LoginController {
    @FXML private Button loginButton;
 
 
-    private String sha256hex = Hashing.sha256()
-     .hashString(password.getText(), StandardCharsets.UTF_8).toString();
-
-    Docuemnt staffQuery = new Document();
-    staffQuery.put("userName", user);
-
-    private Staff_Model currentUser = findStaffMember(staffQuery);  
-
-    static ArrayList<Staff_Model> currentUserList = new ArrayList<Staff>();
+    private String sha256hex;
     
-    public Staff_Model getCurrentUser()
+    //DO THIS IN INITmANAGER
+    Document staffQuery = new Document();
+    private static Staff_Model currentUser;
+    
+    public static Staff_Model getCurrentUser()
     {
         return currentUser;
     }
+
+    static ArrayList<Staff_Model> currentUserList = new ArrayList<Staff_Model>();
+    
     
 
   public void initialize() {}
@@ -32,9 +47,24 @@ public class LoginController {
   public void initManager(final LoginManager loginManager) {
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
-        String sessionID = authorize();
+        staffQuery.put("userName", user.getText());
+        
+        try{
+            currentUser = findStaffMember(staffQuery);  
+        }
+        catch (Exception e)
+        {
+            System.out.println("STAFF MEMBER NOT FOUND");
+            //TODO: WHAT TO DO IF LOGIN FAIL
+            //loginManager.showLoginScreen();       
+        }
+        
+        
+        //System.out.println("BEFORE AUTHORZE");
+        String sessionID = authorize(currentUser);
+        //System.out.println("AFTER AUTHORZE");
         if (sessionID != null) {
-          loginManager.authenticated(currentUser.getUSER_ROLE(), sessionID);
+          loginManager.authenticated(currentUser, sessionID);
         }
       }
     });
@@ -49,54 +79,80 @@ public class LoginController {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("staff");
-
+        
+        Staff_Model staffMember = new Staff_Model();
+            
         FindIterable<Document> findIterable = findIterable = collection.find(query);
 
         MongoCursor<Document> cursor = findIterable.iterator();
 
-        ArrayList<Document> staff = new ArrayList<Document>();
+        Document staff = new Document();
 
         try
         {
             while(cursor.hasNext())
             {               
-                staff.add(cursor.next());
+                staff = cursor.next();
             }
         } finally {
             cursor.close();
         }
-
-        staff.forEach((n) -> buildCurrentUser(n));
               
-        return currentUser;
+        staffMember = buildCurrentUser(staff);
+        
+        //System.out.println(staffMember.getUSER_ROLE());
+        
+        return staffMember;
     }
   
-    public static void buildCurrentUser(Document staffMember)
+    public static Staff_Model buildCurrentUser(Document staffMember)
     {
         String documentString = staffMember.toString();
         System.out.println(documentString);
         
+        Staff_Model staff;
+        
         Map<String,String> queryParameters = Splitter
             .on(", ")
+            .trimResults(CharMatcher.is('}'))
             .withKeyValueSeparator("=")
             .split(documentString);
         
         String name = "", userName = "", password="";
-        int id;
-        USER_ROLE role = queryParameters.get("user_role");
+        int id = 0;
         
+        Models.Staff_Model.USER_ROLE role = Models.Staff_Model.USER_ROLE.DEFAULT;
+        //= queryParameters.get("user_role");
+        
+        if(queryParameters.get("user_role").equals("NURSE"))
+        {
+            //System.out.println("YES IS NURSE");
+            role = Models.Staff_Model.USER_ROLE.NURSE;
+        }            
+        if(queryParameters.get("user_role").equals("DOCTOR"))
+            role = Models.Staff_Model.USER_ROLE.DOCTOR;
+        if(queryParameters.get("user_role").equals("REGISTER"))
+            role = Models.Staff_Model.USER_ROLE.REGISTER;
+        if(queryParameters.get("user_role").equals("BILLING"))
+            role = Models.Staff_Model.USER_ROLE.BILLING;
+        
+        //System.out.println(queryParameters.get("user_role"));
         try
         {
             name = queryParameters.get("name");
-            id = queryParameters.get("id");
+            id = Integer.parseInt(queryParameters.get("id"));
             userName = queryParameters.get("userName");
             password = queryParameters.get("password");
+            
             
           } catch (Exception e)
           {
               System.out.println("Some query parameters were not found in " + name + " profile");
           }   
-      currentUser = new Staff_Model(role, id, name, userName, password);
+       
+      //System.out.println("SUCCEDED");
+      staff = new Staff_Model(role, id, name, userName, password);
+      return staff;
     }
 
   /**
@@ -105,9 +161,17 @@ public class LoginController {
    * If accepted, return a sessionID for the authorized session
    * otherwise, return null.
    */   
-  private String authorize() {
-    return 
-      currentUser.getUserName().equals(user.getText()) && currentUser.getPassword().equals(sha256hex) 
+  private String authorize(Staff_Model staffMember) {
+       //System.out.println("INSIDE AUTHORZE");
+       //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
+       
+       //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT
+       sha256hex = Hashing.sha256().hashString(password.getText(), StandardCharsets.UTF_8).toString();
+    
+       //System.out.println("AFTER HASHING: " + sha256hex);
+       
+       return 
+      staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex) 
             ? generateSessionID() 
             : null;
   }

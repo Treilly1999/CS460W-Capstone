@@ -11,12 +11,13 @@ package Models;
  */
 public class Staff_Model {
     
-    enum USER_ROLE
+    public enum USER_ROLE
     {
         DOCTOR,
         NURSE,
         BILLING,
-        REGISTER
+        REGISTER,
+        DEFAULT
     }
     
     USER_ROLE role;
@@ -26,6 +27,8 @@ public class Staff_Model {
     //uses google Guava library to encrypt password
     //will need revision
    
+    public Staff_Model() {}
+    
     public Staff_Model(USER_ROLE role, int id, String name, String userName, String password)
     {
         this.role = role;

@@ -1,10 +1,12 @@
 package login;
 
+import Controllers.NurseController;
 import java.io.IOException;
 import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import Controllers.PatientController;
+import Models.Staff_Model;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 
@@ -15,36 +17,41 @@ public class LoginManager {
   public LoginManager(Scene scene) {
     this.scene = scene;
   }
+  
+  public LoginManager() {}
 
   /**
    * Callback method invoked to notify that a user has been authenticated.
    * Will show the main application screen.
    */ 
-    public void authenticated(USER_ROLE role, String sessionID);
+    public void authenticated(Staff_Model user, String sessionID)
     {
         //showMainView(sessionID);
-        if(role == "NURSE")
+        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
         {
-            showNurseView();
+            showNurseView(user);
         }
-        if(role == "DOCTOR")
+        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
         {
             //Show doctor screen
         }
-        if(role == "BILLING")
+        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
         {
             //Show billing screen
         }
-        if(role == "REGISTER")
-        {
-            //Show register screen
-        }
-        else
+        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER)
         {
             showPatientList(sessionID);
         }
+        //for testing only
+        else
+        {
+            //UNAUTHORIZED USER
+            System.out.println("USER UNAUTHORIZED");
+            //showPatientList(sessionID);
+        }
     
-  }
+    }
   /**
    * Callback method invoked to notify that a user has logged out of the main application.
    * Will show the login application screen.
@@ -68,7 +75,7 @@ public class LoginManager {
     }
   }
 
-  private void showNurseView() {
+  private void showNurseView(Staff_Model user) {
     try {
 
     FXMLLoader loader = new FXMLLoader();
@@ -77,6 +84,7 @@ public class LoginManager {
     scene.setRoot(root);
     NurseController controller = 
     loader.<NurseController>getController();
+    controller.initNurse(this, user);
     //controller.initSessionID(this, sessionID);
     } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +101,7 @@ public class LoginManager {
     
     PatientController controller = 
     loader.<PatientController>getController();
-    //controller.init();
+    controller.initPatientList(this);
     
     } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);

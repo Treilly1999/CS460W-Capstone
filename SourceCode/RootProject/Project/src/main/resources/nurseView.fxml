@@ -15,7 +15,7 @@
           <children>
             <GridPane>
               <children>
-                <Label fx:id="nurseName" text="Undefined" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label fx:id="nurseName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />
@@ -25,7 +25,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-            </GridPane>            
+            </GridPane>     
+            <StackPane prefHeight="-1.0" prefWidth="-1.0">
+              <children>
+                <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" text="Logout" StackPane.alignment="CENTER_RIGHT" />
+              </children>
+            </StackPane>       
           </children>
         </VBox>
       </children>
