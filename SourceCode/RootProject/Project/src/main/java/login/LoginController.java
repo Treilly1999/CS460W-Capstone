@@ -18,15 +18,19 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import org.bson.Document;
 
 /** Controls the login screen */
 public class LoginController {
    @FXML private TextField user;
-   @FXML private TextField password;
+   @FXML private PasswordField password;
    @FXML private Button loginButton;
+   @FXML private Label errorMessage;
 
-
+   
+   
+   
     private String sha256hex;
     
     //DO THIS IN INITmANAGER
@@ -49,29 +53,39 @@ public class LoginController {
   Description: Initializes the login manager.
   */
   public void initManager(final LoginManager loginManager) {
+    
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent event) {
-        staffQuery.put("userName", user.getText());
-        
-        try{
-            currentUser = findStaffMember(staffQuery);  
+            @Override public void handle(ActionEvent event) {
+            staffQuery.put("userName", user.getText());
+
+                        
+            try
+            {
+                currentUser = findStaffMember(staffQuery);  
+
+                if(currentUser.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DEFAULT)
+                {
+                    errorMessage.setText("Unauthorized Access. Contact your system administrator.");
+                    errorMessage.setTextFill(Color.web("#0076a3"));
+                }
+                //System.out.println("BEFORE AUTHORZE");
+                Boolean accepted = authorize(currentUser);
+                //System.out.println("AFTER AUTHORZE");
+                if (accepted) {
+                  loginManager.authenticated(currentUser);
+                }
+            }
+            catch (Exception e)
+            {
+                //System.out.println("STAFF MEMBER NOT FOUND");
+                //TODO: WHAT TO DO IF LOGIN FAIL
+                //loginManager.showLoginScreen(); 
+                errorMessage.setText("Username/Password inccorect.");
+                errorMessage.setTextFill(Color.web("#0076a3"));
+            }
         }
-        catch (Exception e)
-        {
-            System.out.println("STAFF MEMBER NOT FOUND");
-            //TODO: WHAT TO DO IF LOGIN FAIL
-            //loginManager.showLoginScreen();       
-        }
-        
-        
-        //System.out.println("BEFORE AUTHORZE");
-        Boolean accepted = authorize(currentUser);
-        //System.out.println("AFTER AUTHORZE");
-        if (accepted) {
-          loginManager.authenticated(currentUser);
-        }
-      }
     });
+    
   }
   
     /*
@@ -117,7 +131,7 @@ public class LoginController {
     public static Staff_Model buildCurrentUser(Document staffMember)
     {
         String documentString = staffMember.toString();
-        System.out.println(documentString);
+        //System.out.println(documentString);
         
         Staff_Model staff;
         
@@ -132,18 +146,16 @@ public class LoginController {
         
         Models.Staff_Model.USER_ROLE role = Models.Staff_Model.USER_ROLE.DEFAULT;
         //= queryParameters.get("user_role");
-        
-        if(queryParameters.get("user_role").equals("NURSE"))
-        {
-            //System.out.println("YES IS NURSE");
-            role = Models.Staff_Model.USER_ROLE.NURSE;
-        }            
+       
+        if(queryParameters.get("user_role").equals("NURSE"))            
+            role = Models.Staff_Model.USER_ROLE.NURSE;                        
         if(queryParameters.get("user_role").equals("DOCTOR"))
             role = Models.Staff_Model.USER_ROLE.DOCTOR;
         if(queryParameters.get("user_role").equals("REGISTER"))
             role = Models.Staff_Model.USER_ROLE.REGISTER;
         if(queryParameters.get("user_role").equals("BILLING"))
-            role = Models.Staff_Model.USER_ROLE.BILLING;
+            role = Models.Staff_Model.USER_ROLE.BILLING;        
+       
         
         //System.out.println(queryParameters.get("user_role"));
         try

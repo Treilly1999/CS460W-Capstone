@@ -9,6 +9,7 @@ import Controllers.PatientController;
 import Models.Staff_Model;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
 
 /** Manages control flow for logins */
 public class LoginManager {
@@ -16,7 +17,7 @@ public class LoginManager {
 
   public LoginManager(Scene scene) {
     this.scene = scene;
-  }
+  }  
   
   public LoginManager() {}
 
@@ -28,7 +29,7 @@ public class LoginManager {
    */ 
     public void authenticated(Staff_Model user)
     {
-        //showMainView(sessionID);
+        
         if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
         {
             showNurseView(user);
@@ -50,6 +51,9 @@ public class LoginManager {
         {
             //UNAUTHORIZED USER
             System.out.println("USER UNAUTHORIZED");
+            String errorMessage = "Unauthorized Access. Contact System Administrator.";
+            logout();
+            //logout();
             //showPatientList(sessionID);
         }
     
