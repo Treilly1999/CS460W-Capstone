@@ -50,9 +50,9 @@ public class DBConnection {
     {
         //createPatient(database, "Billy", 21, "123-123-1234", 12345678, "Dr. Craig", "3243245643");        
                 
-        //startQuery(database);
+        //startQuery();
         //startTestCreate(true);
-        //updateTest();
+        updateTest();
     }  
     
     /*
@@ -189,14 +189,39 @@ public class DBConnection {
             .withKeyValueSeparator("=")
             .split(documentString);
         
-        String name = queryParameters.get("name");
-        int age = Integer.parseInt(queryParameters.get("age"));
-        String phoneNumber = queryParameters.get("phoneNumber");
-        int ssn = Integer.parseInt(queryParameters.get("ssn"));
-        String physicianName = queryParameters.get("physicianName");
-        String physicianNumber = queryParameters.get("physicianNumber");
+        String name = "", physicianName = "", physicianNumber = "", symptoms = "", 
+              dischargeInstructions = "",  assignedDoctor = "",
+              provider = "", phoneNumber = "";
+        int age = 1, id = 1, ssn = 1;
+        Boolean admitted = false;
         
-        patientList.add(new Patient(name, age, phoneNumber, ssn, physicianName, physicianNumber));
+        ArrayList<String> medicalHistory = new ArrayList<String>();
+        ArrayList<String> progressReports = new ArrayList<String>();
+        
+        try
+        {
+            name = queryParameters.get("name");
+            age = Integer.parseInt(queryParameters.get("age"));
+            phoneNumber = queryParameters.get("phoneNumber");
+            ssn = Integer.parseInt(queryParameters.get("ssn"));
+            physicianName = queryParameters.get("physicianName");
+            physicianNumber = queryParameters.get("physicianNumber");
+            symptoms = queryParameters.get("symptoms");
+            dischargeInstructions = queryParameters.get("dischargeInstructions");
+            assignedDoctor = queryParameters.get("assignedDoctor");
+            admitted = Boolean.parseBoolean(queryParameters.get("admitted"));
+            provider = queryParameters.get("provider");
+            id = Integer.parseInt(queryParameters.get("id"));  
+            
+          } catch (Exception e)
+          {
+              System.out.println("Some query parameters were not found in " + name + " profile");
+          }
+                   
+        patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
+                physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
+                medicalHistory,  progressReports, dischargeInstructions));
+        
       
     }   
     
@@ -220,7 +245,10 @@ public class DBConnection {
         String param2 = sc.next();
         sc.nextLine();
         
-        System.out.printf("What would you like to change %s%n to?", param1);
+        System.out.println("What would you like to change?");
+        String param3 = sc.next();
+        
+        System.out.printf("What would you like to change in %s%n?", param3);
         String after = sc.next();
         
         before.put(param1, param2);
@@ -228,7 +256,7 @@ public class DBConnection {
         
         parsePatient(before);
         
-        updateEntry("patients", param1, param2, param1, after, true);
+        updateEntry("patients", param1, param2, param3, after, false);
         
         parsePatient(afterQuery);
     }

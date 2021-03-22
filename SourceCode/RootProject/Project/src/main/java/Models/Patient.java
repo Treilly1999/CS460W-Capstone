@@ -17,22 +17,21 @@ import javafx.beans.property.SimpleLongProperty;
 public class Patient {
     
     
-    public SimpleStringProperty  name;
-    public SimpleIntegerProperty  age;     
-    public SimpleStringProperty phoneNumber;
-    public SimpleIntegerProperty  id; 
+    private SimpleStringProperty  name;
+    private SimpleIntegerProperty  age;     
+    private SimpleStringProperty phoneNumber;
+    private SimpleIntegerProperty  id; 
     
-    //RESEARCH WHAT INSURANCE INFO WILL BE NEEDED
     private SimpleStringProperty provider; 
     
-    ArrayList<String> progressReports;
+    private ArrayList<String> progressReports;
     
     private SimpleIntegerProperty ssn;
     
     private SimpleStringProperty physicianName;
     private SimpleStringProperty physicianNumber;
     
-    private SimpleStringProperty medicalHistory;
+    private ArrayList<String> medicalHistory;
     private SimpleStringProperty symptoms;
     
     private SimpleStringProperty dischargeInstructions;
@@ -55,6 +54,26 @@ public class Patient {
         this.physicianName = new SimpleStringProperty(physicianName);
         this.physicianNumber = new SimpleStringProperty(physicianNumber);
         
+    }
+    
+    public Patient(Integer id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+            String physicianNumber, String provider, String symptoms, String assignedDoctor, Boolean admitted, 
+            ArrayList<String> medicalHistory, ArrayList<String> progressReports, String dischargeInstructions)
+    {
+        this.name = new SimpleStringProperty(name);
+        this.age = new SimpleIntegerProperty(age);
+        this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.ssn = new SimpleIntegerProperty(ssn);
+        this.physicianName = new SimpleStringProperty(physicianName);
+        this.physicianNumber = new SimpleStringProperty(physicianNumber);
+        this.id = new SimpleIntegerProperty(id);
+        this.assignedDoctor = new SimpleStringProperty(assignedDoctor);
+        this.provider = new SimpleStringProperty(provider);
+        this.admitted = admitted;
+        this.dischargeInstructions = new SimpleStringProperty(dischargeInstructions);
+        this.medicalHistory = medicalHistory;
+        this.progressReports = progressReports;
+        this.symptoms = new SimpleStringProperty(symptoms);
     }
     
     public String getName() { return name.get(); }    
@@ -81,8 +100,8 @@ public class Patient {
     public String getPhysicianNumber() { return physicianNumber.get(); }
     public void setPhysicianNumber(String physNum) { this.physicianNumber = new SimpleStringProperty(physNum); }
     
-    public String getMedicalHistory() { return medicalHistory.get(); }
-    public void setMedicalHistory(SimpleStringProperty medHist) { this.medicalHistory = medHist; }
+    public ArrayList<String> getMedicalHistory() { return medicalHistory; }
+    public void setMedicalHistory(String medHist) { medicalHistory.add(medHist); }
     
     public String getSymptoms() { return symptoms.get(); }
     public void setSymptoms(SimpleStringProperty symptoms) { this.symptoms = symptoms; }
