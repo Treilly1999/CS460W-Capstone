@@ -75,6 +75,10 @@ public class PatientController implements Initializable {
         */
     }
     
+    /*
+    Author: Tyler
+    Description: Initializes the patient list that uses the login manager  for logout purposes
+    */
     public void initPatientList(final LoginManager loginManager)
     {
         name.setCellValueFactory(new PropertyValueFactory<>("Name"));

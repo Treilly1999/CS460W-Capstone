@@ -11,6 +11,7 @@ package Models;
  */
 public class Staff_Model {
     
+    //This is for deciding what screen to show.
     public enum USER_ROLE
     {
         DOCTOR,

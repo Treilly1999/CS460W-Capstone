@@ -44,6 +44,10 @@ public class LoginController {
 
   public void initialize() {}
   
+  /*
+  Author: Tyler
+  Description: Initializes the login manager.
+  */
   public void initManager(final LoginManager loginManager) {
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
@@ -61,17 +65,18 @@ public class LoginController {
         
         
         //System.out.println("BEFORE AUTHORZE");
-        String sessionID = authorize(currentUser);
+        Boolean accepted = authorize(currentUser);
         //System.out.println("AFTER AUTHORZE");
-        if (sessionID != null) {
-          loginManager.authenticated(currentUser, sessionID);
+        if (accepted) {
+          loginManager.authenticated(currentUser);
         }
       }
     });
   }
   
     /*
-    Finds the staff member in the login query, builds a current user profile from
+    Author: Tyler
+    Description: Finds the staff member in the login query, builds a current user profile from
     staff_model and decides to log them in or not.
     */
     public Staff_Model findStaffMember(Document query)
@@ -105,6 +110,10 @@ public class LoginController {
         return staffMember;
     }
   
+    /*
+    Author: Tyler
+    Description: Builds a Staff_Model for the current user
+    */
     public static Staff_Model buildCurrentUser(Document staffMember)
     {
         String documentString = staffMember.toString();
@@ -157,11 +166,8 @@ public class LoginController {
 
   /**
    * Check authorization credentials.
-   * 
-   * If accepted, return a sessionID for the authorized session
-   * otherwise, return null.
    */   
-  private String authorize(Staff_Model staffMember) {
+  private Boolean authorize(Staff_Model staffMember) {
        //System.out.println("INSIDE AUTHORZE");
        //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
        
@@ -170,16 +176,7 @@ public class LoginController {
     
        //System.out.println("AFTER HASHING: " + sha256hex);
        
-       return 
-      staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex) 
-            ? generateSessionID() 
-            : null;
+       return staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex);
   }
-  
-  private static int sessionID = 0;
-
-  private String generateSessionID() {
-    sessionID++;
-    return "xyzzy - session " + sessionID;
-  }
+ 
 }

@@ -21,10 +21,12 @@ public class LoginManager {
   public LoginManager() {}
 
   /**
-   * Callback method invoked to notify that a user has been authenticated.
-   * Will show the main application screen.
+   * Author: Tyler
+   * Description: Callback method invoked to notify that a user has been authenticated.
+   * Will show screen depending on who logs in
+   * TODO: ADD SCREENS FOR DIFFERENT USERS
    */ 
-    public void authenticated(Staff_Model user, String sessionID)
+    public void authenticated(Staff_Model user)
     {
         //showMainView(sessionID);
         if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
@@ -41,7 +43,7 @@ public class LoginManager {
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER)
         {
-            showPatientList(sessionID);
+            showPatientList();
         }
         //for testing only
         else
@@ -52,15 +54,15 @@ public class LoginManager {
         }
     
     }
+    
   /**
-   * Callback method invoked to notify that a user has logged out of the main application.
+   * Author: Tyler
+   * Description Callback method invoked to notify that a user has logged out of the main application.
    * Will show the login application screen.
-   */ 
-  
+   */   
   public void logout() {
     showLoginScreen();
-  }
-  
+  }  
   public void showLoginScreen() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -75,6 +77,10 @@ public class LoginManager {
     }
   }
 
+  /**
+   * Author: Tyler
+   * Description: Will show the nurse application screen.
+   */ 
   private void showNurseView(Staff_Model user) {
     try {
 
@@ -91,7 +97,11 @@ public class LoginManager {
     }
   }
   
-  private void showPatientList(String sessionID) {
+   /**
+   * Author: Tyler
+   * Description: Will show the patientList application screen.
+   */ 
+  private void showPatientList() {
     try {
 
     FXMLLoader loader = new FXMLLoader();
