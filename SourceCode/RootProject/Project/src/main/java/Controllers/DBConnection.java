@@ -295,15 +295,10 @@ public class DBConnection {
         
         
         for(int i = 0; i < patients.size(); i++)
-        {          
-            if(type.equals("symptoms"))
-            {                
-                //returnList = getSymptoms(patients.get(i));                
-            }
-            else
-            {                
-                returnList.add(getArrays(patients.get(i), type));
-            }
+        {         
+                          
+            returnList.add(getArrays(patients.get(i), type));
+            
         }       
         
         //patients.forEach((n) -> getArrays(n, type));
@@ -311,56 +306,61 @@ public class DBConnection {
         return returnList;
     }
     
-    public static <T> ArrayList<T> getSymptoms(Document storage)
-    {
-        Map<String,String> queryParameters = Splitter
-        .on(", ")
-        .trimResults(CharMatcher.is('}'))
-        .withKeyValueSeparator("=")
-        .split(storage.toString());
-        
-        ArrayList<T> symptoms = new  ArrayList<T>();
-
-        if(Boolean.parseBoolean(queryParameters.get("FEVER")))
-        {
-           System.out.println("IN FEVER PARSE BOOLEAN");
-           symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FEVER));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("COUGH")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.COUGH));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("NAUSEA")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.NAUSEA));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("CHEST_PAIN")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CHEST_PAIN));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("SNEEZING")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SNEEZING));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("FATIGUE")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FATIGUE));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("ACHES")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.ACHES));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("SORE_THROAT")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SORE_THROAT));
-        }
-        else if(Boolean.parseBoolean(queryParameters.get("CONGESTION")))
-        {
-            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CONGESTION));                
-        }         
-
-        return symptoms;
-    }
+    /*
+    Author: Tyler
+    Description: Builds symptoms
+    ToDo: refactor completely.
+    */
+//    public static <T> ArrayList<T> getSymptoms(Document storage)
+//    {
+//        Map<String,String> queryParameters = Splitter
+//        .on(", ")
+//        .trimResults(CharMatcher.is('}'))
+//        .withKeyValueSeparator("=")
+//        .split(storage.toString());
+//        
+//        ArrayList<T> symptoms = new  ArrayList<T>();
+//
+//        if(Boolean.parseBoolean(queryParameters.get("FEVER")))
+//        {
+//           System.out.println("IN FEVER PARSE BOOLEAN");
+//           symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FEVER));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("COUGH")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.COUGH));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("NAUSEA")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.NAUSEA));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("CHEST_PAIN")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CHEST_PAIN));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("SNEEZING")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SNEEZING));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("FATIGUE")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FATIGUE));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("ACHES")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.ACHES));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("SORE_THROAT")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SORE_THROAT));
+//        }
+//        else if(Boolean.parseBoolean(queryParameters.get("CONGESTION")))
+//        {
+//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CONGESTION));                
+//        }         
+//
+//        return symptoms;
+//    }
             
     
     public static <T> T getArrays(Document storage, String type)
@@ -397,7 +397,25 @@ public class DBConnection {
             ProgressReport progressReport = new ProgressReport(nurse, date, note);
             
             return (T)progressReport;
-        }        
+        }       
+        else if(type.equals("symptoms"))
+        {
+           Boolean fever, cough, nausea, chestPain, sneezing, fatigue, aches, soreThroat, congestion;
+           
+           fever = Boolean.parseBoolean(queryParameters.get("FEVER"));
+           cough = Boolean.parseBoolean(queryParameters.get("COUGH"));
+           nausea = Boolean.parseBoolean(queryParameters.get("NAUSEA"));
+           chestPain = Boolean.parseBoolean(queryParameters.get("CHEST_PAIN"));
+           sneezing = Boolean.parseBoolean(queryParameters.get("SNEEZING"));
+           fatigue = Boolean.parseBoolean(queryParameters.get("FATIGUE"));
+           aches = Boolean.parseBoolean(queryParameters.get("ACHES"));
+           soreThroat = Boolean.parseBoolean(queryParameters.get("SORE_THROAT"));
+           congestion = Boolean.parseBoolean(queryParameters.get("CONGESTION"));
+           
+           Symptom symptoms = new Symptom(fever, cough, nausea, chestPain, sneezing, fatigue, aches, soreThroat, congestion);
+                   
+           return (T)symptoms;
+        }
         
         return null;
     }
