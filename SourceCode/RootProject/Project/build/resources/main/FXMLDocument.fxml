@@ -19,6 +19,7 @@
           <TableColumn fx:id="dischargeInstructions" prefWidth="75.0" text="Discharge Instructions" />
           <TableColumn fx:id="assignedDoctor" prefWidth="75.0" text="Assigned Doctor" />
           <TableColumn fx:id="admitted" prefWidth="75.0" text="Admission" />
+          <TableColumn fx:id="provider" prefWidth="75.0" text="Provider" />
         </columns>
       </TableView>
     

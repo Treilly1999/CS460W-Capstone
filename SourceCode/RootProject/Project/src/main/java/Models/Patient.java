@@ -14,8 +14,7 @@ import javafx.beans.property.SimpleLongProperty;
  *
  * @author Tyler
  */
-public class Patient {
-    
+public class Patient {    
     
     private SimpleStringProperty  name;
     private SimpleIntegerProperty  age;     
@@ -24,7 +23,7 @@ public class Patient {
     
     private SimpleStringProperty provider; 
     
-    private ArrayList<SimpleStringProperty> progressReports;
+    private ArrayList<ProgressReport> progressReports;
     
     private SimpleIntegerProperty ssn;
     
@@ -32,7 +31,9 @@ public class Patient {
     private SimpleStringProperty physicianNumber;
     
     private ArrayList<MedicalHistory> medicalHistory;
-    private ArrayList<SimpleStringProperty> symptoms;
+    
+    //TODO: DOES SYMPTOMS NEED TO BE AN ARRAYLIST?
+    private ArrayList<Symptom> symptoms;
     
     private SimpleStringProperty dischargeInstructions;
     private SimpleStringProperty assignedDoctor;
@@ -57,8 +58,8 @@ public class Patient {
     }
     
     public Patient(Integer id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<SimpleStringProperty> symptoms, String assignedDoctor, Boolean admitted, 
-            ArrayList<MedicalHistory> medicalHistory, ArrayList<SimpleStringProperty> progressReports, String dischargeInstructions)
+            String physicianNumber, String provider, ArrayList<Symptom> symptoms, String assignedDoctor, Boolean admitted, 
+            ArrayList<MedicalHistory> medicalHistory, ArrayList<ProgressReport> progressReports, String dischargeInstructions)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -81,13 +82,11 @@ public class Patient {
     
     public String getName() { return name.get(); }    
     public void setName(String name) { this.name = new SimpleStringProperty(name); }
-    public final SimpleStringProperty nameProperty() { return name; }
-    
+    public final SimpleStringProperty nameProperty() { return name; }    
     
     public int getAge() { return age.get(); }    
     public void setAge(int age) { this.age = new SimpleIntegerProperty(age); }
-    public final SimpleIntegerProperty ageProperty() { return age; }
-   
+    public final SimpleIntegerProperty ageProperty() { return age; }   
     
     public String getPhone() { return phoneNumber.get(); }
     public void setPhone(String number) { this.phoneNumber = new SimpleStringProperty(number); }
@@ -106,8 +105,8 @@ public class Patient {
     public ArrayList<MedicalHistory> getMedicalHistory() { return medicalHistory; }
     public void setMedicalHistory(MedicalHistory medHist) { medicalHistory.add(medHist); }
     
-    public ArrayList<SimpleStringProperty> getSymptoms() { return symptoms; }
-    public void setSymptoms(SimpleStringProperty symptom) { this.symptoms.add(symptom); }
+    public ArrayList<Symptom> getSymptoms() { return symptoms; }
+    public void setSymptoms(Symptom symptom) { this.symptoms.add(symptom); }
 
     public String getProvider() { return provider.get(); }
     public void setProvider(SimpleStringProperty provider) { this.provider = provider; }
@@ -132,14 +131,17 @@ public class Patient {
         }
         return admittedString ; 
     }
+    
     public void setAdmitted(Boolean isAdmitted) { this.admitted = admitted; }
     
-    public ArrayList<SimpleStringProperty> getProgressReports() { return progressReports; }
-    public void setProgressReports(SimpleStringProperty report) { progressReports.add(report); }
+    public ArrayList<ProgressReport> getProgressReports() { return progressReports; }
+    public void setProgressReports(ProgressReport report) { progressReports.add(report); }
     
     public String toString()
     {
-        return "Name: " + getName() + ". Medical History: " + getMedicalHistory().toString();
+        return "Name: " + getName() + ". Medical History: " + getMedicalHistory().toString()
+                + ". Symptoms: " + getSymptoms().toString() + ". Progress Reports: " + getProgressReports().toString();
+        
     }
     
 }

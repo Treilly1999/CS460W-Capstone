@@ -58,6 +58,9 @@ public class PatientController implements Initializable {
     private TableColumn<Patient, String> assignedDoctor;
     @FXML
     private TableColumn<Patient, String> admitted;
+    @FXML
+    private TableColumn<Patient, String> provider;
+    
     
     //This list is filled with ArrayList<Patient>
     ObservableList<Patient> patients = FXCollections.observableList(dbCalls.getPatients());
@@ -96,7 +99,7 @@ public class PatientController implements Initializable {
         dischargeInstructions.setCellValueFactory(new PropertyValueFactory<>("DischargeInstructions"));
         assignedDoctor.setCellValueFactory(new PropertyValueFactory<>("AssignedDoctor"));
         admitted.setCellValueFactory(new PropertyValueFactory<>("Admitted"));
-        
+        provider.setCellValueFactory(new PropertyValueFactory<>("Provider"));
         
         pData.setItems(patients);     
         

@@ -11,6 +11,8 @@ import Models.MedicalHistory;
  import com.mongodb.*;
  import com.mongodb.MongoClient;
  import Models.Patient;
+import Models.ProgressReport;
+import Models.Symptom;
 import com.google.common.base.CharMatcher;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
@@ -221,11 +223,17 @@ public class DBConnection {
         Document medHisDoc = new Document();
         medHisDoc.put("patientID", "" + id);
         ArrayList<MedicalHistory> medicalHistory = parseArrays(medHisDoc, "medicalHistory");
-        medicalHistory.forEach((n) -> n.toString());
+        //medicalHistory.forEach((n) -> n.toString());
+                
+        Document symptomDoc = new Document();
+        symptomDoc.put("patientID", "" + id);
+        ArrayList<Symptom> symptoms = parseArrays(symptomDoc, "symptoms");
+        //symptoms.forEach((n) -> n.toString());
         
-        //TODO: create collections for progressReports and symptoms && create Documents to query them using patientID
-        ArrayList<SimpleStringProperty> progressReports = new ArrayList<SimpleStringProperty>();
-        ArrayList<SimpleStringProperty> symptoms = new ArrayList<SimpleStringProperty>();
+        Document progressDoc = new Document();
+        progressDoc.put("patientID", "" + id);
+        ArrayList<ProgressReport> progressReports = parseArrays(progressDoc, "progressReports");
+       
         
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
@@ -234,9 +242,12 @@ public class DBConnection {
       
     } 
     
-    //1 = med
-    //2 = progress
-    //3 = symptoms
+    /*
+    Author: Tyler
+    Description: These create the array lists for medical history, symptoms, and progress reports for a patient. 
+    Each are their own collection. Each document has a correlating patientID to query the database to match the documents.
+    It would be better to have it all in one document, but I'm not sure how to extract the arrays from the document on their own.
+    */
     public static <T> ArrayList<T> parseArrays(Document query, String type)
     {
         System.out.println("IN PARSEARRAYS");
@@ -251,6 +262,7 @@ public class DBConnection {
         ArrayList<Document> patients = new ArrayList<Document>();
         
         ArrayList<T> returnList = new ArrayList<T>();
+        
         
         FindIterable<Document> findIterable;
         
@@ -280,15 +292,76 @@ public class DBConnection {
         
         System.out.println(patients.size());
         
+        
+        
         for(int i = 0; i < patients.size(); i++)
-        {
-            returnList.add(getArrays(patients.get(i), type));
+        {          
+            if(type.equals("symptoms"))
+            {                
+                //returnList = getSymptoms(patients.get(i));                
+            }
+            else
+            {                
+                returnList.add(getArrays(patients.get(i), type));
+            }
         }       
         
         //patients.forEach((n) -> getArrays(n, type));
               
         return returnList;
     }
+    
+    public static <T> ArrayList<T> getSymptoms(Document storage)
+    {
+        Map<String,String> queryParameters = Splitter
+        .on(", ")
+        .trimResults(CharMatcher.is('}'))
+        .withKeyValueSeparator("=")
+        .split(storage.toString());
+        
+        ArrayList<T> symptoms = new  ArrayList<T>();
+
+        if(Boolean.parseBoolean(queryParameters.get("FEVER")))
+        {
+           System.out.println("IN FEVER PARSE BOOLEAN");
+           symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FEVER));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("COUGH")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.COUGH));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("NAUSEA")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.NAUSEA));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("CHEST_PAIN")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CHEST_PAIN));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("SNEEZING")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SNEEZING));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("FATIGUE")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FATIGUE));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("ACHES")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.ACHES));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("SORE_THROAT")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SORE_THROAT));
+        }
+        else if(Boolean.parseBoolean(queryParameters.get("CONGESTION")))
+        {
+            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CONGESTION));                
+        }         
+
+        return symptoms;
+    }
+            
     
     public static <T> T getArrays(Document storage, String type)
     {               
@@ -317,12 +390,14 @@ public class DBConnection {
         }
         else if(type.equals("progressReports"))
         {
+            date = queryParameters.get("date");
+            nurse = queryParameters.get("nurse");
+            note = queryParameters.get("report");
             
-        }
-        else if(type.equals("symptoms"))
-        {
+            ProgressReport progressReport = new ProgressReport(nurse, date, note);
             
-        }  
+            return (T)progressReport;
+        }        
         
         return null;
     }

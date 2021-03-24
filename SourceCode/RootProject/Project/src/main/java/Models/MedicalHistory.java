@@ -33,7 +33,7 @@ public class MedicalHistory {
     public String toString()
     {
         return
-                "Date of Hospitalization: " + date + ". Reasoning: " + reason;
+                "Date of Hospitalization: " + getDate() + ". Reasoning: " + getReason();
     }
 }
 
