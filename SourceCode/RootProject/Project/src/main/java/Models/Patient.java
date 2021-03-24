@@ -24,15 +24,15 @@ public class Patient {
     
     private SimpleStringProperty provider; 
     
-    private ArrayList<String> progressReports;
+    private ArrayList<SimpleStringProperty> progressReports;
     
     private SimpleIntegerProperty ssn;
     
     private SimpleStringProperty physicianName;
     private SimpleStringProperty physicianNumber;
     
-    private ArrayList<String> medicalHistory;
-    private SimpleStringProperty symptoms;
+    private ArrayList<MedicalHistory> medicalHistory;
+    private ArrayList<SimpleStringProperty> symptoms;
     
     private SimpleStringProperty dischargeInstructions;
     private SimpleStringProperty assignedDoctor;
@@ -57,8 +57,8 @@ public class Patient {
     }
     
     public Patient(Integer id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, String symptoms, String assignedDoctor, Boolean admitted, 
-            ArrayList<String> medicalHistory, ArrayList<String> progressReports, String dischargeInstructions)
+            String physicianNumber, String provider, ArrayList<SimpleStringProperty> symptoms, String assignedDoctor, Boolean admitted, 
+            ArrayList<MedicalHistory> medicalHistory, ArrayList<SimpleStringProperty> progressReports, String dischargeInstructions)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -73,8 +73,11 @@ public class Patient {
         this.dischargeInstructions = new SimpleStringProperty(dischargeInstructions);
         this.medicalHistory = medicalHistory;
         this.progressReports = progressReports;
-        this.symptoms = new SimpleStringProperty(symptoms);
+        this.symptoms = symptoms;
     }
+    
+    public int getID() { return id.get(); }
+    public void setID(int id) { this.id = new SimpleIntegerProperty(id); }
     
     public String getName() { return name.get(); }    
     public void setName(String name) { this.name = new SimpleStringProperty(name); }
@@ -100,11 +103,11 @@ public class Patient {
     public String getPhysicianNumber() { return physicianNumber.get(); }
     public void setPhysicianNumber(String physNum) { this.physicianNumber = new SimpleStringProperty(physNum); }
     
-    public ArrayList<String> getMedicalHistory() { return medicalHistory; }
-    public void setMedicalHistory(String medHist) { medicalHistory.add(medHist); }
+    public ArrayList<MedicalHistory> getMedicalHistory() { return medicalHistory; }
+    public void setMedicalHistory(MedicalHistory medHist) { medicalHistory.add(medHist); }
     
-    public String getSymptoms() { return symptoms.get(); }
-    public void setSymptoms(SimpleStringProperty symptoms) { this.symptoms = symptoms; }
+    public ArrayList<SimpleStringProperty> getSymptoms() { return symptoms; }
+    public void setSymptoms(SimpleStringProperty symptom) { this.symptoms.add(symptom); }
 
     public String getProvider() { return provider.get(); }
     public void setProvider(SimpleStringProperty provider) { this.provider = provider; }
@@ -115,15 +118,28 @@ public class Patient {
     public String getAssignedDoctor() { return assignedDoctor.get(); }
     public void setAssignedDoctor(SimpleStringProperty assignedDoctor) { this.assignedDoctor = assignedDoctor; }
     
-    public Boolean getAdmitted() { return admitted; }
+    public String getAdmitted() 
+    {
+        String admittedString;
+        
+        if(admitted)
+        {
+            admittedString = "YES";
+        }
+        else
+        {
+            admittedString = "NO";
+        }
+        return admittedString ; 
+    }
     public void setAdmitted(Boolean isAdmitted) { this.admitted = admitted; }
     
-    public ArrayList<String> getProgressReports() { return progressReports; }
-    public void setProgressReports(String report) { progressReports.add(report); }
+    public ArrayList<SimpleStringProperty> getProgressReports() { return progressReports; }
+    public void setProgressReports(SimpleStringProperty report) { progressReports.add(report); }
     
     public String toString()
     {
-        return "Name: " + getName();
+        return "Name: " + getName() + ". Medical History: " + getMedicalHistory().toString();
     }
     
 }

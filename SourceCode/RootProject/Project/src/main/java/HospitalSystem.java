@@ -35,7 +35,7 @@ public class HospitalSystem extends Application {
         
         //Scene scene = new Scene(root);
         
-        stage.setTitle("Patients");
+        stage.setTitle("Hospital System");
         stage.setWidth(1920);
         stage.setHeight(1080);
         

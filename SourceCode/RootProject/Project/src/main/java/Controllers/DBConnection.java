@@ -7,9 +7,11 @@ package Controllers;
  */
 
 //import static Controllers.CreatePatient.startTestCreate;
+import Models.MedicalHistory;
  import com.mongodb.*;
  import com.mongodb.MongoClient;
  import Models.Patient;
+import com.google.common.base.CharMatcher;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
  import com.mongodb.client.model.Projections;
@@ -26,6 +28,7 @@ package Controllers;
  import com.google.common.base.Splitter;
  import java.lang.Integer;
  import java.util.Scanner;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**
@@ -186,17 +189,15 @@ public class DBConnection {
         
         Map<String,String> queryParameters = Splitter
             .on(", ")
+            .trimResults(CharMatcher.is('}'))
             .withKeyValueSeparator("=")
             .split(documentString);
         
-        String name = "", physicianName = "", physicianNumber = "", symptoms = "", 
+        String name = "", physicianName = "", physicianNumber = "",
               dischargeInstructions = "",  assignedDoctor = "",
               provider = "", phoneNumber = "";
         int age = 1, id = 1, ssn = 1;
-        Boolean admitted = false;
-        
-        ArrayList<String> medicalHistory = new ArrayList<String>();
-        ArrayList<String> progressReports = new ArrayList<String>();
+        Boolean admitted = false;   
         
         try
         {
@@ -205,8 +206,7 @@ public class DBConnection {
             phoneNumber = queryParameters.get("phoneNumber");
             ssn = Integer.parseInt(queryParameters.get("ssn"));
             physicianName = queryParameters.get("physicianName");
-            physicianNumber = queryParameters.get("physicianNumber");
-            symptoms = queryParameters.get("symptoms");
+            physicianNumber = queryParameters.get("physicianNumber");           
             dischargeInstructions = queryParameters.get("dischargeInstructions");
             assignedDoctor = queryParameters.get("assignedDoctor");
             admitted = Boolean.parseBoolean(queryParameters.get("admitted"));
@@ -217,13 +217,115 @@ public class DBConnection {
           {
               System.out.println("Some query parameters were not found in " + name + " profile");
           }
-                   
+        
+        Document medHisDoc = new Document();
+        medHisDoc.put("patientID", "" + id);
+        ArrayList<MedicalHistory> medicalHistory = parseArrays(medHisDoc, "medicalHistory");
+        medicalHistory.forEach((n) -> n.toString());
+        
+        //TODO: create collections for progressReports and symptoms && create Documents to query them using patientID
+        ArrayList<SimpleStringProperty> progressReports = new ArrayList<SimpleStringProperty>();
+        ArrayList<SimpleStringProperty> symptoms = new ArrayList<SimpleStringProperty>();
+        
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
                 medicalHistory,  progressReports, dischargeInstructions));
         
       
-    }   
+    } 
+    
+    //1 = med
+    //2 = progress
+    //3 = symptoms
+    public static <T> ArrayList<T> parseArrays(Document query, String type)
+    {
+        System.out.println("IN PARSEARRAYS");
+        System.out.println(query.toString());
+        
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase database = mongoClient.getDatabase("hospital");
+        MongoCollection<Document> collection = database.getCollection(type);    
+        
+        System.out.println(collection.count());
+        
+        ArrayList<Document> patients = new ArrayList<Document>();
+        
+        ArrayList<T> returnList = new ArrayList<T>();
+        
+        FindIterable<Document> findIterable;
+        
+        
+        if(query != null)
+        {
+           findIterable = collection.find(query);
+        }
+        else
+        {
+           findIterable = collection.find();
+        }
+        
+        MongoCursor<Document> cursor = findIterable.iterator();
+        
+        try
+        {
+            while(cursor.hasNext())
+            {   
+                System.out.println("YES HAS NEXT");
+                patients.add(cursor.next());
+            }
+        } finally {
+            cursor.close();
+        }
+        //patients.forEach((n) -> System.out.println(n.toString()));
+        
+        System.out.println(patients.size());
+        
+        for(int i = 0; i < patients.size(); i++)
+        {
+            returnList.add(getArrays(patients.get(i), type));
+        }       
+        
+        //patients.forEach((n) -> getArrays(n, type));
+              
+        return returnList;
+    }
+    
+    public static <T> T getArrays(Document storage, String type)
+    {               
+                
+        System.out.println("INSIDE GETARRAYS");
+        Map<String,String> queryParameters = Splitter
+        .on(", ")
+        .trimResults(CharMatcher.is('}'))
+        .withKeyValueSeparator("=")
+        .split(storage.toString());
+        
+        System.out.println(storage.toString());
+        
+        String nurse = "", date = "" ,note = "";
+        String hospitalization = "";
+        
+        if(type.equals("medicalHistory"))
+        {           
+           
+            date = queryParameters.get("date");
+            hospitalization = queryParameters.get("hospitalization");
+            
+            MedicalHistory medicalHistory = new MedicalHistory(date, hospitalization);
+            return (T)medicalHistory;
+          
+        }
+        else if(type.equals("progressReports"))
+        {
+            
+        }
+        else if(type.equals("symptoms"))
+        {
+            
+        }  
+        
+        return null;
+    }
     
  // ---------------------------------------------------------
     public static void updateTest()
@@ -247,9 +349,10 @@ public class DBConnection {
         
         System.out.println("What would you like to change?");
         String param3 = sc.next();
+        sc.nextLine();
         
         System.out.printf("What would you like to change in %s%n?", param3);
-        String after = sc.next();
+        String after = sc.nextLine();
         
         before.put(param1, param2);
         afterQuery.put(param1, after);
@@ -265,7 +368,7 @@ public class DBConnection {
      /*
      Author: Tyler Reilly
      Description: Updates a single entry or all entries in the given collection.
-     TODO: NEEDS DYNAMIC TYPES, Object type?
+     TODO: NEEDS DYNAMIC TYPES, Object type? && TEST MORE
      */
     public static void updateEntry(String collectionName, String field, Object value, String afterField, Object afterValue, Boolean isMultiple)
     {
@@ -291,7 +394,7 @@ public class DBConnection {
     }
     
 //---------------------------------------------------
-    
+    //TODO: TEST MORE
     public static void removeEntry(Document query, Boolean allMatch)
     {
         MongoClient mongoClient = new MongoClient("localhost", 27017);
@@ -371,6 +474,7 @@ public class DBConnection {
     /*
     Author: Tyler
     Description: Inserts a patient into the database HOSPITAL
+    TODO: ADD ALL PATIENT VARIABLES
     */
     public static void createPatient(MongoDatabase database, String name, int age, String phoneNumber, 
             int ssn, String physicianName, String physicianNumber)

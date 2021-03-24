@@ -16,6 +16,9 @@
           <TableColumn fx:id="socialSecurity" prefWidth="75.0" text="SSN" />
           <TableColumn fx:id="physicianName" prefWidth="75.0" text="Physician" />
           <TableColumn fx:id="physicianNumber" prefWidth="75.0" text="Physician Number" />
+          <TableColumn fx:id="dischargeInstructions" prefWidth="75.0" text="Discharge Instructions" />
+          <TableColumn fx:id="assignedDoctor" prefWidth="75.0" text="Assigned Doctor" />
+          <TableColumn fx:id="admitted" prefWidth="75.0" text="Admission" />
         </columns>
       </TableView>
     

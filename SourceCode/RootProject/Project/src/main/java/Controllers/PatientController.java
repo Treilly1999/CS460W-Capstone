@@ -52,13 +52,18 @@ public class PatientController implements Initializable {
     private TableColumn<Patient, String> physicianName;
     @FXML
     private TableColumn<Patient, String> physicianNumber;
-    
+    @FXML
+    private TableColumn<Patient, String> dischargeInstructions;
+    @FXML
+    private TableColumn<Patient, String> assignedDoctor;
+    @FXML
+    private TableColumn<Patient, String> admitted;
     
     //This list is filled with ArrayList<Patient>
     ObservableList<Patient> patients = FXCollections.observableList(dbCalls.getPatients());
     
-   
     
+            
     //Sets all the variables for the FXML document
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -81,13 +86,18 @@ public class PatientController implements Initializable {
     */
     public void initPatientList(final LoginManager loginManager)
     {
+        System.out.println(dbCalls.getPatients().toString());
         name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         age.setCellValueFactory(new PropertyValueFactory<>("Age"));
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
         socialSecurity.setCellValueFactory(new PropertyValueFactory<>("SSN"));
         physicianName.setCellValueFactory(new PropertyValueFactory<>("Physician"));
         physicianNumber.setCellValueFactory(new PropertyValueFactory<>("PhysicianNumber"));
-
+        dischargeInstructions.setCellValueFactory(new PropertyValueFactory<>("DischargeInstructions"));
+        assignedDoctor.setCellValueFactory(new PropertyValueFactory<>("AssignedDoctor"));
+        admitted.setCellValueFactory(new PropertyValueFactory<>("Admitted"));
+        
+        
         pData.setItems(patients);     
         
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {

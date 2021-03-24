@@ -17,8 +17,7 @@ public class LoginManager {
 
   public LoginManager(Scene scene) {
     this.scene = scene;
-  }  
-  
+  }    
   public LoginManager() {}
 
   /**
@@ -55,8 +54,7 @@ public class LoginManager {
             logout();
             //logout();
             //showPatientList(sessionID);
-        }
-    
+        }    
     }
     
   /**

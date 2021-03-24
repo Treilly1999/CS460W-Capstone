@@ -9,15 +9,16 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import org.bson.Document;
 
@@ -27,13 +28,10 @@ public class LoginController {
    @FXML private PasswordField password;
    @FXML private Button loginButton;
    @FXML private Label errorMessage;
+   @FXML ImageView logo;
 
-   
-   
-   
     private String sha256hex;
     
-    //DO THIS IN INITmANAGER
     Document staffQuery = new Document();
     private static Staff_Model currentUser;
     
@@ -41,23 +39,22 @@ public class LoginController {
     {
         return currentUser;
     }
-
-    static ArrayList<Staff_Model> currentUserList = new ArrayList<Staff_Model>();
     
-    
-
   public void initialize() {}
   
   /*
   Author: Tyler
   Description: Initializes the login manager.
   */
-  public void initManager(final LoginManager loginManager) {
+  public void initManager(final LoginManager loginManager) throws FileNotFoundException {
     
+    FileInputStream logoLocation = new FileInputStream("src/main/resources/logo_placeholder.png");
+    Image image = new Image(logoLocation);
+    logo.setImage(image);
+      
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
             staffQuery.put("userName", user.getText());
-
                         
             try
             {
@@ -163,8 +160,7 @@ public class LoginController {
             name = queryParameters.get("name");
             id = Integer.parseInt(queryParameters.get("id"));
             userName = queryParameters.get("userName");
-            password = queryParameters.get("password");
-            
+            password = queryParameters.get("password");            
             
           } catch (Exception e)
           {
