@@ -1,0 +1,17 @@
+
+public enum Diagnoses {
+	CHESTPAIN("chest pain"),
+	ACUTEUPPERRESPIRATORYINFECTION("acute upper respiratory infection"),
+	URINARYTRACTINFECTION("urinary tract infection"),
+	HEADACHE("headache"),
+	ABDOMINALPAIN("abdominal pain"),
+	SYNCOPEANDCOLLAPSE("syncope and collapse"),
+	NONINFECTIVEGASTROENTERITISANDCOLITIS("noninfective gastroenteritis and colitis"),
+	DIZZINESSANDGIDDINESS("dizziness and giddiness"),
+	LOWERBACKPAIN("lower back pain"),
+	INJURYOFHEAD("injury of head");
+	
+	private String string;
+	Diagnoses(String s){string = s;}
+	public String toString() { return string;}
+}
