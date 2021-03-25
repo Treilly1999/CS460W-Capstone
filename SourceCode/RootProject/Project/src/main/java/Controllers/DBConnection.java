@@ -6,33 +6,22 @@ package Controllers;
  * and open the template in the editor.
  */
 
-//import static Controllers.CreatePatient.startTestCreate;
-import Models.MedicalHistory;
- import com.mongodb.*;
+ import Models.MedicalHistory;
  import com.mongodb.MongoClient;
  import Models.Patient;
-import Models.ProgressReport;
-import Models.Symptom;
-import com.google.common.base.CharMatcher;
+ import Models.ProgressReport;
+ import Models.Symptom;
+ import com.google.common.base.CharMatcher;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
- import com.mongodb.client.model.Projections;
- import com.mongodb.client.model.Filters;
  import com.mongodb.client.*;
  import static com.mongodb.client.model.Filters.*;
- import static com.mongodb.client.model.Projections.*;
- import com.mongodb.client.model.Sorts;
- import java.util.Arrays;
  import org.bson.Document;
- import com.mongodb.gridfs.GridFSDBFile;
  import java.util.*;
  import java.util.ArrayList;
  import com.google.common.base.Splitter;
  import java.lang.Integer;
  import java.util.Scanner;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 /**
  *
  * @author Tyler
@@ -70,10 +59,10 @@ public class DBConnection {
         Scanner sc = new Scanner(System.in);
 
         Document query = new Document();               
-        
+       
         System.out.println("Enter 0 to choose a query, and 1 for no query.");
         int option = sc.nextInt();
-        
+         
         String param1 = "";
         String param2 = "";
         
@@ -141,9 +130,7 @@ public class DBConnection {
     match a query. 
     */
     public static ArrayList<Patient> parsePatients(Document query)
-    {
-        
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
+    {        MongoClient mongoClient = new MongoClient("localhost", 27017);
         MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("patients");    
         
@@ -220,19 +207,12 @@ public class DBConnection {
               System.out.println("Some query parameters were not found in " + name + " profile");
           }
         
-        Document medHisDoc = new Document();
-        medHisDoc.put("patientID", "" + id);
-        ArrayList<MedicalHistory> medicalHistory = parseArrays(medHisDoc, "medicalHistory");
-        //medicalHistory.forEach((n) -> n.toString());
-                
-        Document symptomDoc = new Document();
-        symptomDoc.put("patientID", "" + id);
-        ArrayList<Symptom> symptoms = parseArrays(symptomDoc, "symptoms");
-        //symptoms.forEach((n) -> n.toString());
+        Document patientID = new Document();
+        patientID.put("patientID", "" + id);
         
-        Document progressDoc = new Document();
-        progressDoc.put("patientID", "" + id);
-        ArrayList<ProgressReport> progressReports = parseArrays(progressDoc, "progressReports");
+        ArrayList<MedicalHistory> medicalHistory = parseArrays(patientID, "medicalHistory");           
+        ArrayList<Symptom> symptoms = parseArrays(patientID, "symptoms");
+        ArrayList<ProgressReport> progressReports = parseArrays(patientID, "progressReports");
        
         
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
@@ -362,7 +342,10 @@ public class DBConnection {
 //        return symptoms;
 //    }
             
-    
+    /*
+    Author: Tyler
+    Description: Builds the individual classes for the medical history, progress reports, and symptoms.
+    */
     public static <T> T getArrays(Document storage, String type)
     {               
                 

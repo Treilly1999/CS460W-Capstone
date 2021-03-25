@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.net.URL;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import login.LoginManager;
 /**
@@ -35,6 +36,7 @@ public class HospitalSystem extends Application {
         
         //Scene scene = new Scene(root);
         
+        stage.getIcons().add(new Image("taskbar_image.png"));
         stage.setTitle("Hospital System");
         stage.setWidth(1920);
         stage.setHeight(1080);

@@ -139,9 +139,12 @@ public class Patient {
     
     public String toString()
     {
-        return "Name: " + getName() + ". Medical History: " + getMedicalHistory().toString()
-                + ". Symptoms: " + getSymptoms().toString() + ". Progress Reports: " + getProgressReports().toString();
-        
+        return "Name: " + getName() + ". Age: " + getAge() + ". Phone Number: " + getPhone() + ". Physician Name: " +
+                getPhysician() + ". Physician Phone Number: " + getPhysicianNumber() + ". Insurance Provider: " + getProvider()
+                + ". Admitted? " + getAdmitted() + ". Assigned Doctor: " + getAssignedDoctor() +
+                ". Medical History: " + getMedicalHistory().toString()
+                + ". Symptoms: " + getSymptoms().toString() + ". Progress Reports: " + getProgressReports().toString()
+                + ". Discharge Instructions: " + getDischargeInstructions();
     }
     
 }

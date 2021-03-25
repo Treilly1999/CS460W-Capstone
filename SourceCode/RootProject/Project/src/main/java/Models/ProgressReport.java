@@ -26,7 +26,7 @@ public class ProgressReport {
     
     public String getNurseName() { return nurseName.get(); }
     public void setNurseName(String nurseName) { this.nurseName = new SimpleStringProperty(nurseName); }
-    
+     
     public String getDate() { return date.get(); }
     public void setDate(String date) { this.date = new SimpleStringProperty(date); }
     
