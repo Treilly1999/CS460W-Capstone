@@ -6,6 +6,7 @@ import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import Controllers.PatientController;
+import Controllers.RegisterController;
 import Models.Staff_Model;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ public class LoginManager {
   }    
   public LoginManager() {}
 
+  public Scene getScene() { return scene; }
+  
   /**
    * Author: Tyler
    * Description: Callback method invoked to notify that a user has been authenticated.
@@ -35,15 +38,15 @@ public class LoginManager {
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
         {
-            //Show doctor screen
+            showPatientList();
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
         {
             //Show billing screen
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER)
-        {
-            showPatientList();
+        {            
+            showRegisterMain(user);
         }
         //for testing only
         else
@@ -114,6 +117,24 @@ public class LoginManager {
     PatientController controller = 
     loader.<PatientController>getController();
     controller.initPatientList(this);
+    
+    } catch (IOException ex) {
+      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+  }
+  
+  private void showRegisterMain(Staff_Model user) {
+    try {
+
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/RegisterMainView.fxml"));
+    Parent root = loader.load();        
+    scene.setRoot(root);
+    
+    RegisterController controller = 
+    loader.<RegisterController>getController();
+    controller.initRegisterForm(this, user);
     
     } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);

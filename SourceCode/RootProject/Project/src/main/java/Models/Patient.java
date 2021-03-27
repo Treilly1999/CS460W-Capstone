@@ -6,6 +6,8 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -19,21 +21,21 @@ public class Patient {
     private SimpleStringProperty  name;
     private SimpleIntegerProperty  age;     
     private SimpleStringProperty phoneNumber;
-    private SimpleIntegerProperty  id; 
+    private String  id; 
     
     private SimpleStringProperty provider; 
     
-    private ArrayList<ProgressReport> progressReports;
+    private List<ProgressReport> progressReports;
     
     private SimpleIntegerProperty ssn;
     
     private SimpleStringProperty physicianName;
     private SimpleStringProperty physicianNumber;
     
-    private ArrayList<MedicalHistory> medicalHistory;
+    private List<MedicalHistory> medicalHistory;
     
     //TODO: DOES SYMPTOMS NEED TO BE AN ARRAYLIST?
-    private ArrayList<Symptom> symptoms;
+    private List<Symptoms> symptoms;    
     
     private SimpleStringProperty dischargeInstructions;
     private SimpleStringProperty assignedDoctor;
@@ -46,7 +48,7 @@ public class Patient {
     }
     
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber)
+            String physicianNumber, String provider)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -54,12 +56,12 @@ public class Patient {
         this.ssn = new SimpleIntegerProperty(ssn);
         this.physicianName = new SimpleStringProperty(physicianName);
         this.physicianNumber = new SimpleStringProperty(physicianNumber);
-        
+        this.provider = new SimpleStringProperty(provider);
     }
     
-    public Patient(Integer id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<Symptom> symptoms, String assignedDoctor, Boolean admitted, 
-            ArrayList<MedicalHistory> medicalHistory, ArrayList<ProgressReport> progressReports, String dischargeInstructions)
+    public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+            String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
+            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -67,7 +69,7 @@ public class Patient {
         this.ssn = new SimpleIntegerProperty(ssn);
         this.physicianName = new SimpleStringProperty(physicianName);
         this.physicianNumber = new SimpleStringProperty(physicianNumber);
-        this.id = new SimpleIntegerProperty(id);
+        this.id = id;
         this.assignedDoctor = new SimpleStringProperty(assignedDoctor);
         this.provider = new SimpleStringProperty(provider);
         this.admitted = admitted;
@@ -77,8 +79,8 @@ public class Patient {
         this.symptoms = symptoms;
     }
     
-    public int getID() { return id.get(); }
-    public void setID(int id) { this.id = new SimpleIntegerProperty(id); }
+    public String getID() { return id; }
+    public void setID(String id) { this.id = id ; }
     
     public String getName() { return name.get(); }    
     public void setName(String name) { this.name = new SimpleStringProperty(name); }
@@ -102,11 +104,11 @@ public class Patient {
     public String getPhysicianNumber() { return physicianNumber.get(); }
     public void setPhysicianNumber(String physNum) { this.physicianNumber = new SimpleStringProperty(physNum); }
     
-    public ArrayList<MedicalHistory> getMedicalHistory() { return medicalHistory; }
+    public List<MedicalHistory> getMedicalHistory() { return medicalHistory; }
     public void setMedicalHistory(MedicalHistory medHist) { medicalHistory.add(medHist); }
     
-    public ArrayList<Symptom> getSymptoms() { return symptoms; }
-    public void setSymptoms(Symptom symptom) { this.symptoms.add(symptom); }
+    public List<Symptoms> getSymptoms() { return symptoms; }
+    public void setSymptoms(Symptoms symptom) { this.symptoms.add(symptom); }
 
     public String getProvider() { return provider.get(); }
     public void setProvider(SimpleStringProperty provider) { this.provider = provider; }
@@ -134,7 +136,7 @@ public class Patient {
     
     public void setAdmitted(Boolean isAdmitted) { this.admitted = admitted; }
     
-    public ArrayList<ProgressReport> getProgressReports() { return progressReports; }
+    public List<ProgressReport> getProgressReports() { return progressReports; }
     public void setProgressReports(ProgressReport report) { progressReports.add(report); }
     
     public String toString()

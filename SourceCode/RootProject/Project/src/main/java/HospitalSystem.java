@@ -5,6 +5,8 @@
  */
 
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

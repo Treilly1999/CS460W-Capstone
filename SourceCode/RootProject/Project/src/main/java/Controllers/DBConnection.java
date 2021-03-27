@@ -10,8 +10,7 @@ package Controllers;
  import com.mongodb.MongoClient;
  import Models.Patient;
  import Models.ProgressReport;
- import Models.Symptom;
- import com.google.common.base.CharMatcher;
+ import Models.Symptoms;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
  import com.mongodb.client.*;
@@ -19,7 +18,6 @@ package Controllers;
  import org.bson.Document;
  import java.util.*;
  import java.util.ArrayList;
- import com.google.common.base.Splitter;
  import java.lang.Integer;
  import java.util.Scanner;
 /**
@@ -35,6 +33,10 @@ public class DBConnection {
         return patientList;
     }
     
+    public static  MongoClient mongoClient = new MongoClient("localhost", 27017);
+    public static MongoDatabase database = mongoClient.getDatabase("hospital");
+    
+    public static MongoDatabase getDB() { return database; }
     
     /*
     Author: Tyler
@@ -91,8 +93,8 @@ public class DBConnection {
     public static void parsePatient(Document query)
     {
         
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
 
         MongoCollection<Document> collection = database.getCollection("patients");    
         
@@ -121,7 +123,7 @@ public class DBConnection {
             cursor.close();
         }
         System.out.println(patients.size());
-        patients.forEach((n) -> buildPatients(n));
+        //patients.forEach((n) -> buildPatients(n));
     }
     
     /*
@@ -130,8 +132,9 @@ public class DBConnection {
     match a query. 
     */
     public static ArrayList<Patient> parsePatients(Document query)
-    {        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+    {       
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("patients");    
         
         ArrayList<Document> patients = new ArrayList<Document>();
@@ -160,7 +163,7 @@ public class DBConnection {
         }
         //patients.forEach((n) -> System.out.println(n.toString()));
         
-        patients.forEach((n) -> buildPatients(n));
+        patients.forEach((n) -> buildPatients(n, collection));
               
         return patientList;
     }
@@ -170,37 +173,29 @@ public class DBConnection {
      Description: Builds individual patient's models based on the patients parsed
      from parsePatients.
      */
-    public static void buildPatients(Document patients)
+    public static void buildPatients(Document patients, MongoCollection<Document> collection)
     {
           
-        String documentString = patients.toString();
-        System.out.println(documentString);
-        
-        Map<String,String> queryParameters = Splitter
-            .on(", ")
-            .trimResults(CharMatcher.is('}'))
-            .withKeyValueSeparator("=")
-            .split(documentString);
-        
+                
         String name = "", physicianName = "", physicianNumber = "",
               dischargeInstructions = "",  assignedDoctor = "",
-              provider = "", phoneNumber = "";
-        int age = 1, id = 1, ssn = 1;
+              provider = "", phoneNumber = "", id = "";
+        int age = 1, ssn = 1;
         Boolean admitted = false;   
         
         try
         {
-            name = queryParameters.get("name");
-            age = Integer.parseInt(queryParameters.get("age"));
-            phoneNumber = queryParameters.get("phoneNumber");
-            ssn = Integer.parseInt(queryParameters.get("ssn"));
-            physicianName = queryParameters.get("physicianName");
-            physicianNumber = queryParameters.get("physicianNumber");           
-            dischargeInstructions = queryParameters.get("dischargeInstructions");
-            assignedDoctor = queryParameters.get("assignedDoctor");
-            admitted = Boolean.parseBoolean(queryParameters.get("admitted"));
-            provider = queryParameters.get("provider");
-            id = Integer.parseInt(queryParameters.get("id"));  
+            name = patients.getString("name");
+            age = Integer.parseInt(patients.getString("age"));
+            phoneNumber = patients.getString("phoneNumber");
+            ssn = Integer.parseInt(patients.getString("ssn"));
+            physicianName = patients.getString("physicianName");
+            physicianNumber = patients.getString("physicianNumber");           
+            dischargeInstructions = patients.getString("dischargeInstructions");
+            assignedDoctor = patients.getString("assignedDoctor");
+            admitted = Boolean.parseBoolean(patients.getString("admitted"));
+            provider = patients.getString("provider");
+            id = patients.getString("id");  
             
           } catch (Exception e)
           {
@@ -210,9 +205,9 @@ public class DBConnection {
         Document patientID = new Document();
         patientID.put("patientID", "" + id);
         
-        ArrayList<MedicalHistory> medicalHistory = parseArrays(patientID, "medicalHistory");           
-        ArrayList<Symptom> symptoms = parseArrays(patientID, "symptoms");
-        ArrayList<ProgressReport> progressReports = parseArrays(patientID, "progressReports");
+        List<MedicalHistory> medicalHistory = buildLists(patients, "medicalHistory", collection);           
+        List<Symptoms> symptoms = buildLists(patients, "symptoms", collection); 
+        List<ProgressReport> progressReports = buildLists(patients, "progressReports", collection); 
        
         
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
@@ -223,192 +218,54 @@ public class DBConnection {
     } 
     
     /*
-    Author: Tyler
-    Description: These create the array lists for medical history, symptoms, and progress reports for a patient. 
-    Each are their own collection. Each document has a correlating patientID to query the database to match the documents.
-    It would be better to have it all in one document, but I'm not sure how to extract the arrays from the document on their own.
+    Author: Tyler Reilly
+    Description: Buildsthe medical history,  symptoms, and progress reports for patient. 
+    TODO: Refactor to where the collection isnt queried each time.
     */
-    public static <T> ArrayList<T> parseArrays(Document query, String type)
+    public static <T> List<T> buildLists(Document storage, String type, MongoCollection<Document> collection)
     {
-        System.out.println("IN PARSEARRAYS");
-        System.out.println(query.toString());
         
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
-        MongoCollection<Document> collection = database.getCollection(type);    
-        
-        System.out.println(collection.count());
-        
-        ArrayList<Document> patients = new ArrayList<Document>();
-        
-        ArrayList<T> returnList = new ArrayList<T>();
-        
-        
-        FindIterable<Document> findIterable;
-        
-        
-        if(query != null)
-        {
-           findIterable = collection.find(query);
-        }
-        else
-        {
-           findIterable = collection.find();
-        }
-        
-        MongoCursor<Document> cursor = findIterable.iterator();
-        
-        try
-        {
-            while(cursor.hasNext())
-            {   
-                System.out.println("YES HAS NEXT");
-                patients.add(cursor.next());
-            }
-        } finally {
-            cursor.close();
-        }
-        //patients.forEach((n) -> System.out.println(n.toString()));
-        
-        System.out.println(patients.size());
-        
-        
-        
-        for(int i = 0; i < patients.size(); i++)
-        {         
-                          
-            returnList.add(getArrays(patients.get(i), type));
-            
-        }       
-        
-        //patients.forEach((n) -> getArrays(n, type));
-              
-        return returnList;
-    }
-    
-    /*
-    Author: Tyler
-    Description: Builds symptoms
-    ToDo: refactor completely.
-    */
-//    public static <T> ArrayList<T> getSymptoms(Document storage)
-//    {
-//        Map<String,String> queryParameters = Splitter
-//        .on(", ")
-//        .trimResults(CharMatcher.is('}'))
-//        .withKeyValueSeparator("=")
-//        .split(storage.toString());
-//        
-//        ArrayList<T> symptoms = new  ArrayList<T>();
-//
-//        if(Boolean.parseBoolean(queryParameters.get("FEVER")))
-//        {
-//           System.out.println("IN FEVER PARSE BOOLEAN");
-//           symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FEVER));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("COUGH")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.COUGH));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("NAUSEA")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.NAUSEA));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("CHEST_PAIN")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CHEST_PAIN));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("SNEEZING")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SNEEZING));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("FATIGUE")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.FATIGUE));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("ACHES")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.ACHES));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("SORE_THROAT")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.SORE_THROAT));
-//        }
-//        else if(Boolean.parseBoolean(queryParameters.get("CONGESTION")))
-//        {
-//            symptoms.add((T)new Symptom(Models.Symptom.Symptoms_Type.CONGESTION));                
-//        }         
-//
-//        return symptoms;
-//    }
-            
-    /*
-    Author: Tyler
-    Description: Builds the individual classes for the medical history, progress reports, and symptoms.
-    */
-    public static <T> T getArrays(Document storage, String type)
-    {               
+        List<T> returnList = new ArrayList<T>();
                 
-        System.out.println("INSIDE GETARRAYS");
-        Map<String,String> queryParameters = Splitter
-        .on(", ")
-        .trimResults(CharMatcher.is('}'))
-        .withKeyValueSeparator("=")
-        .split(storage.toString());
+        List<Document> patients = (List<Document>)collection.find().into(new ArrayList<Document>());
         
-        System.out.println(storage.toString());
-        
-        String nurse = "", date = "" ,note = "";
-        String hospitalization = "";
-        
-        if(type.equals("medicalHistory"))
-        {           
-           
-            date = queryParameters.get("date");
-            hospitalization = queryParameters.get("hospitalization");
-            
-            MedicalHistory medicalHistory = new MedicalHistory(date, hospitalization);
-            return (T)medicalHistory;
-          
-        }
-        else if(type.equals("progressReports"))
+        for(Document patient : patients)
         {
-            date = queryParameters.get("date");
-            nurse = queryParameters.get("nurse");
-            note = queryParameters.get("report");
+            List<Document> insideArray = (List<Document>) patient.get(type);
             
-            ProgressReport progressReport = new ProgressReport(nurse, date, note);
+            if(type.equals("symptoms"))
+            {
+                for(Document symptom : insideArray)
+                {
+                    returnList.add((T)new Symptoms(symptom.getString("name")));
+                }
+            }
+            else if(type.equals("progressReports"))
+            {
+                for(Document progRep : insideArray)
+                {
+                    returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
+                }
+            }
+            if(type.equals("medicalHistory"))
+            {
+                for(Document medHis : insideArray)
+                {
+                    returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
+                }
+            }
             
-            return (T)progressReport;
-        }       
-        else if(type.equals("symptoms"))
-        {
-           Boolean fever, cough, nausea, chestPain, sneezing, fatigue, aches, soreThroat, congestion;
-           
-           fever = Boolean.parseBoolean(queryParameters.get("FEVER"));
-           cough = Boolean.parseBoolean(queryParameters.get("COUGH"));
-           nausea = Boolean.parseBoolean(queryParameters.get("NAUSEA"));
-           chestPain = Boolean.parseBoolean(queryParameters.get("CHEST_PAIN"));
-           sneezing = Boolean.parseBoolean(queryParameters.get("SNEEZING"));
-           fatigue = Boolean.parseBoolean(queryParameters.get("FATIGUE"));
-           aches = Boolean.parseBoolean(queryParameters.get("ACHES"));
-           soreThroat = Boolean.parseBoolean(queryParameters.get("SORE_THROAT"));
-           congestion = Boolean.parseBoolean(queryParameters.get("CONGESTION"));
-           
-           Symptom symptoms = new Symptom(fever, cough, nausea, chestPain, sneezing, fatigue, aches, soreThroat, congestion);
-                   
-           return (T)symptoms;
         }
         
-        return null;
+        return (List<T>)returnList;  
     }
     
  // ---------------------------------------------------------
     public static void updateTest()
     {
         
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+       // MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
 
         
         Scanner sc = new Scanner(System.in);
@@ -449,8 +306,8 @@ public class DBConnection {
     public static void updateEntry(String collectionName, String field, Object value, String afterField, Object afterValue, Boolean isMultiple)
     {
         
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
 
         MongoCollection<Document> collection = database.getCollection(collectionName);    
         
@@ -473,8 +330,8 @@ public class DBConnection {
     //TODO: TEST MORE
     public static void removeEntry(Document query, Boolean allMatch)
     {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+       // MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("patients");    
                  
         if(allMatch == true)
@@ -498,8 +355,8 @@ public class DBConnection {
     */
     public static void startTestCreate(Boolean firstTry)
     {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
         
         Scanner sc = new Scanner(System.in);
         int opt;
@@ -533,7 +390,7 @@ public class DBConnection {
             System.out.println("Enter patient physician's phone number.");
             String physicianNumber = sc.nextLine();
             
-            createPatient(database, name, age, phoneNumber, ssn, physicianName, physicianNumber); 
+            //createPatient(database, name, age, phoneNumber, ssn, physicianName, physicianNumber); 
             
             System.out.println("more? 1 yes 2 no");
             int cont = sc.nextInt();
@@ -550,12 +407,14 @@ public class DBConnection {
     /*
     Author: Tyler
     Description: Inserts a patient into the database HOSPITAL
-    TODO: ADD ALL PATIENT VARIABLES
+    TODO: ADD PATIENT LISTS
     */
-    public static void createPatient(MongoDatabase database, String name, int age, String phoneNumber, 
-            int ssn, String physicianName, String physicianNumber)
+    public static void createPatient(String name, int age, String phoneNumber, 
+            int ssn, String physicianName, String physicianNumber, Boolean admitted, int id, String assignedDoctor,
+            String dischargeInstructions, String provider, List<Symptoms> symptoms, 
+            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports)
     {
-        MongoCollection<Document> collection = database.getCollection("patients");    
+        MongoCollection<Document> patientCollection = database.getCollection("patients");            
             
         Document document = new Document();
         
@@ -566,8 +425,109 @@ public class DBConnection {
         document.put("physicianName", physicianName);
         document.put("physicianNumber", physicianNumber);
         
-        collection.insertOne(document);
+        if(admitted)
+            document.put("admitted", "true");
+        else
+            document.put("admitted", "false");
+        
+        document.put("assignedDoctor", assignedDoctor);
+        document.put("dischargeInstructions", dischargeInstructions);
+        
+        String _id = "" + id;        
+        document.put("id", _id);
+        
+        document.put("provider", provider);    
+        
+        patientCollection.insertOne(document);
+        
     }
+    
+    /*
+    TODO: Create id assignment function
+    */
+    public static String createPatient(Patient patient)
+    {
+        MongoCollection<Document> patientCollection = database.getCollection("patients");            
+            
+        Document document = new Document();        
+       
+        String state = "SUCCESSFUL";
+       
+        UUID id = UUID.randomUUID();
+        
+        try
+        {
+            document.put("name", patient.getName());
+            document.put("age", patient.getAge());
+            document.put("phoneNumber", patient.getPhone());
+            document.put("ssn", patient.getSSN());
+            document.put("physicianName", patient.getPhysician());
+            document.put("physicianNumber", patient.getPhysicianNumber());        
+            //document.put("assignedDoctor", assignedDoctor);
+            //document.put("dischargeInstructions", dischargeInstructions);     
+            document.put("id", id.toString());        
+            document.put("provider", patient.getProvider());     
+            
+            patientCollection.insertOne(document);      
+            
+            for(int i = 0; i<patient.getSymptoms().size(); i++)
+            {
+                createSymptoms(patient.getSymptoms().get(i), patientCollection, new Document(eq("id", id.toString())));
+            }
+            
+        } catch (Exception e)
+        {
+            state = "FAILURE";
+        }
+        
+        return state;
+    }   
+    
+    public static void createSymptoms(Symptoms symptoms, MongoCollection<Document> patientCollection, Document find)
+    {        
+        
+        Document sympt = new Document();
+        
+        sympt.put("name", symptoms.getSymptom());
+        
+        patientCollection.updateOne(find, new Document("$push", new Document("symptoms", sympt)));
+    } 
+    
+    
+    //TODO: Refactor medical history and progress reports to match createSymptoms
+    public static void createMedicalHistory(String patientID, String date, String reason)
+    {
+        
+        MongoCollection<Document> medicalCollection = database.getCollection("medicalHistory");
+        
+        Document medDoc = new Document();
+        
+        String id = "" + patientID;
+        
+        medDoc.put("patientID", id);
+        medDoc.put("date", date);
+        medDoc.put("hospitalization", reason);
+        
+        medicalCollection.insertOne(medDoc);        
+    }
+    
+    public static void createProgressReports(String patientID, String nurseName, int nurseID, String date, String report)
+    {
+        
+        MongoCollection<Document> reportCollection = database.getCollection("progressReports");
+        
+        Document progressDoc = new Document();
+        
+        progressDoc.put("patientID", "" + patientID);
+        progressDoc.put("nurse", nurseName);
+        progressDoc.put("nurseID", "" + nurseID);
+        progressDoc.put("date", date);
+        progressDoc.put("report", report);
+        
+        reportCollection.insertOne(progressDoc);        
+    }
+    
+    
     
 }
     

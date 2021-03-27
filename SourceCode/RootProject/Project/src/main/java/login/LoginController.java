@@ -1,5 +1,6 @@
 package login;
 
+import Controllers.DBConnection;
 import Models.Staff_Model;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
@@ -92,9 +93,9 @@ public class LoginController {
     */
     public Staff_Model findStaffMember(Document query)
     {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("hospital");
-        MongoCollection<Document> collection = database.getCollection("staff");
+        //MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //MongoDatabase database = mongoClient.getDatabase("hospital");
+        MongoCollection<Document> collection = DBConnection.getDB().getCollection("staff");
         
         Staff_Model staffMember = new Staff_Model();
             

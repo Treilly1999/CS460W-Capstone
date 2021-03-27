@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import login.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import login.LoginController;
 /**
  *
@@ -20,7 +21,7 @@ import login.LoginController;
 public class NurseController
 {
     @FXML private Button logoutButton;
-    @FXML private Label nurseName;
+    @FXML private Label nurseName;   
     
     //where everything happens
     public void initNurse(final LoginManager loginManager, Staff_Model user)
