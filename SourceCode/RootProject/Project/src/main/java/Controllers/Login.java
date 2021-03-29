@@ -1,7 +1,3 @@
-import com.mysql.jdbc.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -98,36 +94,9 @@ public class Login extends javax.swing.JFrame {
        System.exit(0);
    }                                        
 
-   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-       try {
-           Connection con = DBConnection.getConnection();
-           Statement stmt = con.createStatement();
-           String sql="select *from user";
-           ResultSet rs = stmt.executeQuery(sql);
-           String usename=jTextField2.getText().trim();
-           char[] p=jPasswordField1.getPassword();
-           String pwd=new String(p);
-           String   name = null;
-           String pass = null;
-           while(rs.next()){
-                name=rs.getString(1);
-                pass=rs.getString(2);
-                if(usename.equals(name)&&pwd.equals(pass)){
-                    System.out.println("Log In Sucessful！！");
-
-                    new doctorInfoGui().setVisible(true);
-                    this.dispose();
-
-             }    
-                } 
-
-
-
-       } catch (ClassNotFoundException ex) {
-           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (SQLException ex) {
-           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-       }
+   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) 
+   {
+      
    }                                        
 
    /**

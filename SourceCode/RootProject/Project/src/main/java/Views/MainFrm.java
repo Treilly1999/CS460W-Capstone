@@ -22,7 +22,6 @@ import javax.swing.JButton;
 public class MainFrm extends JFrame {
 
 	private JPanel contentPane;
-
 	/**
 	 * Launch the application.
 	 */
@@ -82,19 +81,19 @@ public class MainFrm extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnNewButton = new JButton("Add Patient Record");
-		btnNewButton.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JButton btnAddDiagno = new JButton("Add Diagnosis Information");
-		btnAddDiagno.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnAddDiagno.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JButton btnUpdatePatientRecord = new JButton("Update Patient Record");
-		btnUpdatePatientRecord.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnUpdatePatientRecord.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JButton btnCheckPatientRecord = new JButton("Check Patient Record");
-		btnCheckPatientRecord.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnCheckPatientRecord.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JButton btnBilling = new JButton("Billing ");
-		btnBilling.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnBilling.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

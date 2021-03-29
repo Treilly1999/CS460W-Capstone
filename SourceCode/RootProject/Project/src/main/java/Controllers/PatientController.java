@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import login.*;
 
 /**
  *
@@ -35,7 +34,7 @@ public class PatientController implements Initializable {
     DBConnection dbCalls = new DBConnection();
     
     //NULL MEANS NO QUERY
-    static ArrayList<Patient> patientList = DBConnection.parsePatients(null);
+    private ArrayList<Patient> patientList = dbCalls.parsePatients(null);
     
     //These variables are called within the FXMLDocument
     @FXML
@@ -52,13 +51,21 @@ public class PatientController implements Initializable {
     private TableColumn<Patient, String> physicianName;
     @FXML
     private TableColumn<Patient, String> physicianNumber;
+    @FXML
+    private TableColumn<Patient, String> dischargeInstructions;
+    @FXML
+    private TableColumn<Patient, String> assignedDoctor;
+    @FXML
+    private TableColumn<Patient, String> admitted;
+    @FXML
+    private TableColumn<Patient, String> provider;
     
     
     //This list is filled with ArrayList<Patient>
     ObservableList<Patient> patients = FXCollections.observableList(dbCalls.getPatients());
     
-   
     
+            
     //Sets all the variables for the FXML document
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -81,13 +88,18 @@ public class PatientController implements Initializable {
     */
     public void initPatientList(final LoginManager loginManager)
     {
+        System.out.println(dbCalls.getPatients().toString());
         name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         age.setCellValueFactory(new PropertyValueFactory<>("Age"));
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
         socialSecurity.setCellValueFactory(new PropertyValueFactory<>("SSN"));
         physicianName.setCellValueFactory(new PropertyValueFactory<>("Physician"));
         physicianNumber.setCellValueFactory(new PropertyValueFactory<>("PhysicianNumber"));
-
+        dischargeInstructions.setCellValueFactory(new PropertyValueFactory<>("DischargeInstructions"));
+        assignedDoctor.setCellValueFactory(new PropertyValueFactory<>("AssignedDoctor"));
+        admitted.setCellValueFactory(new PropertyValueFactory<>("Admitted"));
+        provider.setCellValueFactory(new PropertyValueFactory<>("Provider"));
+        
         pData.setItems(patients);     
         
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {

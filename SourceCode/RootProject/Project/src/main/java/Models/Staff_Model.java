@@ -11,7 +11,7 @@ package Models;
  */
 public class Staff_Model {
     
-    //This is for deciding what screen to show.
+    //This is for deciding what screen to show. **CRITICAL**
     public enum USER_ROLE
     {
         DOCTOR,
@@ -49,5 +49,10 @@ public class Staff_Model {
 
     public String getPassword() { return password; }
 
+    public String toString()
+    {
+        return
+                "Name: " + getName();
+    }
     
 }
