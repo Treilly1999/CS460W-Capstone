@@ -140,10 +140,11 @@ public class LoginManager {
   }
   
   private void showRegisterMain(Staff_Model user) {
+      LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddPatientFrm frame = new AddPatientFrm();
+					AddPatientFrm frame = new AddPatientFrm(login, user);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

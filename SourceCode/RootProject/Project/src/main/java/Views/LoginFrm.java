@@ -1,15 +1,12 @@
 package Views;
 
 import Controllers.DBConnection;
-import Controllers.LoginController;
 import Controllers.LoginManager;
 import Models.Staff_Model;
 import com.google.common.hash.Hashing;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,14 +16,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.WindowAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.nio.charset.StandardCharsets;
-import javafx.scene.paint.Color;
 import javax.swing.JPasswordField;
 import org.bson.Document;
 
