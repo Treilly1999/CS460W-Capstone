@@ -1,4 +1,4 @@
-package login;
+package Controllers;
 
 import Controllers.NurseController;
 import java.io.IOException;
@@ -8,6 +8,9 @@ import javafx.scene.*;
 import Controllers.PatientController;
 import Controllers.RegisterController;
 import Models.Staff_Model;
+import Views.AddPatientFrm;
+import Views.LoginFrm;
+import java.awt.EventQueue;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
@@ -64,22 +67,34 @@ public class LoginManager {
    * Author: Tyler
    * Description Callback method invoked to notify that a user has logged out of the main application.
    * Will show the login application screen.
+   * TODO: Fix logout button on Registration pages.
    */   
   public void logout() {
     showLoginScreen();
   }  
   public void showLoginScreen() {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/login.fxml"));
-    Parent root = loader.load();        
-      scene.setRoot(root);
-      LoginController controller = 
-        loader.<LoginController>getController();
-      controller.initManager(this);
-    } catch (IOException ex) {
-      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginFrm frame = new LoginFrm(login);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+//    try {
+//      FXMLLoader loader = new FXMLLoader();
+//    loader.setLocation(getClass().getResource("/login.fxml"));
+//    Parent root = loader.load();        
+//      scene.setRoot(root);
+//      LoginController controller = 
+//        loader.<LoginController>getController();
+//      controller.initManager(this);
+//    } catch (IOException ex) {
+//      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+//    }
   }
 
   /**
@@ -125,21 +140,30 @@ public class LoginManager {
   }
   
   private void showRegisterMain(Staff_Model user) {
-    try {
-
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/RegisterMainView.fxml"));
-    Parent root = loader.load();        
-    scene.setRoot(root);
-    
-    RegisterController controller = 
-    loader.<RegisterController>getController();
-    controller.initRegisterForm(this, user);
-    
-    } catch (IOException ex) {
-      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddPatientFrm frame = new AddPatientFrm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
   }
-  
+//    try {
+//
+//    FXMLLoader loader = new FXMLLoader();
+//    loader.setLocation(getClass().getResource("/RegisterMainView.fxml"));
+//    Parent root = loader.load();        
+//    scene.setRoot(root);
+//    
+//    RegisterController controller = 
+//    loader.<RegisterController>getController();
+//    controller.initRegisterForm(this, user);
+//    
+//    } catch (IOException ex) {
+//      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+//    }
+//    
 }

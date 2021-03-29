@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import login.*;
 
 /**
  *
@@ -35,7 +34,7 @@ public class PatientController implements Initializable {
     DBConnection dbCalls = new DBConnection();
     
     //NULL MEANS NO QUERY
-    static ArrayList<Patient> patientList = DBConnection.parsePatients(null);
+    private ArrayList<Patient> patientList = dbCalls.parsePatients(null);
     
     //These variables are called within the FXMLDocument
     @FXML

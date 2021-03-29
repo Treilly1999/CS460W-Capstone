@@ -34,13 +34,15 @@ public class Patient {
     
     private List<MedicalHistory> medicalHistory;
     
-    //TODO: DOES SYMPTOMS NEED TO BE AN ARRAYLIST?
     private List<Symptoms> symptoms;    
     
     private SimpleStringProperty dischargeInstructions;
     private SimpleStringProperty assignedDoctor;
     private Boolean admitted;
-     
+    
+    //TODO: Implement allergies, current medications
+    //private List<Allergies> allergies;
+    //private List<Medications> medications;
     
     public Patient()
     {
@@ -48,7 +50,7 @@ public class Patient {
     }
     
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider)
+            String physicianNumber, String provider, ArrayList<Symptoms> symptoms)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -57,6 +59,7 @@ public class Patient {
         this.physicianName = new SimpleStringProperty(physicianName);
         this.physicianNumber = new SimpleStringProperty(physicianNumber);
         this.provider = new SimpleStringProperty(provider);
+        this.symptoms = symptoms;
     }
     
     public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 

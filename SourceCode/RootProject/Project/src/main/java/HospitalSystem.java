@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import login.LoginManager;
+import Controllers.LoginManager;
 /**
  *
  * @author Tyler
@@ -31,20 +31,20 @@ public class HospitalSystem extends Application {
         Parent root = loader.load();
         */
         
-        Scene scene = new Scene(new StackPane());
+        //Scene scene = new Scene(new StackPane());
     
-        LoginManager loginManager = new LoginManager(scene);
+        LoginManager loginManager = new LoginManager();
         loginManager.showLoginScreen();        
         
         //Scene scene = new Scene(root);
         
-        stage.getIcons().add(new Image("taskbar_image.png"));
-        stage.setTitle("Hospital System");
-        stage.setWidth(1920);
-        stage.setHeight(1080);
+        //stage.getIcons().add(new Image("taskbar_image.png"));
+        //stage.setTitle("Hospital System");
+        //stage.setWidth(1920);
+        //stage.setHeight(1080);
         
-        stage.setScene(scene);
-        stage.show();
+        //stage.setScene(scene);
+        //stage.show();
     }
 
     /**

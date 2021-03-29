@@ -7,7 +7,9 @@ package Controllers;
 
 import Models.Patient;
 import Models.Staff_Model;
+import Models.Symptoms;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -21,7 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import login.LoginManager;
 
 /**
  *
@@ -50,27 +51,40 @@ public class RegisterController
     @FXML private TextField patientSSN;
     @FXML private TextField patientPhysician;
     @FXML private TextField patientPhysicianNum;
+    @FXML private TextField symptoms;
     
     Patient patient;
     
     DBConnection db = new DBConnection();
     LoginManager loginManager;
     
-    //TODO: Add Textfields for medical history, progress reports, and symptoms.
-    //ALSO ADD WAY TO POST      
+    //TODO: Add Textfields for medical history, progress reports
     public void initRegisterForm(final LoginManager loginManager, Staff_Model user)
     {   
         this.loginManager = loginManager;        
         
         
-        //TODO: Split ssn for parsing && Split symptoms from textfield into List<Symptoms> for insertion
+        //TODO: Split ssn for parsing 
         submitForm.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 if(!patientName.getText().isEmpty() && !patientAge.getText().isEmpty() && !patientPhone.getText().isEmpty() && !patientProvider.getText().isEmpty()
                         && !patientSSN.getText().isEmpty() && !patientPhysician.getText().isEmpty() && !patientPhysicianNum.getText().isEmpty())
                 {
+                    ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
+                    if(!symptoms.getText().isEmpty())
+                    {
+                        String[] symptomValues = symptoms.getText().split(",");                                         
+
+                        for(int i = 0; i < symptomValues.length; i++)
+                        {
+                            Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                            symptomList.add(symptom);
+                        }
+                    }           
+                    
                     patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
-                    Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText());       
+                    Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
+                    symptomList);       
 
                     String state = db.createPatient(patient);
 

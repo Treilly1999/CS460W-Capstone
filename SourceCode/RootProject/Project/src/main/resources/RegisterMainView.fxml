@@ -23,7 +23,7 @@
           <children>
             <GridPane alignment="CENTER">
                <children>
-                <Label fx:id="registerName" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="Enter the patient's information below." GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 
                 <Label text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="patientName" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -46,24 +46,11 @@
                 <Label text="Physician Phone Number:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                 <TextField fx:id="patientPhysicianNum" GridPane.columnIndex="2" GridPane.rowIndex="7" />                   
                 
-                <Label text="Fever" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                <fx:define>
-                    <ToggleGroup fx:id="fever" />
-                </fx:define>
-                <RadioButton fx:id="yes" text="Yes" toggleGroup="$fever" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                    <HBox.margin>
-                        <Insets right="3.0"/>
-                    </HBox.margin>
-                </RadioButton>
-
-                <RadioButton fx:id="no" text="No" toggleGroup="$fever" GridPane.columnIndex="7" GridPane.rowIndex="1">
-                    <HBox.margin>
-                        <Insets right="30.0" bottom="10.0"/>
-                    </HBox.margin>
-                </RadioButton>  
+                <Label text="Enter symptoms seperated by commas: " GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <TextField fx:id="symptoms" GridPane.columnIndex="2" GridPane.rowIndex="8" /> 
                 
-                <Label fx:id="serverMessage"  GridPane.columnIndex="2" GridPane.rowIndex="8" />     
-                <Button fx:id="submitForm" defaultButton="true" text="Submit" StackPane.alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="9" />              
+                <Label fx:id="serverMessage"  GridPane.columnIndex="2" GridPane.rowIndex="9" />     
+                <Button fx:id="submitForm" defaultButton="true" text="Submit" StackPane.alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="10" />              
                                            
               </children>
               <columnConstraints>

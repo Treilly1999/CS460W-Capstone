@@ -1,4 +1,4 @@
-package login;
+package Controllers;
 
 import Controllers.DBConnection;
 import Models.Staff_Model;
@@ -39,8 +39,7 @@ public class LoginController {
     public static Staff_Model getCurrentUser()
     {
         return currentUser;
-    }
-    
+    }    
   public void initialize() {}
   
   /*
@@ -125,19 +124,12 @@ public class LoginController {
     /*
     Author: Tyler
     Description: Builds a Staff_Model for the current user
+    TODO: Consolidate with parsePatients? Less code && makes them more dynamic
     */
     public static Staff_Model buildCurrentUser(Document staffMember)
     {
-        String documentString = staffMember.toString();
-        //System.out.println(documentString);
-        
+                
         Staff_Model staff;
-        
-        Map<String,String> queryParameters = Splitter
-            .on(", ")
-            .trimResults(CharMatcher.is('}'))
-            .withKeyValueSeparator("=")
-            .split(documentString);
         
         String name = "", userName = "", password="";
         int id = 0;
@@ -145,23 +137,23 @@ public class LoginController {
         Models.Staff_Model.USER_ROLE role = Models.Staff_Model.USER_ROLE.DEFAULT;
         //= queryParameters.get("user_role");
        
-        if(queryParameters.get("user_role").equals("NURSE"))            
+        if(staffMember.getString("user_role").equals("NURSE"))            
             role = Models.Staff_Model.USER_ROLE.NURSE;                        
-        if(queryParameters.get("user_role").equals("DOCTOR"))
+        if(staffMember.getString("user_role").equals("DOCTOR"))
             role = Models.Staff_Model.USER_ROLE.DOCTOR;
-        if(queryParameters.get("user_role").equals("REGISTER"))
+        if(staffMember.getString("user_role").equals("REGISTER"))
             role = Models.Staff_Model.USER_ROLE.REGISTER;
-        if(queryParameters.get("user_role").equals("BILLING"))
+        if(staffMember.getString("user_role").equals("BILLING"))
             role = Models.Staff_Model.USER_ROLE.BILLING;        
        
         
         //System.out.println(queryParameters.get("user_role"));
         try
         {
-            name = queryParameters.get("name");
-            id = Integer.parseInt(queryParameters.get("id"));
-            userName = queryParameters.get("userName");
-            password = queryParameters.get("password");            
+            name = staffMember.getString("name");
+            id = Integer.parseInt(staffMember.getString("id"));
+            userName = staffMember.getString("userName");
+            password = staffMember.getString("password");            
             
           } catch (Exception e)
           {

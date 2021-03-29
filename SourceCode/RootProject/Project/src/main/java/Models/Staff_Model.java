@@ -49,5 +49,10 @@ public class Staff_Model {
 
     public String getPassword() { return password; }
 
+    public String toString()
+    {
+        return
+                "Name: " + getName();
+    }
     
 }
