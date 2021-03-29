@@ -1,0 +1,62 @@
+Tyler Reilly
+Capstone
+Prof. Russell
+24 February 2021
+Deliverable 2 Contribution
+	For deliverable two, my role was to be the recorder. During the short time span of this deliverable, the team had two meetings. I followed Jakob’s method from the previous deliverable as I felt it got everything across that it needed to. That is; time stamping each entry along with action items to be done for each group member.
+In terms of the deliverable itself, I wrote all the use cases for the Nurse and two for the billing staff. Jakob wrote the registration staff and one of the billing use cases, while Yixun focused on the doctor. All in all I’d say our group worked effectively to complete this document. We continued the use of having a meeting before we start the deliverable to assign work assignments to each member and then have another meeting a week later to keep tabs on everyone’s progress and assist when needed. Below you will find the five use cases I created for the billing staff as well as the nurse. Note that I decided to add a description of each case at point ‘b’ to give an overview of the case. The format will be different than what is seen on the SRS, as Jakob will be formatting the document to a standard for all use cases.
+
+addPatientProgress
+Actor: Nurse
+A patient is being monitored in an emergency room by a nurse. The nurse checks on the patient and updates their condition within the system by filling out a form that contains the patient name, id, nurse’s name, time, and a description of the current condition such as their vitals.
+Trigger - Nurse checks on patient.
+Precondition - There is a patient to be looked after.
+Basic Flow:
+Nurse logs in to system
+Nurse clicks on a button that takes them to the Patient Progress form.
+The Nurse fills out the form which requires the patient name, patient id, nurse’s name, the time, and the patients progress.
+Use case terminates upon submission by Nurse.
+Post conditions - Patient Progress has been uploaded to the database for any analysis. 		
+addAdmittedPatient
+Actor: Nurse
+A patient has to be admitted to the hospital and the nurse needs to flag their admission in the hospital database.
+Trigger - Patient is to be admitted
+Basic flow:
+Nurse logs in to system
+Nurse clicks on button that takes them to the admission form
+Nurse fills out a form which requires the nurse to input the reason for admission, patient name, and expected release.
+Use case terminates when submission is complete.
+addDischargePapers
+Actor: Nurse
+A patient is being discharged from hospital care and will be given discharge papers that instruct the patient on anything they need to do at home to take care of themselves. The papers will also include the reason for hospitalization, patients discharge condition, and the attending physician’s signature. Nurse fills out a form with the aforementioned information, uploads it to the database, and prints out the papers to give to the patient.
+Trigger - Patient is ready to be discharged.
+Basic flow:
+Nurse logs in to system
+Nurse clicks on button that takes them to the discharge form
+Nurse fills out the form with the patient’s name, reason for hospitalization, patient’s discharge condition, patient and family instructions (provided by doctor), and the attending physician’s signature.
+Nurse clicks on a button that opens up a window to search for discharge instructions that the doctor uploaded previously.
+The nurse uploads the file to the database by clicking upload button
+Termination of use case when nurse hits print button and prints the papers.
+Post condition - Nurse gives patient discharge papers.
+
+
+4. addFees
+Actor: Billing
+A patient has been occupying a room and has built up an expense to be paid. The billing staff will need to evaluate their total cost since the beginning of their visit to when they are discharged. They will then upload the total cost for the patient to the database as a record and  send the patient their bill.
+Trigger - Patient has been discharged and is ready to receive their bill.
+Basic flow:
+Billing staff logs into system
+Billing staff searches database for patient’s credentials and clicks their name to go to their profile
+Once there, billing staff fills out a form that contains the patient’s credentials, (which are pre-filled), the sum of their bill, and a breakdown of their bill, and any insurance information.
+Billing staff hits submit to terminate use case.
+Post condition - Patient has their bill. 
+5. flagBillPaid
+Actor: Billing
+A patient has received their bill and is to pay it. Once paid, billing staff is to go back to the patient’s profile within the system and flag that they have paid.
+Trigger: Patient has paid their bill must be flagged.
+Basic flow:
+Billing staff has received confirmation that the patient has paid.
+Billing staff searches for the patient's profile within the system.
+Then, when they are on the patient’s profile, they click a radio button that indicates the patient has paid, marked, “YES, patient paid”. 
+To terminate, they click “Save and submit” to upload the edited profile. 
+Post condition: Patient flagged as paid for bill.
