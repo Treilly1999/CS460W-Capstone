@@ -51,7 +51,7 @@ public class Staff_Model {
     
     public String getAddress() { return address; }
 
-    //public String getPassword() { return password; }
+    public String getPassword() { return password; }
 
     public String toString()
     {
