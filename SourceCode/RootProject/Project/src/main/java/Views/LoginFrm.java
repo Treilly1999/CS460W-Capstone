@@ -269,6 +269,6 @@ public class LoginFrm extends JFrame {
     
        //System.out.println("AFTER HASHING: " + sha256hex);
        
-       return staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex);
+       return staffMember.getUserName().equals(user.getText()) && password.getText().equals(sha256hex);
   }
 }

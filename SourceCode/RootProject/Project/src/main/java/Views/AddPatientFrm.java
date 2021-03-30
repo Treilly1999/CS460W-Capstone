@@ -18,12 +18,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.Box;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class AddPatientFrm extends JFrame {
 
+        //Front end variables
 	private JPanel contentPane;
 	private JTextField patientName;
 	private JTextField patientPhone;
@@ -33,9 +36,9 @@ public class AddPatientFrm extends JFrame {
         private JTextField symptoms;
         private JTextField patientPhysician;
         private JTextField patientPhysicianNum;
-        
-        //TODO: Implement these on backend
         private JTextField patientGender;
+        
+        
         Patient patient;
         DBConnection db = new DBConnection();
         LoginManager loginManager;
@@ -95,6 +98,9 @@ public class AddPatientFrm extends JFrame {
                 JLabel lblPhysicianNumber = new JLabel("Physician Number:");
 		lblPhysicianNumber.setFont(new Font("����", Font.PLAIN, 20));
                 
+                JLabel lblGender = new JLabel("Gender:");
+		lblGender.setFont(new Font("����", Font.PLAIN, 20));
+                
 		patientName = new JTextField();
 		patientName.setFont(new Font("����", Font.PLAIN, 20));
 		patientName.setColumns(10);
@@ -126,7 +132,12 @@ public class AddPatientFrm extends JFrame {
                 patientPhysicianNum = new JTextField();
 		patientPhysicianNum.setFont(new Font("����", Font.PLAIN, 20));
 		patientPhysicianNum.setColumns(10);
+                
+                patientGender = new JTextField();
+		patientGender.setFont(new Font("����", Font.PLAIN, 20));
+		patientGender.setColumns(10);
 		
+                
 		JButton btnNewButton = new JButton("Add Patient");
 		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
 		
@@ -149,7 +160,7 @@ public class AddPatientFrm extends JFrame {
 
                                 patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
                                 Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                                symptomList);       
+                                symptomList, patientGender.getText());       
 
                                 String state = db.createPatient(patient);
 
@@ -172,8 +183,28 @@ public class AddPatientFrm extends JFrame {
                 
 		JButton btnReset = new JButton("Reset");
 		btnReset.setFont(new Font("����", Font.PLAIN, 20));
+                btnReset.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        patientName.setText("");
+                        patientPhone.setText("");
+                        patientAge.setText("");
+                        patientProvider.setText("");
+                        patientSSN.setText("");
+                        symptoms.setText("");
+                        patientPhysician.setText("");
+                        patientPhysicianNum.setText("");
+                        patientGender.setText("");
+                    }
+                });
 		
 		JButton btnClose = new JButton("Close");
+                btnClose.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                });
+                
 		btnClose.setFont(new Font("����", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -196,9 +227,11 @@ public class AddPatientFrm extends JFrame {
 								.addComponent(lblSSN, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblSymptoms, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(lblPhysician, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(lblPhysicianNumber, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(lblPhysicianNumber, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lblGender, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
 							.addGap(65)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)                                                                
+                                                                .addComponent(patientGender, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(patientPhysicianNum, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(patientPhysician, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
 								.addComponent(symptoms, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
@@ -244,6 +277,10 @@ public class AddPatientFrm extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPhysicianNumber, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 						.addComponent(patientPhysicianNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblGender, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+						.addComponent(patientGender, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(72)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)

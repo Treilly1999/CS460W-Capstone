@@ -99,6 +99,8 @@ public class DBConnection {
         int age = 1, ssn = 1;
         Boolean admitted = false;   
         
+        String gender = "";
+        
         List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
         List<Symptoms> symptoms = new ArrayList<Symptoms>();
         List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
@@ -115,6 +117,7 @@ public class DBConnection {
             admitted = Boolean.parseBoolean(patients.getString("admitted"));
             provider = patients.getString("provider");
             id = patients.getString("id");  
+            gender = patients.getString("gender");
             
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
             symptoms = buildLists(patients, "symptoms", collection); 
@@ -133,7 +136,7 @@ public class DBConnection {
         
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
-                medicalHistory,  progressReports, dischargeInstructions));
+                medicalHistory,  progressReports, dischargeInstructions, gender));
         
       
     } 
@@ -257,7 +260,8 @@ public class DBConnection {
             //document.put("assignedDoctor", assignedDoctor);
             //document.put("dischargeInstructions", dischargeInstructions);     
             document.put("id", id.toString());        
-            document.put("provider", patient.getProvider());     
+            document.put("provider", patient.getProvider());   
+            document.put("gender", patient.getGender());
             
             patientCollection.insertOne(document);      
             

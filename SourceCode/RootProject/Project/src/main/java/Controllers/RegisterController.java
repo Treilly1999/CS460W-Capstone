@@ -82,9 +82,9 @@ public class RegisterController
                         }
                     }           
                     
-                    patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
-                    Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                    symptomList);       
+                    //patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
+                    //Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
+                   // symptomList);       
 
                     String state = db.createPatient(patient);
 
