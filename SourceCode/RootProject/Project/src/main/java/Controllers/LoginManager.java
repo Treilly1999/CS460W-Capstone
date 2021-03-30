@@ -6,15 +6,10 @@ import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import Controllers.PatientController;
-import Controllers.RegisterController;
 import Models.Staff_Model;
 import Views.AddPatientFrm;
 import Views.LoginFrm;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
-import javafx.scene.paint.Color;
 
 /** Manages control flow for logins */
 public class LoginManager {

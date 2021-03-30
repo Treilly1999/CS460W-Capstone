@@ -51,6 +51,7 @@ public class Staff_Model {
     
     public String getAddress() { return address; }
 
+    //TODO: Test password security when it is public
     public String getPassword() { return password; }
 
     public String toString()

@@ -6,12 +6,15 @@ package Controllers;
  * and open the template in the editor.
  */
 
+import Models.Diagnoses;
  import Models.MedicalHistory;
+import Models.Medications;
  import com.mongodb.MongoClient;
  import Models.Patient;
  import Models.ProgressReport;
-import Models.Staff_Model;
+ import Models.Staff_Model;
  import Models.Symptoms;
+import Models.Tests_procedures;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
  import com.mongodb.client.*;
@@ -20,7 +23,6 @@ import Models.Staff_Model;
  import java.util.*;
  import java.util.ArrayList;
  import java.lang.Integer;
- import java.util.Scanner;
 /**
  *
  * @author Tyler
@@ -130,9 +132,7 @@ public class DBConnection {
           }
         
         Document patientID = new Document();
-        patientID.put("patientID", "" + id);
-        
-        
+        patientID.put("patientID", "" + id);  
         
         patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
@@ -171,7 +171,7 @@ public class DBConnection {
                     returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
                 }
             }
-            if(type.equals("medicalHistory"))
+            else if(type.equals("medicalHistory"))
             {
                 for(Document medHis : insideArray)
                 {
@@ -185,32 +185,90 @@ public class DBConnection {
     }
     
  // ---------------------------------------------------------
-     /*
-     Author: Tyler Reilly
-     Description: Updates a single entry or all entries in the given collection.
-     TODO: NEEDS DYNAMIC TYPES, Object type? && TEST MORE
-     */
-    public static void updateEntry(String collectionName, String field, Object value, String afterField, Object afterValue, Boolean isMultiple)
+   /*
+    Author: Tyler Reilly
+    Description: Updates one or many of the found documents with update.
+    TODO: Refactor without objModel
+    */    
+    public Boolean update(Staff_Model user, Patient patient, String type, Object objModel)
     {
+        //Query
+        Document patientID = new Document();
+        patientID.put("id", patient.getID());
         
-        //MongoClient mongoClient = new MongoClient("localhost", 27017);
-        //MongoDatabase database = mongoClient.getDatabase("hospital");
-
-        MongoCollection<Document> collection = database.getCollection(collectionName);    
+        Boolean successful = false;
+        MongoCollection<Document> collection = database.getCollection("patients");
+        Document update = new Document();
         
-        if(isMultiple)
+        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
         {
-            collection.updateMany(eq(field, value), new Document("$set", new Document(afterField, afterValue)));
-            System.out.println("Update all entries from " + value + " to " + afterValue);
+            if(type.equals("medications"))
+            {
+                for(int i = 0; i < patient.getMedications().size(); i++)
+                {
+                    createMedications(patient.getMedications().get(i), user, collection,patientID);
+                    successful = true;
+                }
+            }
+            else if(type.equals("diagnosis"))
+            {
+                for(int i = 0; i < patient.getDiagnosis().size(); i++)
+                {
+                    createDiagnosis(patient.getDiagnosis().get(i),user, collection, patientID);
+                    successful = true;
+                }
+            }
+            else if(type.equals("tests"))
+            {
+                for(int i = 0; i <patient.getTests().size(); i++)
+                {
+                    createTestsProcedures(patient.getTests().get(i), user, collection, patientID);
+                    successful = true;
+                }
+            }
+        }
+        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
+        {
+            if(type.equals("progressReport"))
+            {
+                ProgressReport progress = (ProgressReport)objModel;
+                createProgressReports(progress, user, collection, patientID);
+                successful = true;
+            }
+            else if(type.equals("admitted"))
+            {
+                String admission = (String)objModel;
+                update.put("admitted", admission);
+                updateDocument(collection, patientID, update, false);
+                successful = true;
+            }
+        }
+        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
+        {
+            
+        }
+        
+        return successful;        
+    }
+ 
+            
+    
+    public Boolean updateDocument(MongoCollection<Document> collection, Document find, Document update, Boolean multiple)
+    {        
+        Boolean successUpdate = false;
+        
+        if(multiple)
+        {
+            collection.updateMany(eq(find), new Document("$set", update));
+            successUpdate = true;            
         }
         else
         {
-            
-            collection.updateOne(eq(field, value), new Document("$set", new Document(afterField, afterValue)));
-            System.out.println("Updated the entry where " + value
-            + " is met and changed it to " + afterValue);
+            collection.updateOne(eq(find), new Document("$set", update));
+            successUpdate = true;
         }
         
+        return successUpdate;
     }
     
 //---------------------------------------------------
@@ -322,14 +380,69 @@ public class DBConnection {
     */
     public static void createProgressReports(ProgressReport progressRep, Staff_Model staff, MongoCollection<Document> patientCollection, Document find)
     {       
-        Document progressDoc = new Document();
+        if(staff.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
+        {
+            Document progressDoc = new Document();
+
+            progressDoc.put("nurse", progressRep.getNurseName());
+            progressDoc.put("nurseID", "" + staff.getID());
+            progressDoc.put("date", progressRep.getDate());
+            progressDoc.put("report", progressRep.getNote());
+
+            patientCollection.updateOne(find, new Document("$push", new Document("symptoms", progressDoc)));        
+        }
+    }
+    
+     /*
+    Author: Tyler Reilly
+    Description: Called when a doctor assigns a diagnosis for a patient
+    */
+    public static void createDiagnosis(Diagnoses diagnosis, Staff_Model staff, MongoCollection<Document> patientCollection, Document find)
+    {
+        if(staff.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
+        {
+            Document diagnosisDoc = new Document();
         
-        progressDoc.put("nurse", progressRep.getNurseName());
-        progressDoc.put("nurseID", "" + staff.getID());
-        progressDoc.put("date", progressRep.getDate());
-        progressDoc.put("report", progressRep.getNote());
+            diagnosisDoc.put("diagnostic", diagnosis.toString());
+            diagnosisDoc.put("doctorID", staff.getID());
+
+            patientCollection.updateOne(find, new Document("$push", new Document("diagnosis", diagnosisDoc)));
+        }
         
-        patientCollection.updateOne(find, new Document("$push", new Document("symptoms", progressDoc)));         
+    }
+    
+    /*
+    Author: Tyler Reilly
+    Description: Called when a doctor is ordering tests for patient
+    */
+    public static void createTestsProcedures(Tests_procedures tests, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
+    {
+        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
+        {
+            Document testsDoc = new Document();
+            
+            testsDoc.put("test", tests.toString());
+            testsDoc.put("doctorID", user.getID());
+
+            patientCollection.updateOne(find, new Document("$push", new Document("tests", testsDoc)));
+        }       
+    }
+    
+    /*
+    Author: Tyler Reilly
+    Description: Called when a doctor is assigning medication for a patient    
+    */
+    public static void createMedications(Medications medication, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
+    {
+        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
+        {
+            Document medDoc = new Document();
+            
+            medDoc.put("medication", medication.toString());
+            medDoc.put("doctorID", user.getID());
+
+            patientCollection.updateOne(find, new Document("$push", new Document("medications", medDoc)));
+        }       
     }
 }
     

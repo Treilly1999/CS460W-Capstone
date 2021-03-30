@@ -134,6 +134,8 @@ public class Patient {
     public String getAssignedDoctor() { return assignedDoctor.get(); }
     public void setAssignedDoctor(SimpleStringProperty assignedDoctor) { this.assignedDoctor = assignedDoctor; }
     
+    public Boolean getAdmittedBool() { return admitted; }
+    
     public String getAdmitted() 
     {
         String admittedString;
@@ -162,16 +164,16 @@ public class Patient {
     
     
     //Author: Jakob
-    public ArrayList<Diagnoses> getDiagnoses() { return diagnoses; }
+    public ArrayList<Diagnoses> getDiagnosis() { return diagnoses; }
     public void addDiagnosis(Diagnoses d) { diagnoses.add(d); }
     
     //Author: Jakob
     public ArrayList<Tests_procedures> getTests() { return tests_procedures; }
-    public void addDiagnosis(Tests_procedures t) { tests_procedures.add(t); }
+    public void addTests(Tests_procedures t) { tests_procedures.add(t); }
     
     //Author: Jakob
     public ArrayList<Medications> getMedications() { return medications; }
-    public void addDiagnosis(Medications m) { medications.add(m); }
+    public void addMedication(Medications m) { medications.add(m); }
     
     public String toString()
     {
