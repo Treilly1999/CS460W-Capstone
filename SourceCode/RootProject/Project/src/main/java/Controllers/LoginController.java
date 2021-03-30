@@ -66,7 +66,7 @@ public class LoginController {
                     errorMessage.setTextFill(Color.web("#0076a3"));
                 }
                 //System.out.println("BEFORE AUTHORZE");
-                Boolean accepted = authorize(currentUser);
+                Boolean accepted = false; //authorize(currentUser);
                 //System.out.println("AFTER AUTHORZE");
                 if (accepted) {
                   loginManager.authenticated(currentUser);
@@ -168,16 +168,16 @@ public class LoginController {
   /**
    * Check authorization credentials.
    */   
-  private Boolean authorize(Staff_Model staffMember) {
-       //System.out.println("INSIDE AUTHORZE");
-       //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
-       
-       //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT
-       sha256hex = Hashing.sha256().hashString(password.getText(), StandardCharsets.UTF_8).toString();
-    
-       //System.out.println("AFTER HASHING: " + sha256hex);
-       
-       return staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex);
-  }
+//  private Boolean authorize(Staff_Model staffMember) {
+//       //System.out.println("INSIDE AUTHORZE");
+//       //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
+//       
+//       //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT
+//       sha256hex = Hashing.sha256().hashString(password.getText(), StandardCharsets.UTF_8).toString();
+//    
+//       //System.out.println("AFTER HASHING: " + sha256hex);
+//       
+//       return staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex);
+//  }
  
 }

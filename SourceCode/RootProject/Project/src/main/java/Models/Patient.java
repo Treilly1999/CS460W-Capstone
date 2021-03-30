@@ -18,10 +18,14 @@ import javafx.beans.property.SimpleLongProperty;
  */
 public class Patient {    
     
+    
+    
     private SimpleStringProperty  name;
     private SimpleIntegerProperty  age;     
     private SimpleStringProperty phoneNumber;
-    private String  id; 
+    private String id; 
+    private SimpleStringProperty gender;
+    private SimpleStringProperty address;
     
     private SimpleStringProperty provider; 
     
@@ -40,17 +44,21 @@ public class Patient {
     private SimpleStringProperty assignedDoctor;
     private Boolean admitted;
     
+    private ArrayList<Diagnoses> diagnoses;
+    private ArrayList<Tests_procedures> tests_procedures;
+    private ArrayList<Medications> medications;
+    
     //TODO: Implement allergies, current medications
     //private List<Allergies> allergies;
-    //private List<Medications> medications;
     
     public Patient()
     {
         
     }
     
+    //Initial creation without the variables that are added once they are in the system
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<Symptoms> symptoms)
+            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -60,11 +68,14 @@ public class Patient {
         this.physicianNumber = new SimpleStringProperty(physicianNumber);
         this.provider = new SimpleStringProperty(provider);
         this.symptoms = symptoms;
+        this.gender = new SimpleStringProperty(gender);
     }
     
+    
+    //Retrieve all variables after everything is set
     public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
-            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions)
+            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -80,6 +91,7 @@ public class Patient {
         this.medicalHistory = medicalHistory;
         this.progressReports = progressReports;
         this.symptoms = symptoms;
+        this.gender = new SimpleStringProperty(gender);
     }
     
     public String getID() { return id; }
@@ -141,6 +153,25 @@ public class Patient {
     
     public List<ProgressReport> getProgressReports() { return progressReports; }
     public void setProgressReports(ProgressReport report) { progressReports.add(report); }
+    
+    public String getGender() { return gender.get(); }
+    public void setString(String gender) { this.gender = new SimpleStringProperty(gender); }
+    
+    public String getAddress() { return address.get(); }
+    public void setAddress(String address) { this.address = new SimpleStringProperty(address); }
+    
+    
+    //Author: Jakob
+    public ArrayList<Diagnoses> getDiagnoses() { return diagnoses; }
+    public void addDiagnosis(Diagnoses d) { diagnoses.add(d); }
+    
+    //Author: Jakob
+    public ArrayList<Tests_procedures> getTests() { return tests_procedures; }
+    public void addDiagnosis(Tests_procedures t) { tests_procedures.add(t); }
+    
+    //Author: Jakob
+    public ArrayList<Medications> getMedications() { return medications; }
+    public void addDiagnosis(Medications m) { medications.add(m); }
     
     public String toString()
     {

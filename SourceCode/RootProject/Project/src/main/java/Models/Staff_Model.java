@@ -21,9 +21,11 @@ public class Staff_Model {
         DEFAULT
     }
     
-    USER_ROLE role;
-    int id;
-    String name, userName, password;
+    private USER_ROLE role;
+    private int id;
+    private String name, userName, password, address;
+    
+    //TODO: Implement address to backend
     
     //uses google Guava library to encrypt password
     //will need revision
@@ -46,6 +48,8 @@ public class Staff_Model {
     public String getName() { return name; }
     
     public String getUserName() { return userName; }
+    
+    public String getAddress() { return address; }
 
     public String getPassword() { return password; }
 

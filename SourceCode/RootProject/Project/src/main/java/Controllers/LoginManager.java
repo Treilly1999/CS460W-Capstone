@@ -10,6 +10,7 @@ import Controllers.RegisterController;
 import Models.Staff_Model;
 import Views.AddPatientFrm;
 import Views.LoginFrm;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -72,13 +73,18 @@ public class LoginManager {
   public void logout() {
     showLoginScreen();
   }  
+  
+  private LoginFrm loginFrame;
+  private AddPatientFrm registerFrame;
+  
   public void showLoginScreen() {
       LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginFrm frame = new LoginFrm(login);
-					frame.setVisible(true);
+					loginFrame = new LoginFrm(login);
+                                        loginFrame.setSize(1200,800);
+					loginFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -104,17 +110,17 @@ public class LoginManager {
   private void showNurseView(Staff_Model user) {
     try {
 
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/nurseView.fxml"));
-    Parent root = loader.load();        
-    scene.setRoot(root);
-    NurseController controller = 
-    loader.<NurseController>getController();
-    controller.initNurse(this, user);
-    //controller.initSessionID(this, sessionID);
-    } catch (IOException ex) {
-      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nurseView.fxml"));
+        Parent root = loader.load();        
+        scene.setRoot(root);
+        NurseController controller = 
+        loader.<NurseController>getController();
+        controller.initNurse(this, user);
+        //controller.initSessionID(this, sessionID);
+        } catch (IOException ex) {
+          Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
   }
   
    /**
@@ -144,8 +150,10 @@ public class LoginManager {
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddPatientFrm frame = new AddPatientFrm(login, user);
-					frame.setVisible(true);
+					registerFrame = new AddPatientFrm(login, user);
+                                        registerFrame.setSize(1200,800);
+					registerFrame.setVisible(true);
+                                        loginFrame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
