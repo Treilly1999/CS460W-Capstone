@@ -1,6 +1,7 @@
 package Views;
 
-import java.awt.BorderLayout;
+import Controllers.LoginManager;
+import Models.Staff_Model;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -35,23 +36,23 @@ public class AddDiagnosisFrm extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddDiagnosisFrm frame = new AddDiagnosisFrm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AddDiagnosisFrm frame = new AddDiagnosisFrm();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AddDiagnosisFrm() {
+	public AddDiagnosisFrm(final LoginManager loginManager, Staff_Model user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1147, 897);
 		contentPane = new JPanel();
@@ -59,27 +60,27 @@ public class AddDiagnosisFrm extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblNewLabel = new JLabel("Patient ID :");
-		lblNewLabel.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		textField = new JTextField();
-		textField.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		textField.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Search");
-		btnNewButton.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		table.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		table.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JLabel lblSymptom = new JLabel("Symptom");
-		lblSymptom.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblSymptom.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JLabel lblDiagnosis = new JLabel("Diagnosis");
-		lblDiagnosis.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblDiagnosis.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JLabel lblMedicines = new JLabel("Medicines");
-		lblMedicines.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblMedicines.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -99,10 +100,10 @@ public class AddDiagnosisFrm extends JFrame {
 		comboBox_2 = new JComboBox();
 		
 		btnNewButton_1 = new JButton("Update");
-		btnNewButton_1.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnNewButton_1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		btnNewButton_2 = new JButton("Close");
-		btnNewButton_2.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnNewButton_2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

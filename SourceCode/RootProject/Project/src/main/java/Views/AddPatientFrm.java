@@ -5,8 +5,6 @@ import Controllers.LoginManager;
 import Models.Patient;
 import Models.Staff_Model;
 import Models.Symptoms;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,13 +16,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.Box;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class AddPatientFrm extends JFrame {
+public class AddPatientFrm{
 
         //Front end variables
 	private JPanel contentPane;
@@ -39,38 +34,24 @@ public class AddPatientFrm extends JFrame {
         private JTextField patientGender;
         
         
+        public JPanel getPatientFormPanel() { return contentPane; }
+        
         Patient patient;
         DBConnection db = new DBConnection();
         LoginManager loginManager;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AddPatientFrm frame = new AddPatientFrm();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-	}
 
       	/**
 	 * Create the frame.
 	 */
 	public AddPatientFrm(final LoginManager loginManager, Staff_Model user) {
                 
-                this.loginManager = loginManager;
-            
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1045, 687);
+                            
+                //loginManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//loginManager.setBounds(100, 100, 1045, 687);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		loginManager.setContentPane(contentPane);
                 
                 JLabel serverMessage = new JLabel();
 		
@@ -166,7 +147,7 @@ public class AddPatientFrm extends JFrame {
 
                                 if(state.equals("SUCCESSFUL"))
                                 {
-                                    //Show new screen
+                                  //Show new screen
                                   // showRegisterSecondary(user, loginManager.getScene());
                                 }
                                 else
@@ -198,10 +179,10 @@ public class AddPatientFrm extends JFrame {
                     }
                 });
 		
-		JButton btnClose = new JButton("Close");
+		JButton btnClose = new JButton("Logout");
                 btnClose.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        System.exit(0);
+                        loginManager.logout();
                     }
                 });
                 

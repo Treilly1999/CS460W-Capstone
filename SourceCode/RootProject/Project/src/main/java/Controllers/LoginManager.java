@@ -6,18 +6,15 @@ import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import Controllers.PatientController;
-import Controllers.RegisterController;
 import Models.Staff_Model;
+import Views.AddDiagnosisFrm;
 import Views.AddPatientFrm;
 import Views.LoginFrm;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
-import javafx.scene.paint.Color;
+import javax.swing.JFrame;
 
 /** Manages control flow for logins */
-public class LoginManager {
+public class LoginManager extends JFrame {
   private Scene scene;
 
   public LoginManager(Scene scene) {
@@ -42,7 +39,7 @@ public class LoginManager {
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
         {
-            showPatientList();
+            showPatientList(user);
         }
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
         {
@@ -76,6 +73,8 @@ public class LoginManager {
   
   private LoginFrm loginFrame;
   private AddPatientFrm registerFrame;
+  private AddDiagnosisFrm diagnosisFrame;
+  private JFrame mainFrame;
   
   public void showLoginScreen() {
       LoginManager login = this;
@@ -83,8 +82,9 @@ public class LoginManager {
 			public void run() {
 				try {
 					loginFrame = new LoginFrm(login);
-                                        loginFrame.setSize(1200,800);
-					loginFrame.setVisible(true);
+                                        setContentPane(loginFrame.getLoginForm());
+                                        setSize(1200,800);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -127,22 +127,20 @@ public class LoginManager {
    * Author: Tyler
    * Description: Will show the patientList application screen.
    */ 
-  private void showPatientList() {
-    try {
-
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/FXMLDocument.fxml"));
-    Parent root = loader.load();        
-    scene.setRoot(root);
-    
-    PatientController controller = 
-    loader.<PatientController>getController();
-    controller.initPatientList(this);
-    
-    } catch (IOException ex) {
-      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
+  private void showPatientList(Staff_Model user) {
+    LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					diagnosisFrame = new AddDiagnosisFrm(login, user);
+                                        diagnosisFrame.setSize(1200,800);
+					diagnosisFrame.setVisible(true);
+                                        //loginFrame.setVisible(false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
   }
   
   private void showRegisterMain(Staff_Model user) {
@@ -151,9 +149,10 @@ public class LoginManager {
 			public void run() {
 				try {
 					registerFrame = new AddPatientFrm(login, user);
-                                        registerFrame.setSize(1200,800);
-					registerFrame.setVisible(true);
-                                        loginFrame.setVisible(false);
+                                        setContentPane(registerFrame.getPatientFormPanel());
+                                        //registerFrame.setSize(1200,800);
+					//registerFrame.setVisible(true);
+                                        //loginFrame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

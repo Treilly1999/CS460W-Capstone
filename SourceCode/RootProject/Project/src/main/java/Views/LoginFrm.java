@@ -7,6 +7,8 @@ import com.google.common.hash.Hashing;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import java.nio.charset.StandardCharsets;
+import org.bson.Document;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,23 +18,21 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.WindowAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.nio.charset.StandardCharsets;
 import javax.swing.JPasswordField;
-import org.bson.Document;
 
-public class LoginFrm extends JFrame {
+public class LoginFrm {
 
 	private JPanel contentPane;
-        //username
-	private JTextField user;        
-        //password
-	private JPasswordField password;
+	private JTextField user;
+	private JPasswordField passwordField;
+        
         private String sha256hex;
-        private JLabel errorMessage;
         
         Document staffQuery = new Document();
         private Staff_Model currentUser;      
@@ -42,36 +42,22 @@ public class LoginFrm extends JFrame {
             return currentUser;
         }
         
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LoginFrm frame = new LoginFrm();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+        public JPanel getLoginForm() { return contentPane; }
 
 	/**
 	 * Create the frame.
 	 */
 	public LoginFrm(final LoginManager loginManager) {
-		addWindowListener(new WindowAdapter() {
-		});
-		setTitle("LogIn Interface");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 615, 503);
+//		addWindowListener(new WindowAdapter() {
+//		});
+//		setTitle("Hospital System");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setBounds(100, 100, 849, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		//setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hospital Management System");
+		JLabel lblNewLabel = new JLabel("Hospital Mangement System");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 25));
 		
 		JLabel lblNewLabel_1 = new JLabel("User Name :");
@@ -83,15 +69,15 @@ public class LoginFrm extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("User Password :");
 		lblNewLabel_2.setFont(new Font("Arial Black", Font.PLAIN, 20));
 		
-		password = new JPasswordField();
-		password.setColumns(10);
-		
 		JLabel lblNewLabel_3 = new JLabel("User Type");
 		lblNewLabel_3.setFont(new Font("Arial Black", Font.PLAIN, 20));
+                
+                JLabel errorMessage = new JLabel();
+		errorMessage.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
 		
-		//JComboBox comboBox = new JComboBox();
-		//comboBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		//comboBox.setModel(new DefaultComboBoxModel(new String[] {"Admin", "Register", "Doctor", "Nurse", "Biller"}));
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Admin", "Register", "Doctor", "Nurse", "Biller"}));
 		
 		JButton btnNewButton = new JButton("Log In");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -127,6 +113,12 @@ public class LoginFrm extends JFrame {
                                
 			}
 		});
+		
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		
+		
+                
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -140,9 +132,9 @@ public class LoginFrm extends JFrame {
 								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								//.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(password, 174, 174, 174)
-								.addComponent(user, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(user, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(84)
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
@@ -151,6 +143,10 @@ public class LoginFrm extends JFrame {
 					.addContainerGap(248, Short.MAX_VALUE)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 					.addGap(224))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(372)
+					.addComponent(errorMessage, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(185, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -164,18 +160,20 @@ public class LoginFrm extends JFrame {
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
-						.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_3)
-						//.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(58)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					//.addContainerGap(67, Short.MAX_VALUE)
-                                        )
-		));
+					.addGap(34)
+					.addComponent(errorMessage, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(35, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
+
         
         /*
     Author: Tyler
@@ -265,7 +263,7 @@ public class LoginFrm extends JFrame {
        //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
        
        //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT
-       sha256hex = Hashing.sha256().hashString(password.getText(), StandardCharsets.UTF_8).toString();
+       sha256hex = Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString();
     
        //System.out.println("AFTER HASHING: " + sha256hex);
        
