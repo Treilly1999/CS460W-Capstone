@@ -6,15 +6,15 @@ package Controllers;
  * and open the template in the editor.
  */
 
-import Models.Diagnoses;
+ import Models.Diagnoses;
  import Models.MedicalHistory;
-import Models.Medications;
+ import Models.Medications;
  import com.mongodb.MongoClient;
  import Models.Patient;
  import Models.ProgressReport;
  import Models.Staff_Model;
  import Models.Symptoms;
-import Models.Tests_procedures;
+ import Models.Tests_procedures;
  import com.mongodb.client.MongoCollection;
  import com.mongodb.client.MongoDatabase;
  import com.mongodb.client.*;
@@ -32,6 +32,7 @@ import Models.Tests_procedures;
  */
 public class DBConnection {
     
+    //TODO: Research MongoDB date object
     static ArrayList<Patient> patientList = new ArrayList<Patient>();
     
     public ArrayList<Patient> getPatients()
@@ -48,6 +49,8 @@ public class DBConnection {
     Author: Tyler
     Description: Parses the database for all patients or specific patients that
     match a query. 
+    
+    USE PATIENT SSN || NAME || ID to search
     */
     public ArrayList<Patient> parsePatients(Document query)
     {       
@@ -143,8 +146,8 @@ public class DBConnection {
     
     /*
     Author: Tyler Reilly
-    Description: Buildsthe medical history,  symptoms, and progress reports for patient. 
-    TODO: Refactor to where the collection isnt queried each time.
+    Description: Builds the medical history,  symptoms, and progress reports for patient. 
+    TODO: Refactor to where the collection isnt queried each time. || Might need a query || Use storage instead of the List<Document> patients
     */
     public <T> List<T> buildLists(Document storage, String type, MongoCollection<Document> collection)
     {
@@ -243,6 +246,7 @@ public class DBConnection {
                 successful = true;
             }
         }
+        //TODO: Implement Billing
         else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
         {
             

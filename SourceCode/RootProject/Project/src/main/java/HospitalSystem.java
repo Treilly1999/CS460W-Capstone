@@ -17,6 +17,8 @@ import java.net.URL;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import Controllers.LoginManager;
+import Views.AddDiagnosisFrm;
+import java.awt.EventQueue;
 /**
  *
  * @author Tyler
@@ -32,9 +34,17 @@ public class HospitalSystem extends Application {
         */
         
         //Scene scene = new Scene(new StackPane());
-    
-        LoginManager loginManager = new LoginManager();
-        loginManager.showLoginScreen();        
+        EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                        try {
+                                LoginManager loginManager = new LoginManager();
+                                loginManager.showLoginScreen();      
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                        }
+                }
+        });
+          
         
         //Scene scene = new Scene(root);
         
