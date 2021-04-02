@@ -39,22 +39,6 @@ public class AddDiagnosisFrm {
 	private JButton btnNewButton_2;
 
 	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AddDiagnosisFrm frame = new AddDiagnosisFrm();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
 	 * Create the frame.
 	 */
 	public AddDiagnosisFrm(final LoginManager loginManager, Staff_Model user) {

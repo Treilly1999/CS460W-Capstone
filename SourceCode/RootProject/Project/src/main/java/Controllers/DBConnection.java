@@ -103,12 +103,14 @@ public class DBConnection {
               provider = "", phoneNumber = "", id = "";
         int age = 1, ssn = 1;
         Boolean admitted = false;   
-        
+        //TODO: Convert to date
+        Date dateOfBirth = new Date();
         String gender = "";
         
         List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
         List<Symptoms> symptoms = new ArrayList<Symptoms>();
         List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
+        List<String> allergies = new ArrayList<String>();
         try
         {
             name = patients.getString("name");
@@ -123,7 +125,9 @@ public class DBConnection {
             provider = patients.getString("provider");
             id = patients.getString("id");  
             gender = patients.getString("gender");
+            dateOfBirth = patients.getDate("dateOfBirth");
             
+            allergies = buildLists(patients, "allergies", collection);
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
             symptoms = buildLists(patients, "symptoms", collection); 
             progressReports = buildLists(patients, "progressReports", collection); 
@@ -179,6 +183,13 @@ public class DBConnection {
                 for(Document medHis : insideArray)
                 {
                     returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
+                }
+            }
+            else if(type.equals("allergies"))
+            {
+                for(Document allergy: insideArray)
+                {
+                    returnList.add((T)new String(allergy.getString("allergy")));
                 }
             }
             
@@ -301,7 +312,7 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Creates a patient using a patient object.
     */
-    public static String createPatient(Patient patient)
+    public static String createPatient(Patient patient, Staff_Model user)
     {
         MongoCollection<Document> patientCollection = database.getCollection("patients");            
             
@@ -324,6 +335,7 @@ public class DBConnection {
             document.put("id", id.toString());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
+            document.put("dateOfBirth", patient.getDateOfBirth());
             
             patientCollection.insertOne(document);      
             
@@ -333,6 +345,10 @@ public class DBConnection {
             for(int i = 0; i<patient.getSymptoms().size(); i++)
             {
                 createSymptoms(patient.getSymptoms().get(i), patientCollection, patientID);
+            }
+            for(int i = 0; i<patient.getAllergies().size(); i++)
+            {
+                createAllergies(patient.getAllergies().get(i), user, patientCollection, patientID);
             }
             //Med his not implemented yet
 //            for(int i = 0; i < patient.getMedicalHistory().size(); i++)
@@ -447,6 +463,17 @@ public class DBConnection {
 
             patientCollection.updateOne(find, new Document("$push", new Document("medications", medDoc)));
         }       
+    }
+    
+    public static void createAllergies(String allergy, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
+    {
+        
+        Document allergyDoc = new Document();
+
+        allergyDoc.put("allergy", allergy);
+
+        patientCollection.updateOne(find, new Document("$push", new Document("allergies", allergyDoc)));
+             
     }
 }
     

@@ -30,9 +30,7 @@ public class AddPatientFrm {
         private JTextField patientPhysician;
         private JTextField patientPhysicianNum;
         private JTextField patientGender;
-        
-        //IMPERATIVE METHOD USED BY LOGINMANAGER
-        public JPanel getPatientFormPanel() { return contentPane; }
+        private JTextField allergies;
         
         Patient patient;
         DBConnection db = new DBConnection();
@@ -162,13 +160,24 @@ public class AddPatientFrm {
                                         Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
                                         symptomList.add(symptom);
                                     }
-                                }           
+                                }  
+                                ArrayList<String> allergyList = new ArrayList<String>();  
+                                if(!allergies.getText().isEmpty())
+                                {
+                                    String[] allergieValues = allergies.getText().split(",");                                         
+
+                                    for(int i = 0; i < allergieValues.length; i++)
+                                    {
+                                        String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+                                        allergyList.add(allergy);
+                                    }
+                                } 
 
                                 patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
                                 Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                                symptomList, patientGender.getText());       
+                                symptomList, patientGender.getText(), allergyList);       
 
-                                String state = db.createPatient(patient);
+                                String state = db.createPatient(patient, user);
 
                                 if(state.equals("SUCCESSFUL"))
                                 {

@@ -62,45 +62,7 @@ public class RegisterController
         this.loginManager = loginManager;        
         
         
-        //TODO: Split ssn for parsing 
-        submitForm.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                if(!patientName.getText().isEmpty() && !patientAge.getText().isEmpty() && !patientPhone.getText().isEmpty() && !patientProvider.getText().isEmpty()
-                        && !patientSSN.getText().isEmpty() && !patientPhysician.getText().isEmpty() && !patientPhysicianNum.getText().isEmpty())
-                {
-                    ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
-                    if(!symptoms.getText().isEmpty())
-                    {
-                        String[] symptomValues = symptoms.getText().split(",");                                         
-
-                        for(int i = 0; i < symptomValues.length; i++)
-                        {
-                            Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
-                            symptomList.add(symptom);
-                        }
-                    }           
-                    
-                    //patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
-                    //Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                   // symptomList);       
-
-                    String state = db.createPatient(patient);
-
-                    if(state.equals("SUCCESSFUL"))
-                    {
-                        showRegisterSecondary(user, loginManager.getScene());
-                    }
-                    else
-                    {
-                        serverMessage.setText("Could not add patient. Please try again.");
-                    }
-                }
-                else
-                {
-                    serverMessage.setText("You left a field blank.");
-                }   
-            }
-        });
+      
         
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
