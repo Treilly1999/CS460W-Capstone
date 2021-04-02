@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import org.jdatepicker.JDatePicker;
 
 public class AddPatientFrm {
 
@@ -31,6 +32,7 @@ public class AddPatientFrm {
         private JTextField patientPhysicianNum;
         private JTextField patientGender;
         private JTextField allergies;
+        private JDatePicker dateOfBirth;
         
         Patient patient;
         DBConnection db = new DBConnection();
