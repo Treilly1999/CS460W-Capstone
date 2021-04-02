@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.LoginManager;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,36 +13,26 @@ import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import Controllers.LoginManager;
+import Models.Staff_Model;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainFrm extends JFrame {
+public class MainFrm {
 
 	private JPanel contentPane;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrm frame = new MainFrm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public MainFrm() {
-		setTitle("Main Interface");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 928, 848);
+	public MainFrm(final LoginManager loginManager, Staff_Model user) {
+		//setTitle("Main Interface");
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setBounds(100, 100, 928, 848);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		loginManager.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu_2 = new JMenu("Patient");
 		mnNewMenu_2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
@@ -62,6 +53,12 @@ public class MainFrm extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Log out");
 		mntmNewMenuItem_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		mnNewMenu.add(mntmNewMenuItem_1);
+                
+                mntmNewMenuItem_1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loginManager.logout();
+                    }
+                });
 		
 		JMenu mnNewMenu_1 = new JMenu("Help");
 		mnNewMenu_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
@@ -72,22 +69,76 @@ public class MainFrm extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		loginManager.setContentPane(contentPane);
 		
+                
+                //-----------------USER SPECIFIC BUTTONS-----------------------
 		JButton btnNewButton = new JButton("Add Patient Record");
 		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
+                btnNewButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loginManager.showRegisterPanel(user);
+                    }
+                });
 		
 		JButton btnAddDiagno = new JButton("Add Diagnosis Information");
 		btnAddDiagno.setFont(new Font("����", Font.PLAIN, 20));
+                btnAddDiagno.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loginManager.showDiagnosisPanel(user);
+                    }
+                });
 		
 		JButton btnUpdatePatientRecord = new JButton("Update Patient Record");
 		btnUpdatePatientRecord.setFont(new Font("����", Font.PLAIN, 20));
+                btnUpdatePatientRecord.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //TODO: Add view for updating
+                    }
+                });
 		
 		JButton btnCheckPatientRecord = new JButton("Check Patient Record");
 		btnCheckPatientRecord.setFont(new Font("����", Font.PLAIN, 20));
+                btnCheckPatientRecord.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //TODO: Add view for searching patient
+                    }
+                });
 		
 		JButton btnBilling = new JButton("Billing ");
 		btnBilling.setFont(new Font("����", Font.PLAIN, 20));
+                btnBilling.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //TODO: Add view for billing
+                    }
+                });
+                
+                if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER)
+                {
+                    btnAddDiagno.setVisible(false);
+                    btnUpdatePatientRecord.setVisible(false);
+                    btnCheckPatientRecord.setVisible(false);
+                    btnBilling.setVisible(false);                    
+                }
+                else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
+                {
+                    btnNewButton.setVisible(false);
+                    btnAddDiagno.setVisible(false);
+                    btnBilling.setVisible(false);   
+                }
+                else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
+                {
+                    btnNewButton.setVisible(false);
+                    btnBilling.setVisible(false);
+                }
+                else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
+                {
+                    btnNewButton.setVisible(false);
+                    btnAddDiagno.setVisible(false);
+                    btnUpdatePatientRecord.setVisible(false);
+                    btnCheckPatientRecord.setVisible(false);
+                }
+                
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

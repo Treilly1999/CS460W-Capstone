@@ -25,6 +25,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 
 public class LoginFrm {
 
@@ -57,7 +58,7 @@ public class LoginFrm {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hospital Mangement System");
+		JLabel lblNewLabel = new JLabel("Hospital Management System");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 25));
 		
 		JLabel lblNewLabel_1 = new JLabel("User Name :");
@@ -72,8 +73,12 @@ public class LoginFrm {
 		JLabel lblNewLabel_3 = new JLabel("User Type");
 		lblNewLabel_3.setFont(new Font("Arial Black", Font.PLAIN, 20));
                 
-                JLabel errorMessage = new JLabel();
+                JTextArea errorMessage = new JTextArea();
 		errorMessage.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+                errorMessage.setLineWrap(true);
+                errorMessage.setWrapStyleWord(true);
+                errorMessage.setOpaque(false);
+                errorMessage.setEditable(false);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 20));

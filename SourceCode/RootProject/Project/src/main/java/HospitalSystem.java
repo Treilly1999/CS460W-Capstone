@@ -26,35 +26,18 @@ import java.awt.EventQueue;
 public class HospitalSystem extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-        /*
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/login.fxml"));
-        Parent root = loader.load();
-        */
-        
-        //Scene scene = new Scene(new StackPane());
+    public void start(Stage stage) throws Exception {        
         EventQueue.invokeLater(new Runnable() {
                 public void run() {
                         try {
                                 LoginManager loginManager = new LoginManager();
-                                loginManager.showLoginScreen();      
+                                loginManager.showLoginScreen();   
+                                
                         } catch (Exception e) {
                                 e.printStackTrace();
                         }
                 }
         });
-          
-        
-        //Scene scene = new Scene(root);
-        
-        //stage.getIcons().add(new Image("taskbar_image.png"));
-        //stage.setTitle("Hospital System");
-        //stage.setWidth(1920);
-        //stage.setHeight(1080);
-        
-        //stage.setScene(scene);
-        //stage.show();
     }
 
     /**

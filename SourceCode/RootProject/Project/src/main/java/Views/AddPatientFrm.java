@@ -5,8 +5,6 @@ import Controllers.LoginManager;
 import Models.Patient;
 import Models.Staff_Model;
 import Models.Symptoms;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class AddPatientFrm{
+public class AddPatientFrm {
 
         //Front end variables
 	private JPanel contentPane;
@@ -33,7 +31,7 @@ public class AddPatientFrm{
         private JTextField patientPhysicianNum;
         private JTextField patientGender;
         
-        
+        //IMPERATIVE METHOD USED BY LOGINMANAGER
         public JPanel getPatientFormPanel() { return contentPane; }
         
         Patient patient;
@@ -59,15 +57,16 @@ public class AddPatientFrm{
 		lblName.setFont(new Font("����", Font.PLAIN, 20));
 		
 		JLabel lblPhone= new JLabel("Phone Number:");
-		lblPhone.setFont(new Font("����", Font.PLAIN, 20));
-		
+		lblPhone.setFont(new Font("����", Font.PLAIN, 20));		
+                
+                //TODO: Change to calender drop down to enter Date of birth instead
 		JLabel lblAge = new JLabel("Age:");
 		lblAge.setFont(new Font("����", Font.PLAIN, 20));
 		
-		JLabel lblProvider = new JLabel("Insurance Provider :");
+		JLabel lblProvider = new JLabel("Insurance Provider:");
 		lblProvider.setFont(new Font("����", Font.PLAIN, 20));
 		
-		JLabel lblSSN = new JLabel("SSN :");
+		JLabel lblSSN = new JLabel("SSN:");
 		lblSSN.setFont(new Font("����", Font.PLAIN, 20));
 		
 		JLabel lblSymptoms = new JLabel("Symptoms seperated by commas:");
@@ -81,7 +80,33 @@ public class AddPatientFrm{
                 
                 JLabel lblGender = new JLabel("Gender:");
 		lblGender.setFont(new Font("����", Font.PLAIN, 20));
+               
+                //TODO: IMPLEMENT PLEASE
+                //--------------------------------------------------
+                JLabel lblAllergies = new JLabel("Allergies seperated by commas:");
+		lblAllergies.setFont(new Font("����", Font.PLAIN, 20));
                 
+                JLabel lblMedications = new JLabel("Medications seperated by commas:");
+		lblMedications.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblAddrStreet = new JLabel("Street Number:");
+		lblAddrStreet.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblZipCode = new JLabel("Zipcode:");
+		lblZipCode.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblCity = new JLabel("City:");
+		lblCity.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //TODO: Change to drop down
+                JLabel lblState = new JLabel("State:");
+		lblState.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //TODO: Default to USA && Change to dropdown
+                JLabel lblCountry = new JLabel("Country:");
+		lblCountry.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //----------------------------------------------------------
 		patientName = new JTextField();
 		patientName.setFont(new Font("����", Font.PLAIN, 20));
 		patientName.setColumns(10);
@@ -179,10 +204,10 @@ public class AddPatientFrm{
                     }
                 });
 		
-		JButton btnClose = new JButton("Logout");
+		JButton btnClose = new JButton("Back");
                 btnClose.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        loginManager.logout();
+                        loginManager.showMainPanel(user);
                     }
                 });
                 
