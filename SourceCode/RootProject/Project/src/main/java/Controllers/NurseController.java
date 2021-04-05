@@ -17,20 +17,5 @@ import javafx.scene.control.Label;
  */
 public class NurseController
 {
-    @FXML private Button logoutButton;
-    @FXML private Label nurseName;   
     
-    //where everything happens
-    public void initNurse(final LoginManager loginManager, Staff_Model user)
-    {
-        System.out.println(user.getName());
-        nurseName.setText(user.getName());
-        
-        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                loginManager.logout();
-          }
-        });   
-
-    }
 }
