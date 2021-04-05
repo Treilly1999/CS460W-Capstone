@@ -54,6 +54,9 @@ public class UpdatePFrm {
 		textField_1.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Pick");
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Dialog", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -63,7 +66,11 @@ public class UpdatePFrm {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(85)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(94)
+									.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
@@ -103,7 +110,9 @@ public class UpdatePFrm {
 						.addComponent(scrollBar_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton)
+						.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 					.addGap(31))
 		);
 		contentPane.setLayout(gl_contentPane);
