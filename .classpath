@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Controllers/" kind="src" path="SourceCode/RootProject/Project/src/main/java"/>
+	<classpathentry kind="src" path="SourceCode/RootProject/Project/src/main/java/Controllers"/>
+	<classpathentry kind="lib" path="SourceCode/RootProject/Project/build/libs/Project-1.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="SourceCode/RootProject/Project/build/libs/Project-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="SourceCode/RootProject/Project/build/classes/java/main"/>
+</classpath>
