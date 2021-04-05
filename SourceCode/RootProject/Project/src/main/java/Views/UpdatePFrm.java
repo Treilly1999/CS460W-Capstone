@@ -2,10 +2,7 @@ package Views;
 
 import Controllers.LoginManager;
 import Models.Staff_Model;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -51,7 +48,7 @@ public class UpdatePFrm {
 		JScrollBar scrollBar_1 = new JScrollBar();
 		
 		JLabel lblNewLabel_1 = new JLabel("Patient Id: ");
-		lblNewLabel_1.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblNewLabel_1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);

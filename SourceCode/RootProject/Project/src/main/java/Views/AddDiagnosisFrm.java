@@ -1,5 +1,7 @@
 package Views;
 
+import Controllers.DBConnection;
+import Controllers.DoctorController;
 import Controllers.LoginManager;
 import Models.Patient;
 import Models.Staff_Model;
@@ -23,9 +25,11 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
 
-public class AddDiagnosisFrm {
-
+public class AddDiagnosisFrm {   
+        
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
@@ -37,7 +41,8 @@ public class AddDiagnosisFrm {
 	private JComboBox comboBox_2;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
-
+        private DoctorController doctorController = new DoctorController();
+        
 	/**
 	 * Create the frame.
 	 */
@@ -48,7 +53,7 @@ public class AddDiagnosisFrm {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		loginManager.setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Patient ID :");
+		JLabel lblNewLabel = new JLabel("SSN:");
 		lblNewLabel.setFont(new Font("����", Font.PLAIN, 20));
 		
 		textField = new JTextField();
@@ -57,6 +62,16 @@ public class AddDiagnosisFrm {
 		
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
+                
+                btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            Document search = new Document();
+                            search.put("ssn", Integer.parseInt(textField.getText()));
+                            
+                            table.setModel(doctorController.getTable(search));
+                            System.out.println(table.getValueAt(0, 0));
+                        }
+		});
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);

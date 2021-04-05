@@ -54,6 +54,7 @@ public class DBConnection {
     */
     public ArrayList<Patient> parsePatients(Document query)
     {       
+        patientList.clear();
         //MongoClient mongoClient = new MongoClient("localhost", 27017);
         //MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("patients");    
@@ -114,9 +115,9 @@ public class DBConnection {
         try
         {
             name = patients.getString("name");
-            age = Integer.parseInt(patients.getString("age"));
+            age = patients.getInteger("age");
             phoneNumber = patients.getString("phoneNumber");
-            ssn = Integer.parseInt(patients.getString("ssn"));
+            ssn = patients.getInteger("ssn");
             physicianName = patients.getString("physicianName");
             physicianNumber = patients.getString("physicianNumber");           
             dischargeInstructions = patients.getString("dischargeInstructions");
@@ -125,7 +126,7 @@ public class DBConnection {
             provider = patients.getString("provider");
             id = patients.getString("id");  
             gender = patients.getString("gender");
-            dateOfBirth = patients.getDate("dateOfBirth");
+            dateOfBirth = patients.getDate("dateOfBirth");            
             
             allergies = buildLists(patients, "allergies", collection);
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
