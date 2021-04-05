@@ -1,7 +1,9 @@
 package Views;
 
 import Controllers.LoginManager;
+import Models.Patient;
 import Models.Staff_Model;
+import Models.Symptoms;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +13,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -19,7 +24,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 
-public class AddDiagnosisFrm extends JFrame {
+public class AddDiagnosisFrm {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -34,30 +39,14 @@ public class AddDiagnosisFrm extends JFrame {
 	private JButton btnNewButton_2;
 
 	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AddDiagnosisFrm frame = new AddDiagnosisFrm();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
 	 * Create the frame.
 	 */
 	public AddDiagnosisFrm(final LoginManager loginManager, Staff_Model user) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1147, 897);
+		loginManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//loginManager.setBounds(100, 100, 1147, 897);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		loginManager.setContentPane(contentPane);
 		
 		JLabel lblNewLabel = new JLabel("Patient ID :");
 		lblNewLabel.setFont(new Font("����", Font.PLAIN, 20));
@@ -102,8 +91,15 @@ public class AddDiagnosisFrm extends JFrame {
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setFont(new Font("����", Font.PLAIN, 20));
 		
-		btnNewButton_2 = new JButton("Close");
+		btnNewButton_2 = new JButton("Back");
 		btnNewButton_2.setFont(new Font("����", Font.PLAIN, 20));
+                
+                btnNewButton_2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loginManager.showMainPanel(user);
+                    }
+                });
+                
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.DBConnection;
+import Controllers.LoginController;
 import Controllers.LoginManager;
 import Models.Staff_Model;
 import com.google.common.hash.Hashing;
@@ -9,7 +10,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import java.nio.charset.StandardCharsets;
 import org.bson.Document;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -21,26 +21,27 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import java.awt.event.WindowAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 
 public class LoginFrm {
 
 	private JPanel contentPane;
 	private JTextField user;
 	private JPasswordField passwordField;
+        private LoginController loginController;
         
-        private String sha256hex;
+        //private String sha256hex;
         
         Document staffQuery = new Document();
-        private Staff_Model currentUser;      
+        private Staff_Model currentUser;
         
-        public Staff_Model getCurrentUser()
-        {
-            return currentUser;
-        }
+//        public Staff_Model getCurrentUser()
+//        {
+//            return currentUser;
+//        }
         
         public JPanel getLoginForm() { return contentPane; }
 
@@ -57,7 +58,7 @@ public class LoginFrm {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hospital Mangement System");
+		JLabel lblNewLabel = new JLabel("Hospital Management System");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 25));
 		
 		JLabel lblNewLabel_1 = new JLabel("User Name :");
@@ -72,8 +73,12 @@ public class LoginFrm {
 		JLabel lblNewLabel_3 = new JLabel("User Type");
 		lblNewLabel_3.setFont(new Font("Arial Black", Font.PLAIN, 20));
                 
-                JLabel errorMessage = new JLabel();
+                JTextArea errorMessage = new JTextArea();
 		errorMessage.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+                errorMessage.setLineWrap(true);
+                errorMessage.setWrapStyleWord(true);
+                errorMessage.setOpaque(false);
+                errorMessage.setEditable(false);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -84,10 +89,12 @@ public class LoginFrm {
 			public void actionPerformed(ActionEvent e) {
 				// function to login to other interface and start the program
                                 staffQuery.put("userName", user.getText());
-                        
+                                
                                 try
                                 {
-                                    currentUser = findStaffMember(staffQuery);  
+                                    
+                                    loginController = new LoginController(staffQuery);
+                                    currentUser = loginController.getCurrentUser();
                                     System.out.println(currentUser.toString());
 
                                     if(currentUser.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DEFAULT)
@@ -96,7 +103,7 @@ public class LoginFrm {
                                         //errorMessage.setTextFill(Color.web("#0076a3"));
                                     }
                                     //System.out.println("BEFORE AUTHORZE");
-                                    Boolean accepted = authorize(currentUser);
+                                    Boolean accepted = loginController.authorize(currentUser, Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString(), user.getText());
                                     //System.out.println("AFTER AUTHORZE");
                                     if (accepted) {
                                       loginManager.authenticated(currentUser);
@@ -105,6 +112,7 @@ public class LoginFrm {
                                 catch (Exception exception)
                                 {
                                     System.out.println("STAFF MEMBER NOT FOUND");
+                                    exception.printStackTrace();
                                     //TODO: WHAT TO DO IF LOGIN FAIL
                                     //loginManager.showLoginScreen(); 
                                     errorMessage.setText("Username/Password inccorect.");
@@ -173,100 +181,4 @@ public class LoginFrm {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-
-        
-        /*
-    Author: Tyler
-    Description: Finds the staff member in the login query, builds a current user profile from
-    staff_model and decides to log them in or not.
-    */
-    public Staff_Model findStaffMember(Document query)
-    {
-        //MongoClient mongoClient = new MongoClient("localhost", 27017);
-        //MongoDatabase database = mongoClient.getDatabase("hospital");
-        MongoCollection<Document> collection = DBConnection.getDB().getCollection("staff");
-        
-        Staff_Model staffMember = new Staff_Model();
-            
-        FindIterable<Document> findIterable = findIterable = collection.find(query);
-
-        MongoCursor<Document> cursor = findIterable.iterator();
-
-        Document staff = new Document();
-
-        try
-        {
-            while(cursor.hasNext())
-            {               
-                staff = cursor.next();
-            }
-        } finally {
-            cursor.close();
-        }
-              
-        staffMember = buildCurrentUser(staff);
-        
-        //System.out.println(staffMember.getUSER_ROLE());
-        
-        return staffMember;
-    }
-  
-    /*
-    Author: Tyler
-    Description: Builds a Staff_Model for the current user
-    TODO: Consolidate with parsePatients? Less code && makes them more dynamic
-    */
-    public static Staff_Model buildCurrentUser(Document staffMember)
-    {
-                
-        Staff_Model staff;
-        
-        String name = "", userName = "", password="";
-        int id = 0;
-        
-        Models.Staff_Model.USER_ROLE role = Models.Staff_Model.USER_ROLE.DEFAULT;
-        //= queryParameters.get("user_role");
-       
-        if(staffMember.getString("user_role").equals("NURSE"))            
-            role = Models.Staff_Model.USER_ROLE.NURSE;                        
-        if(staffMember.getString("user_role").equals("DOCTOR"))
-            role = Models.Staff_Model.USER_ROLE.DOCTOR;
-        if(staffMember.getString("user_role").equals("REGISTER"))
-            role = Models.Staff_Model.USER_ROLE.REGISTER;
-        if(staffMember.getString("user_role").equals("BILLING"))
-            role = Models.Staff_Model.USER_ROLE.BILLING;        
-       
-        
-        //System.out.println(queryParameters.get("user_role"));
-        try
-        {
-            name = staffMember.getString("name");
-            id = Integer.parseInt(staffMember.getString("id"));
-            userName = staffMember.getString("userName");
-            password = staffMember.getString("password");            
-            
-          } catch (Exception e)
-          {
-              System.out.println("Some query parameters were not found in " + name + " profile");
-          }   
-       
-      //System.out.println("SUCCEDED");
-      staff = new Staff_Model(role, id, name, userName, password);
-      return staff;
-    }
-
-  /**
-   * Check authorization credentials.
-   */   
-  private Boolean authorize(Staff_Model staffMember) {
-       //System.out.println("INSIDE AUTHORZE");
-       //System.out.println("Username: " + staffMember.getUserName() + ". Password: " + staffMember.getPassword());
-       
-       //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT
-       sha256hex = Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString();
-    
-       //System.out.println("AFTER HASHING: " + sha256hex);
-       
-       return staffMember.getUserName().equals(user.getText()) && staffMember.getPassword().equals(sha256hex);
-  }
 }

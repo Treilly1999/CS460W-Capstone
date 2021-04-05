@@ -5,8 +5,6 @@ import Controllers.LoginManager;
 import Models.Patient;
 import Models.Staff_Model;
 import Models.Symptoms;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class AddPatientFrm{
+public class AddPatientFrm {
 
         //Front end variables
 	private JPanel contentPane;
@@ -32,9 +30,7 @@ public class AddPatientFrm{
         private JTextField patientPhysician;
         private JTextField patientPhysicianNum;
         private JTextField patientGender;
-        
-        
-        public JPanel getPatientFormPanel() { return contentPane; }
+        private JTextField allergies;
         
         Patient patient;
         DBConnection db = new DBConnection();
@@ -59,15 +55,16 @@ public class AddPatientFrm{
 		lblName.setFont(new Font("����", Font.PLAIN, 20));
 		
 		JLabel lblPhone= new JLabel("Phone Number:");
-		lblPhone.setFont(new Font("����", Font.PLAIN, 20));
-		
+		lblPhone.setFont(new Font("����", Font.PLAIN, 20));		
+                
+                //TODO: Change to calender drop down to enter Date of birth instead
 		JLabel lblAge = new JLabel("Age:");
 		lblAge.setFont(new Font("����", Font.PLAIN, 20));
 		
-		JLabel lblProvider = new JLabel("Insurance Provider :");
+		JLabel lblProvider = new JLabel("Insurance Provider:");
 		lblProvider.setFont(new Font("����", Font.PLAIN, 20));
 		
-		JLabel lblSSN = new JLabel("SSN :");
+		JLabel lblSSN = new JLabel("SSN:");
 		lblSSN.setFont(new Font("����", Font.PLAIN, 20));
 		
 		JLabel lblSymptoms = new JLabel("Symptoms seperated by commas:");
@@ -81,7 +78,33 @@ public class AddPatientFrm{
                 
                 JLabel lblGender = new JLabel("Gender:");
 		lblGender.setFont(new Font("����", Font.PLAIN, 20));
+               
+                //TODO: IMPLEMENT PLEASE
+                //--------------------------------------------------
+                JLabel lblAllergies = new JLabel("Allergies seperated by commas:");
+		lblAllergies.setFont(new Font("����", Font.PLAIN, 20));
                 
+                JLabel lblMedications = new JLabel("Medications seperated by commas:");
+		lblMedications.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblAddrStreet = new JLabel("Street Number:");
+		lblAddrStreet.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblZipCode = new JLabel("Zipcode:");
+		lblZipCode.setFont(new Font("����", Font.PLAIN, 20));
+                
+                JLabel lblCity = new JLabel("City:");
+		lblCity.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //TODO: Change to drop down
+                JLabel lblState = new JLabel("State:");
+		lblState.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //TODO: Default to USA && Change to dropdown
+                JLabel lblCountry = new JLabel("Country:");
+		lblCountry.setFont(new Font("����", Font.PLAIN, 20));
+                
+                //----------------------------------------------------------
 		patientName = new JTextField();
 		patientName.setFont(new Font("����", Font.PLAIN, 20));
 		patientName.setColumns(10);
@@ -137,13 +160,24 @@ public class AddPatientFrm{
                                         Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
                                         symptomList.add(symptom);
                                     }
-                                }           
+                                }  
+                                ArrayList<String> allergyList = new ArrayList<String>();  
+                                if(!allergies.getText().isEmpty())
+                                {
+                                    String[] allergieValues = allergies.getText().split(",");                                         
+
+                                    for(int i = 0; i < allergieValues.length; i++)
+                                    {
+                                        String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+                                        allergyList.add(allergy);
+                                    }
+                                } 
 
                                 patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
                                 Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                                symptomList, patientGender.getText());       
+                                symptomList, patientGender.getText(), allergyList);       
 
-                                String state = db.createPatient(patient);
+                                String state = db.createPatient(patient, user);
 
                                 if(state.equals("SUCCESSFUL"))
                                 {
@@ -179,10 +213,10 @@ public class AddPatientFrm{
                     }
                 });
 		
-		JButton btnClose = new JButton("Logout");
+		JButton btnClose = new JButton("Back");
                 btnClose.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        loginManager.logout();
+                        loginManager.showMainPanel(user);
                     }
                 });
                 

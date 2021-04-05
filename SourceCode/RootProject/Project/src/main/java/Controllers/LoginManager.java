@@ -1,28 +1,18 @@
 package Controllers;
 
-import Controllers.NurseController;
-import java.io.IOException;
-import java.util.logging.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import Controllers.PatientController;
 import Models.Staff_Model;
-import Views.AddDiagnosisFrm;
-import Views.AddPatientFrm;
-import Views.LoginFrm;
+import Views.*;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 /** Manages control flow for logins */
 public class LoginManager extends JFrame {
-  private Scene scene;
-
-  public LoginManager(Scene scene) {
-    this.scene = scene;
-  }    
-  public LoginManager() {}
-
-  public Scene getScene() { return scene; }
+  
+  public LoginManager() {
+        setTitle("Hospital System");
+        setBounds(100, 100, 849, 567);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
   
   /**
    * Author: Tyler
@@ -31,34 +21,13 @@ public class LoginManager extends JFrame {
    * TODO: ADD SCREENS FOR DIFFERENT USERS
    */ 
     public void authenticated(Staff_Model user)
-    {
-        
-        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE)
+    {        
+        if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.NURSE || user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR ||
+        user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER || user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)    
         {
-            showNurseView(user);
+            showMainPanel(user);  
         }
-        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
-        {
-            showPatientList(user);
-        }
-        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.BILLING)
-        {
-            //Show billing screen
-        }
-        else if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.REGISTER)
-        {            
-            showRegisterMain(user);
-        }
-        //for testing only
-        else
-        {
-            //UNAUTHORIZED USER
-            System.out.println("USER UNAUTHORIZED");
-            String errorMessage = "Unauthorized Access. Contact System Administrator.";
-            logout();
-            //logout();
-            //showPatientList(sessionID);
-        }    
+       
     }
     
   /**
@@ -74,9 +43,16 @@ public class LoginManager extends JFrame {
   private LoginFrm loginFrame;
   private AddPatientFrm registerFrame;
   private AddDiagnosisFrm diagnosisFrame;
-  private JFrame mainFrame;
+  private BillFrm billFrame;
+  private CheckInfoFrm checkInfo;
+  private UpdatePFrm updatePatient;
+  private MainFrm main;
   
-  public void showLoginScreen() {
+  /*
+  Description: Shows the login panel. This is done by default by the constructor. 
+  */
+  public void showLoginScreen() 
+  {
       LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,52 +66,43 @@ public class LoginManager extends JFrame {
 				}
 			}
 		});
-//    try {
-//      FXMLLoader loader = new FXMLLoader();
-//    loader.setLocation(getClass().getResource("/login.fxml"));
-//    Parent root = loader.load();        
-//      scene.setRoot(root);
-//      LoginController controller = 
-//        loader.<LoginController>getController();
-//      controller.initManager(this);
-//    } catch (IOException ex) {
-//      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-//    }
+  }
+  
+  public void showUpdatePanel(Staff_Model user) 
+  {
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					updatePatient = new UpdatePFrm(login, user);
+                                       
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
   }
 
   /**
    * Author: Tyler
    * Description: Will show the nurse application screen.
    */ 
-  private void showNurseView(Staff_Model user) {
-    try {
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/nurseView.fxml"));
-        Parent root = loader.load();        
-        scene.setRoot(root);
-        NurseController controller = 
-        loader.<NurseController>getController();
-        controller.initNurse(this, user);
-        //controller.initSessionID(this, sessionID);
-        } catch (IOException ex) {
-          Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  public void showNurseView(Staff_Model user) 
+  {
+  
   }
   
    /**
    * Author: Tyler
-   * Description: Will show the patientList application screen.
+   * Description: Will show the Doctor application screen.
    */ 
-  private void showPatientList(Staff_Model user) {
+  public void showDiagnosisPanel(Staff_Model user) 
+  {
     LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					diagnosisFrame = new AddDiagnosisFrm(login, user);
-                                        diagnosisFrame.setSize(1200,800);
-					diagnosisFrame.setVisible(true);
-                                        //loginFrame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -143,13 +110,42 @@ public class LoginManager extends JFrame {
 		});
   }
   
-  private void showRegisterMain(Staff_Model user) {
+  public void showRegisterPanel(Staff_Model user) 
+  {
       LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					registerFrame = new AddPatientFrm(login, user);
-                                        setContentPane(registerFrame.getPatientFormPanel());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+  }
+  
+  public void showBillingPanel(Staff_Model user)
+  {
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					billFrame = new BillFrm(login, user);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+  }
+  
+  public void showMainPanel(Staff_Model user) 
+  {
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					main = new MainFrm(login, user);
+                                        //setContentPane(registerFrame.getPatientFormPanel());
                                         //registerFrame.setSize(1200,800);
 					//registerFrame.setVisible(true);
                                         //loginFrame.setVisible(false);
@@ -159,19 +155,5 @@ public class LoginManager extends JFrame {
 			}
 		});
   }
-//    try {
-//
-//    FXMLLoader loader = new FXMLLoader();
-//    loader.setLocation(getClass().getResource("/RegisterMainView.fxml"));
-//    Parent root = loader.load();        
-//    scene.setRoot(root);
-//    
-//    RegisterController controller = 
-//    loader.<RegisterController>getController();
-//    controller.initRegisterForm(this, user);
-//    
-//    } catch (IOException ex) {
-//      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-//    
+
 }

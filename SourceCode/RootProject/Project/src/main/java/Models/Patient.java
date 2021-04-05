@@ -69,7 +69,8 @@ public class Patient {
     
     //Initial creation without the variables that are added once they are in the system
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender)
+            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
+            List<String> allergies)
     {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -80,6 +81,8 @@ public class Patient {
         this.provider = new SimpleStringProperty(provider);
         this.symptoms = symptoms;
         this.gender = new SimpleStringProperty(gender);
+       // this.dateOfBirth = dateOfBirth;
+        this.allergies = allergies;
     }
     
     
@@ -206,6 +209,12 @@ public class Patient {
     //Bill
     public int getBill() { return bill.get(); }
     public void setBill(int m) { bill = new SimpleIntegerProperty(m); }
+    
+    public Date getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(Date dob) { dateOfBirth = dob; }
+    
+    public List<String> getAllergies() { return allergies; }
+    public void setAllergies(List<String> allergies) { this.allergies = allergies; }
     
     public String toString()
     {
