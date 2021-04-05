@@ -1,10 +1,7 @@
 package Controllers;
 
 import Models.Staff_Model;
-import Views.AddDiagnosisFrm;
-import Views.AddPatientFrm;
-import Views.LoginFrm;
-import Views.MainFrm;
+import Views.*;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
@@ -46,9 +43,16 @@ public class LoginManager extends JFrame {
   private LoginFrm loginFrame;
   private AddPatientFrm registerFrame;
   private AddDiagnosisFrm diagnosisFrame;
+  private BillFrm billFrame;
+  private CheckInfoFrm checkInfo;
+  private UpdatePFrm updatePatient;
   private MainFrm main;
   
-  public void showLoginScreen() {
+  /*
+  Description: Shows the login panel. This is done by default by the constructor. 
+  */
+  public void showLoginScreen() 
+  {
       LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,12 +67,28 @@ public class LoginManager extends JFrame {
 			}
 		});
   }
+  
+  public void showUpdatePanel(Staff_Model user) 
+  {
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					updatePatient = new UpdatePFrm(login, user);
+                                       
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+  }
 
   /**
    * Author: Tyler
    * Description: Will show the nurse application screen.
    */ 
-  public void showNurseView(Staff_Model user) {
+  public void showNurseView(Staff_Model user) 
+  {
   
   }
   
@@ -76,7 +96,8 @@ public class LoginManager extends JFrame {
    * Author: Tyler
    * Description: Will show the Doctor application screen.
    */ 
-  public void showDiagnosisPanel(Staff_Model user) {
+  public void showDiagnosisPanel(Staff_Model user) 
+  {
     LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -89,12 +110,27 @@ public class LoginManager extends JFrame {
 		});
   }
   
-  public void showRegisterPanel(Staff_Model user) {
+  public void showRegisterPanel(Staff_Model user) 
+  {
       LoginManager login = this;
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					registerFrame = new AddPatientFrm(login, user);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+  }
+  
+  public void showBillingPanel(Staff_Model user)
+  {
+      LoginManager login = this;
+      EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					billFrame = new BillFrm(login, user);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

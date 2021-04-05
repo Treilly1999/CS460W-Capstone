@@ -1,5 +1,7 @@
 package Views;
 
+import Controllers.LoginManager;
+import Models.Staff_Model;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -14,45 +16,29 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class UpdatePFrm extends JFrame {
+public class UpdatePFrm {
 
 	private JPanel contentPane;
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UpdatePFrm frame = new UpdatePFrm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public UpdatePFrm() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 486);
+	public UpdatePFrm(LoginManager loginManager, Staff_Model user) {
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setBounds(100, 100, 800, 486);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		loginManager.setContentPane(contentPane);
 		
 		JLabel lblNewLabel = new JLabel("Patient Update Information");
-		lblNewLabel.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		btnNewButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

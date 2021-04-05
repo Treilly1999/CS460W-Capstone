@@ -93,7 +93,7 @@ public class MainFrm {
 		btnUpdatePatientRecord.setFont(new Font("����", Font.PLAIN, 20));
                 btnUpdatePatientRecord.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //TODO: Add view for updating
+                        loginManager.showUpdatePanel(user);
                     }
                 });
 		
@@ -109,7 +109,7 @@ public class MainFrm {
 		btnBilling.setFont(new Font("����", Font.PLAIN, 20));
                 btnBilling.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //TODO: Add view for billing
+                        loginManager.showBillingPanel(user);
                     }
                 });
                 
