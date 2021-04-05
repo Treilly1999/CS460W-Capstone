@@ -58,21 +58,19 @@ public class LoginFrm {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Hospital Management System");
-		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 25));
 		
-		JLabel lblNewLabel_1 = new JLabel("User Name :");
-		lblNewLabel_1.setFont(new Font("Arial Black", Font.PLAIN, 20));
+		JLabel lblNewLabel = new JLabel("User Name: ");
+		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 20));
+		
+		JLabel lblNewLabel_2 = new JLabel("Hospital Management System");
+		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 25));
 		
 		user = new JTextField();
 		user.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("User Password :");
-		lblNewLabel_2.setFont(new Font("Arial Black", Font.PLAIN, 20));
+		JLabel lblNewLabel_1 = new JLabel("User Password: ");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 20));
 		
-		JLabel lblNewLabel_3 = new JLabel("User Type");
-		lblNewLabel_3.setFont(new Font("Arial Black", Font.PLAIN, 20));
-                
                 JTextArea errorMessage = new JTextArea();
 		errorMessage.setFont(new Font("脣脦脤氓", Font.PLAIN, 20));
                 errorMessage.setLineWrap(true);
@@ -80,11 +78,8 @@ public class LoginFrm {
                 errorMessage.setOpaque(false);
                 errorMessage.setEditable(false);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Admin", "Register", "Doctor", "Nurse", "Biller"}));
-		
-		JButton btnNewButton = new JButton("Log In");
+                JButton btnNewButton = new JButton("Log In");
+        		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// function to login to other interface and start the program
@@ -126,59 +121,48 @@ public class LoginFrm {
 		passwordField.setFont(new Font("脣脦脤氓", Font.PLAIN, 20));
 		
 		
-                
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);       
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(112)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_2)
-								.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(user, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(84)
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(248, Short.MAX_VALUE)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-					.addGap(224))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(372)
-					.addComponent(errorMessage, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(185, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(47)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-					.addGap(63)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(user, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(58)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addGap(34)
-					.addComponent(errorMessage, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(35, Short.MAX_VALUE))
-		);
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(133)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(185, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(113)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+										.addGap(35))
+									.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)))
+								.addGap(107)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(passwordField)
+									.addComponent(user, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
+						.addGap(134))
+			);
+			gl_contentPane.setVerticalGroup(
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(61)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addGap(81)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel)
+							.addComponent(user, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(54)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_1)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+						.addComponent(btnNewButton)
+						.addGap(82))
+			);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
