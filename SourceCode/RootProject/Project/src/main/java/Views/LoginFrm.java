@@ -1,13 +1,9 @@
 package Views;
 
-import Controllers.DBConnection;
 import Controllers.LoginController;
 import Controllers.LoginManager;
 import Models.Staff_Model;
 import com.google.common.hash.Hashing;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import java.nio.charset.StandardCharsets;
 import org.bson.Document;
 import javax.swing.JPanel;
@@ -18,8 +14,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -60,16 +54,16 @@ public class LoginFrm {
 		
 		
 		JLabel lblNewLabel = new JLabel("User Name: ");
-		lblNewLabel.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
 		JLabel lblNewLabel_2 = new JLabel("Hospital Management System");
-		lblNewLabel_2.setFont(new Font("ËÎÌå", Font.PLAIN, 25));
+		lblNewLabel_2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 25));
 		
 		user = new JTextField();
 		user.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("User Password: ");
-		lblNewLabel_1.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		lblNewLabel_1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		
                 JTextArea errorMessage = new JTextArea();
 		errorMessage.setFont(new Font("Ã‹ÃŽÃŒÃ¥", Font.PLAIN, 20));
@@ -79,7 +73,7 @@ public class LoginFrm {
                 errorMessage.setEditable(false);
 		
                 JButton btnNewButton = new JButton("Log In");
-        		btnNewButton.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+        		btnNewButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// function to login to other interface and start the program

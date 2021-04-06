@@ -150,49 +150,66 @@ public class AddPatientFrm {
                             if(!patientName.getText().isEmpty() && !patientAge.getText().isEmpty() && !patientPhone.getText().isEmpty() && !patientProvider.getText().isEmpty()
                             && !patientSSN.getText().isEmpty() && !patientPhysician.getText().isEmpty() && !patientPhysicianNum.getText().isEmpty())
                             {
-                                ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
-                                if(!symptoms.getText().isEmpty())
+                                
+                                try
                                 {
-                                    String[] symptomValues = symptoms.getText().split(",");                                         
+                                    int ssnLength = (int)(Math.log10(Integer.parseInt(patientSSN.getText())) + 1);
+                                    if(ssnLength == 9)
+                                    {                                   
 
-                                    for(int i = 0; i < symptomValues.length; i++)
-                                    {
-                                        Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
-                                        symptomList.add(symptom);
+                                        ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
+                                        if(!symptoms.getText().isEmpty())
+                                        {
+                                            String[] symptomValues = symptoms.getText().split(",");                                         
+
+                                            for(int i = 0; i < symptomValues.length; i++)
+                                            {
+                                                Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                                                symptomList.add(symptom);
+                                            }
+                                        }  
+                                        //TODO: Implement allergies on front end
+        //                                ArrayList<String> allergyList = new ArrayList<String>();
+        //                                if(!allergies.getText().isEmpty())
+        //                                {
+        //                                    String[] allergieValues = allergies.getText().split(",");                                         
+        //
+        //                                    for(int i = 0; i < allergieValues.length; i++)
+        //                                    {
+        //                                        String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+        //                                        allergyList.add(allergy);
+        //                                    }
+        //                                } 
+
+                                        //TODO: Remove null allergylist
+                                        patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
+                                        Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
+                                        symptomList, patientGender.getText());       
+
+                                        String state = db.createPatient(patient, user);
+
+                                        //TODO: Add condition for failure to add patient
+                                        loginManager.showMainPanel(user);
+
                                     }
-                                }  
-                                ArrayList<String> allergyList = new ArrayList<String>();  
-                                if(!allergies.getText().isEmpty())
-                                {
-                                    String[] allergieValues = allergies.getText().split(",");                                         
-
-                                    for(int i = 0; i < allergieValues.length; i++)
+                                    else
                                     {
-                                        String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
-                                        allergyList.add(allergy);
-                                    }
-                                } 
-
-                                patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
-                                Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                                symptomList, patientGender.getText(), allergyList);       
-
-                                String state = db.createPatient(patient, user);
-
-                                if(state.equals("SUCCESSFUL"))
-                                {
-                                  //Show new screen
-                                  // showRegisterSecondary(user, loginManager.getScene());
+                                        serverMessage.setText("SSN is not valid.");
+                                    }                                    
                                 }
-                                else
+                                catch(Exception except)
                                 {
-                                    serverMessage.setText("Could not add patient. Please try again.");
+                                    System.out.println(except);
+                                    serverMessage.setText("Please check the fields");
+                                    
                                 }
+                                                                
                             }
                             else
                             {
                                 serverMessage.setText("You left a field blank.");
-                            }   
+                            }                               
+                            
                         }
 		});
                 

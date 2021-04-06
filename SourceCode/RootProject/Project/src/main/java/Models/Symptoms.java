@@ -14,15 +14,15 @@ import javafx.beans.property.SimpleStringProperty;
 public class Symptoms 
 {
     
-    private SimpleStringProperty symptom;
+    private String symptom;
     
     public Symptoms(String symptom)
     {
-        this.symptom = new SimpleStringProperty(symptom);
+        this.symptom = symptom;
     }
     
-    public String getSymptom(){ return symptom.get(); }
-    public void setSymptom(String symptom) { this.symptom = new SimpleStringProperty(symptom); }
+    public String getSymptom(){ return symptom; }
+    public void setSymptom(String symptom) { this.symptom = symptom; }
         
     public String toString()
     {

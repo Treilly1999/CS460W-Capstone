@@ -13,25 +13,25 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class ProgressReport {
     
-    private SimpleStringProperty nurseName;
-    private SimpleStringProperty date;
-    private SimpleStringProperty note;
+    private String nurseName;
+    private String date;
+    private String note;
     
     public ProgressReport(String nurseName, String date, String note)
     {
-        this.nurseName = new SimpleStringProperty(nurseName);
-        this.date = new SimpleStringProperty(date);
-        this.note = new SimpleStringProperty(note);
+        this.nurseName = nurseName;
+        this.date = date;
+        this.note = note;
     }
     
-    public String getNurseName() { return nurseName.get(); }
-    public void setNurseName(String nurseName) { this.nurseName = new SimpleStringProperty(nurseName); }
+    public String getNurseName() { return nurseName; }
+    public void setNurseName(String nurseName) { this.nurseName = nurseName; }
      
-    public String getDate() { return date.get(); }
-    public void setDate(String date) { this.date = new SimpleStringProperty(date); }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
     
-    public String getNote() { return note.get(); }
-    public void setNote(String note) { this.note = new SimpleStringProperty(note); }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
     
     
     public String toString()

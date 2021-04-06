@@ -25,29 +25,29 @@ public class Patient {
     //BILL OBJECT?
     //private Bill bill;
     
-    private SimpleIntegerProperty bill;
+    private int bill;
     
-    private SimpleStringProperty  name;
-    private SimpleIntegerProperty  age;     
-    private SimpleStringProperty phoneNumber;
+    private String  name;
+    private int  age;     
+    private String phoneNumber;
     private String id; 
-    private SimpleStringProperty gender;
+    private String gender;
     
-    private SimpleStringProperty provider; 
+    private String provider; 
     
     private List<ProgressReport> progressReports;
     
-    private SimpleIntegerProperty ssn;
+    private int ssn;
     
-    private SimpleStringProperty physicianName;
-    private SimpleStringProperty physicianNumber;
+    private String physicianName;
+    private String physicianNumber;
     
     private List<MedicalHistory> medicalHistory;
     
     private List<Symptoms> symptoms;    
     
-    private SimpleStringProperty dischargeInstructions;
-    private SimpleStringProperty assignedDoctor;
+    private String dischargeInstructions;
+    private String assignedDoctor;
     private Boolean admitted;
     
     private ArrayList<Diagnoses> diagnoses;
@@ -67,22 +67,22 @@ public class Patient {
         
     }
     
+    //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
-            List<String> allergies)
+            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender)
     {
-        this.name = new SimpleStringProperty(name);
-        this.age = new SimpleIntegerProperty(age);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.ssn = new SimpleIntegerProperty(ssn);
-        this.physicianName = new SimpleStringProperty(physicianName);
-        this.physicianNumber = new SimpleStringProperty(physicianNumber);
-        this.provider = new SimpleStringProperty(provider);
+        this.name = name;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.ssn = ssn;
+        this.physicianName = physicianName;
+        this.physicianNumber = physicianNumber;
+        this.provider = provider;
         this.symptoms = symptoms;
-        this.gender = new SimpleStringProperty(gender);
+        this.gender = gender;
        // this.dateOfBirth = dateOfBirth;
-        this.allergies = allergies;
+       // this.allergies = allergies;
     }
     
     
@@ -91,54 +91,50 @@ public class Patient {
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
             List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender)
     {
-        this.name = new SimpleStringProperty(name);
-        this.age = new SimpleIntegerProperty(age);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.ssn = new SimpleIntegerProperty(ssn);
-        this.physicianName = new SimpleStringProperty(physicianName);
-        this.physicianNumber = new SimpleStringProperty(physicianNumber);
+        this.name = name;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.ssn = ssn;
+        this.physicianName = physicianName;
+        this.physicianNumber = physicianNumber;
         this.id = id;
-        this.assignedDoctor = new SimpleStringProperty(assignedDoctor);
-        this.provider = new SimpleStringProperty(provider);
+        this.assignedDoctor = assignedDoctor;
+        this.provider = provider;
         this.admitted = admitted;
-        this.dischargeInstructions = new SimpleStringProperty(dischargeInstructions);
+        this.dischargeInstructions = dischargeInstructions;
         this.medicalHistory = medicalHistory;
         this.progressReports = progressReports;
         this.symptoms = symptoms;
-        this.gender = new SimpleStringProperty(gender);
+        this.gender = gender;
     }
     //ID
     public String getID() { return id; }
     public void setID(String id) { this.id = id ; }
     
     //Name
-    public String getName() { return name.get(); }    
-    public void setName(String name) { this.name = new SimpleStringProperty(name); }
-    public final SimpleStringProperty nameProperty() { return name; }    
-    
+    public String getName() { return name; }    
+    public void setName(String name) { this.name = name; }    
     
     //Age
-    public int getAge() { return age.get(); }    
-    public void setAge(int age) { this.age = new SimpleIntegerProperty(age); }
-    public final SimpleIntegerProperty ageProperty() { return age; }   
+    public int getAge() { return age; }    
+    public void setAge(int age) { this.age = age; }
     
     //Phone Number    
-    public String getPhone() { return phoneNumber.get(); }
-    public void setPhone(String number) { this.phoneNumber = new SimpleStringProperty(number); }
-    public final SimpleStringProperty phoneNumberProperty() { return phoneNumber; }
+    public String getPhone() { return phoneNumber; }
+    public void setPhone(String number) { this.phoneNumber = number; }
     
     //SSN
-    public int getSSN(){ return ssn.get(); }
-    public void setSSN(int social) { this.ssn = new SimpleIntegerProperty(social); }
+    public int getSSN(){ return ssn; }
+    public void setSSN(int social) { this.ssn = social; }
     
     //Physician Name
-    public String getPhysician() { return physicianName.get(); }
-    public void setPhysician(String physician){ this.physicianName = new SimpleStringProperty(physician); } 
+    public String getPhysician() { return physicianName; }
+    public void setPhysician(String physician){ this.physicianName = physician; } 
     
     
     //Physician Number
-    public String getPhysicianNumber() { return physicianNumber.get(); }
-    public void setPhysicianNumber(String physNum) { this.physicianNumber = new SimpleStringProperty(physNum); }
+    public String getPhysicianNumber() { return physicianNumber; }
+    public void setPhysicianNumber(String physNum) { this.physicianNumber = physNum; }
     
     //Medical History    
     public List<MedicalHistory> getMedicalHistory() { return medicalHistory; }
@@ -149,16 +145,16 @@ public class Patient {
     public void setSymptoms(Symptoms symptom) { this.symptoms.add(symptom); }
 
     //Insurance Provider
-    public String getProvider() { return provider.get(); }
-    public void setProvider(SimpleStringProperty provider) { this.provider = provider; }
+    public String getProvider() { return provider; }
+    public void setProvider(String provider) { this.provider = provider; }
     
     //Discharge Instructions
-    public String getDischargeInstructions() { return dischargeInstructions.get(); }
-    public void setDischargeInstructions(SimpleStringProperty dischargeInstructions) { this.dischargeInstructions = dischargeInstructions; }
+    public String getDischargeInstructions() { return dischargeInstructions; }
+    public void setDischargeInstructions(String dischargeInstructions) { this.dischargeInstructions = dischargeInstructions; }
     
     //Assigned Doctor Name
-    public String getAssignedDoctor() { return assignedDoctor.get(); }
-    public void setAssignedDoctor(SimpleStringProperty assignedDoctor) { this.assignedDoctor = assignedDoctor; }
+    public String getAssignedDoctor() { return assignedDoctor; }
+    public void setAssignedDoctor(String assignedDoctor) { this.assignedDoctor = assignedDoctor; }
     
     //Admission?
     public Boolean getAdmittedBool() { return admitted; }
@@ -183,8 +179,8 @@ public class Patient {
     public void setProgressReports(ProgressReport report) { progressReports.add(report); }
     
     //Gender
-    public String getGender() { return gender.get(); }
-    public void setString(String gender) { this.gender = new SimpleStringProperty(gender); }
+    public String getGender() { return gender; }
+    public void setString(String gender) { this.gender = gender; }
     
     //Address
     public Address getAddress() { return address; }
@@ -207,8 +203,8 @@ public class Patient {
     public void addMedication(Medications m) { medications.add(m); }
     
     //Bill
-    public int getBill() { return bill.get(); }
-    public void setBill(int m) { bill = new SimpleIntegerProperty(m); }
+    public int getBill() { return bill; }
+    public void setBill(int m) { bill = m; }
     
     public Date getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(Date dob) { dateOfBirth = dob; }

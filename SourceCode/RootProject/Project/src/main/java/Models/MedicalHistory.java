@@ -5,29 +5,26 @@
  */
 package Models;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  *
  * @author Tyler
  */
 public class MedicalHistory {
     
-    private SimpleStringProperty date;
-    private SimpleStringProperty reason;
+    private String date;
+    private String reason;
     
     public MedicalHistory(String date, String reason)
     {
-        this.date = new SimpleStringProperty(date);
-        this.reason = new SimpleStringProperty(reason);       
+        this.date = date;
+        this.reason = reason;       
     }
     
-    public String getDate() { return date.get(); }
-    public void setDate(String date) { this.date = new SimpleStringProperty(date); }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
     
-    public String getReason() { return reason.get(); }
-    public void setReason(String reason) { this.reason = new SimpleStringProperty(reason); }
+    public String getReason() { return reason; }
+    public void setReason(String reason) { this.reason = reason; }
  
     
     public String toString()

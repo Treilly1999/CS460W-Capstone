@@ -22,7 +22,6 @@ package Controllers;
  import org.bson.Document;
  import java.util.*;
  import java.util.ArrayList;
- import java.lang.Integer;
 /**
  *
  * @author Tyler
@@ -33,15 +32,15 @@ package Controllers;
 public class DBConnection {
     
     //TODO: Research MongoDB date object
-    static ArrayList<Patient> patientList = new ArrayList<Patient>();
+    private ArrayList<Patient> patientList = new ArrayList<Patient>();
     
     public ArrayList<Patient> getPatients()
     {
         return patientList;
     }
     
-    private static MongoClient mongoClient = new MongoClient("localhost", 27017);
-    private static MongoDatabase database = mongoClient.getDatabase("hospital");
+    private static  final MongoClient mongoClient = new MongoClient("localhost", 27017);
+    private static final MongoDatabase database = mongoClient.getDatabase("hospital");
     
     public static MongoDatabase getDB() { return database; }  
     
@@ -59,7 +58,7 @@ public class DBConnection {
         //MongoDatabase database = mongoClient.getDatabase("hospital");
         MongoCollection<Document> collection = database.getCollection("patients");    
         
-        ArrayList<Document> patients = new ArrayList<Document>();
+        ArrayList<Document> patients = new ArrayList<>();
         
         FindIterable<Document> findIterable;
         
@@ -72,17 +71,14 @@ public class DBConnection {
            findIterable = collection.find();
         }
         
-        MongoCursor<Document> cursor = findIterable.iterator();
-        
         try
-        {
+        (MongoCursor<Document> cursor = findIterable.iterator()) {
             while(cursor.hasNext())
             {               
                 patients.add(cursor.next());
             }
-        } finally {
-            cursor.close();
         }
+        //patients.forEach((n) -> System.out.println(n.toString()));
         //patients.forEach((n) -> System.out.println(n.toString()));
         
         patients.forEach((n) -> buildPatients(n, collection));
@@ -108,10 +104,10 @@ public class DBConnection {
         Date dateOfBirth = new Date();
         String gender = "";
         
-        List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
-        List<Symptoms> symptoms = new ArrayList<Symptoms>();
-        List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
-        List<String> allergies = new ArrayList<String>();
+        List<MedicalHistory> medicalHistory = new ArrayList<>();
+        List<Symptoms> symptoms = new ArrayList<>();
+        List<ProgressReport> progressReports = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
         try
         {
             name = patients.getString("name");
@@ -157,41 +153,39 @@ public class DBConnection {
     public <T> List<T> buildLists(Document storage, String type, MongoCollection<Document> collection)
     {
         
-        List<T> returnList = new ArrayList<T>();
+        List<T> returnList = new ArrayList<>();
                 
-        List<Document> patients = (List<Document>)collection.find().into(new ArrayList<Document>());
+        List<Document> patients = (List<Document>)collection.find().into(new ArrayList<>());
         
+        //TODO: Convert to switch
         for(Document patient : patients)
         {
             List<Document> insideArray = (List<Document>) patient.get(type);
             
             if(type.equals("symptoms"))
             {
-                for(Document symptom : insideArray)
-                {
+                for (Iterator<Document> it = insideArray.iterator(); it.hasNext();) {
+                    Document symptom = it.next();
                     returnList.add((T)new Symptoms(symptom.getString("name")));
                 }
             }
             else if(type.equals("progressReports"))
             {
-                for(Document progRep : insideArray)
-                {
+                insideArray.forEach((progRep) -> {
                     returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
-                }
+                });
             }
             else if(type.equals("medicalHistory"))
             {
-                for(Document medHis : insideArray)
-                {
+                insideArray.forEach((medHis) -> {
                     returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
-                }
+                });
             }
             else if(type.equals("allergies"))
             {
-                for(Document allergy: insideArray)
-                {
-                    returnList.add((T)new String(allergy.getString("allergy")));
-                }
+                insideArray.forEach((allergy) -> {
+                    returnList.add((T)allergy.getString("allergy"));
+                });
             }
             
         }
@@ -215,6 +209,7 @@ public class DBConnection {
         MongoCollection<Document> collection = database.getCollection("patients");
         Document update = new Document();
         
+        //TODO: Convert to switch
         if(user.getUSER_ROLE() == Models.Staff_Model.USER_ROLE.DOCTOR)
         {
             if(type.equals("medications"))

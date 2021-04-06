@@ -1,12 +1,8 @@
 package Views;
 
-import Controllers.DBConnection;
 import Controllers.DoctorController;
 import Controllers.LoginManager;
-import Models.Patient;
 import Models.Staff_Model;
-import Models.Symptoms;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +13,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -25,7 +20,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
 public class AddDiagnosisFrm {   
@@ -66,10 +60,17 @@ public class AddDiagnosisFrm {
                 btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                             Document search = new Document();
-                            search.put("ssn", Integer.parseInt(textField.getText()));
+                            if(textField.getText().isEmpty())
+                            {
+                                search = null;
+                            }
+                            else
+                            {
+                                search.put("ssn", Integer.parseInt(textField.getText()));
+                            }
                             
                             table.setModel(doctorController.getTable(search));
-                            System.out.println(table.getValueAt(0, 0));
+                            //System.out.println(table.getValueAt(0, 0));
                         }
 		});
 		

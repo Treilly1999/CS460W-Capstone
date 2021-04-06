@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.DoctorController;
 import Controllers.LoginManager;
 import Models.Staff_Model;
 
@@ -9,11 +10,15 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+import javax.swing.ListSelectionModel;
+import org.bson.Document;
 
 public class UpdatePFrm {
 
@@ -21,6 +26,7 @@ public class UpdatePFrm {
 	private JTextField textField;
 	private JTable table;
 	private JTextField textField_1;
+        private DoctorController doctorController = new DoctorController();
 
 	/**
 	 * Create the frame.
@@ -39,24 +45,48 @@ public class UpdatePFrm {
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
-		
-		table = new JTable();
+		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));	
 		
 		JScrollBar scrollBar = new JScrollBar();
 		
 		JScrollBar scrollBar_1 = new JScrollBar();
 		
-		JLabel lblNewLabel_1 = new JLabel("Patient Id: ");
+		JLabel lblNewLabel_1 = new JLabel("SSN:");
 		lblNewLabel_1.setFont(new Font("����", Font.PLAIN, 20));
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Pick");
+                btnNewButton_1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                         Document search = new Document();
+                         System.out.println(textField_1.getText());
+                         
+                         if(textField_1.getText().isEmpty())
+                          {
+                              search = null;
+                          }
+                          else
+                          {
+                              search.put("ssn", Integer.parseInt(textField_1.getText()));
+                          }
+
+                          table.setModel(doctorController.getTable(search));
+                    }
+                });
 		
+                table = new JTable();
+                table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Dialog", Font.PLAIN, 20));
+                btnBack.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loginManager.showMainPanel(user);
+                    }
+                });
+                
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

@@ -147,7 +147,7 @@ public class LoginManager extends JFrame {
       EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//TODO: Make patient profile && takes patient argument
+					checkInfo = new CheckInfoFrm(login, user);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
