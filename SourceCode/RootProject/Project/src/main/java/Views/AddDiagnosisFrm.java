@@ -27,12 +27,9 @@ public class AddDiagnosisFrm {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
-	private JComboBox comboBox_2;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
         private DoctorController doctorController = new DoctorController();
@@ -87,12 +84,6 @@ public class AddDiagnosisFrm {
 		JLabel lblMedicines = new JLabel("Medicines");
 		lblMedicines.setFont(new Font("����", Font.PLAIN, 20));
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		
@@ -101,8 +92,6 @@ public class AddDiagnosisFrm {
 		comboBox = new JComboBox();
 		
 		comboBox_1 = new JComboBox();
-		
-		comboBox_2 = new JComboBox();
 		
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setFont(new Font("����", Font.PLAIN, 20));
@@ -119,54 +108,40 @@ public class AddDiagnosisFrm {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(176)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(table, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-											.addGap(136)
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)))
-									.addGap(178))
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(lblSymptom, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(lblDiagnosis, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)))
-									.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+										.addComponent(lblSymptom, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDiagnosis, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblMedicines, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-									.addGap(15)))
-							.addGap(513))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(173)
-							.addComponent(lblMedicines, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(62)
-					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
-					.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addGap(344))
+										.addComponent(comboBox, Alignment.TRAILING, 0, 438, Short.MAX_VALUE)
+										.addComponent(comboBox_1, 0, 438, Short.MAX_VALUE)
+										.addComponent(textField_3, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)))
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(table, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+									.addGap(136)
+									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGap(71)
+							.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGap(182)
+							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGap(315)))
+					.addGap(587))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -186,32 +161,23 @@ public class AddDiagnosisFrm {
 					.addGap(70)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSymptom, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+					.addGap(128)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDiagnosis, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(67)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+							.addGap(69)
+							.addComponent(lblMedicines, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(75)
-							.addComponent(lblDiagnosis, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
-					.addGap(69)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblMedicines, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGap(80)
+							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))
+					.addGap(43)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton_1)
 						.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(299)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-					.addGap(121)
-					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-					.addGap(119))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
