@@ -3,6 +3,10 @@ package Views;
 import Controllers.DoctorController;
 import Controllers.LoginManager;
 import Models.Staff_Model;
+import Controllers.JTableButtonModel;
+import Controllers.JTableButtonRenderer;
+import Controllers.JTableMouseListener;
+import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +24,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import javax.swing.table.TableCellRenderer;
 import org.bson.Document;
 
 public class AddDiagnosisFrm {   
@@ -66,13 +72,22 @@ public class AddDiagnosisFrm {
                                 search.put("ssn", Integer.parseInt(textField.getText()));
                             }
                             
-                            table.setModel(doctorController.getTable(search));
+                            TableCellRenderer tableRenderer = new JTableButtonRenderer();
+                            JTableButtonModel button = new JTableButtonModel(loginManager, user);
+                            button.setRows(search);
+                            table.setModel(button);
+                            table.getColumn("Patients").setCellRenderer(tableRenderer);
+                            //tableRenderer = table.getDefaultRenderer(JButton.class);
+                            //table.setDefaultRenderer(JButton.class, new JTableButtonRenderer());
+                            table.addMouseListener(new JTableMouseListener(table));
+                            
                             //System.out.println(table.getValueAt(0, 0));
                         }
-		});
-		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		});	
+                
+                table = new JTable();
+                table.setFillsViewportHeight(true);
+		//table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setFont(new Font("����", Font.PLAIN, 20));
 		
 		JLabel lblSymptom = new JLabel("Symptom");

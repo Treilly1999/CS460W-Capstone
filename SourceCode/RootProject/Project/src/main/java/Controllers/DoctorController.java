@@ -7,6 +7,7 @@ package Controllers;
 
 import Models.Patient;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
@@ -43,8 +44,8 @@ public class DoctorController
         for(int i = 0; i < patients.size(); i++)
         {
             String name = patients.get(i).getName();
-            String ssn = "" + patients.get(i).getSSN();
-            Object[] data = {name, ssn};
+            //String ssn = "" + patients.get(i).getSSN();
+            Object[] data = {name, new JButton("Profile")};
             
             tableModel.addRow(data);
         }
