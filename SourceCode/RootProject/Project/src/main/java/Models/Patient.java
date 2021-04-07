@@ -70,7 +70,8 @@ public class Patient {
     //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
-            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender)
+            String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
+            List<String> allergies)
     {
         this.name = name;
         this.age = age;
@@ -82,7 +83,7 @@ public class Patient {
         this.symptoms = symptoms;
         this.gender = gender;
        // this.dateOfBirth = dateOfBirth;
-       // this.allergies = allergies;
+        this.allergies = allergies;
     }
     
     

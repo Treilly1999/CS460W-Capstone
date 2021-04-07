@@ -2,6 +2,7 @@ package Views;
 
 import Controllers.DBConnection;
 import Controllers.LoginManager;
+import Models.Medications;
 import Models.Patient;
 import Models.Staff_Model;
 import Models.Symptoms;
@@ -31,6 +32,7 @@ public class AddPatientFrm {
         private JTextField patientPhysicianNum;
         private JTextField patientGender;
         private JTextField allergies;
+        private JTextField currentMedications;
         
         Patient patient;
         DBConnection db = new DBConnection();
@@ -141,6 +143,9 @@ public class AddPatientFrm {
 		patientGender.setFont(new Font("����", Font.PLAIN, 20));
 		patientGender.setColumns(10);
 		
+                allergies = new JTextField();
+		allergies.setFont(new Font("����", Font.PLAIN, 20));
+		allergies.setColumns(10);
                 
 		JButton btnNewButton = new JButton("Add Patient");
 		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
@@ -167,24 +172,23 @@ public class AddPatientFrm {
                                                 Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
                                                 symptomList.add(symptom);
                                             }
-                                        }  
-                                        //TODO: Implement allergies on front end
-        //                                ArrayList<String> allergyList = new ArrayList<String>();
-        //                                if(!allergies.getText().isEmpty())
-        //                                {
-        //                                    String[] allergieValues = allergies.getText().split(",");                                         
-        //
-        //                                    for(int i = 0; i < allergieValues.length; i++)
-        //                                    {
-        //                                        String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
-        //                                        allergyList.add(allergy);
-        //                                    }
-        //                                } 
+                                        }                                         
+                                        ArrayList<String> allergyList = new ArrayList<String>();
+                                        if(!allergies.getText().isEmpty())
+                                        {
+                                            String[] allergieValues = allergies.getText().split(",");                                         
+        
+                                            for(int i = 0; i < allergieValues.length; i++)
+                                            {
+                                                String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+                                                allergyList.add(allergy);
+                                            }
+                                        }
 
                                         //TODO: Remove null allergylist
                                         patient = new Patient(patientName.getText(), Integer.parseInt(patientAge.getText()), patientPhone.getText(),
                                         Integer.parseInt(patientSSN.getText()), patientPhysician.getText(), patientPhysicianNum.getText(), patientProvider.getText(),
-                                        symptomList, patientGender.getText());       
+                                        symptomList, patientGender.getText(), allergyList);       
 
                                         String state = db.createPatient(patient, user);
 
@@ -258,6 +262,7 @@ public class AddPatientFrm {
 								.addComponent(lblProvider, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblSSN, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblSymptoms, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lblAllergies, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(lblPhysician, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(lblPhysicianNumber, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(lblGender, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
@@ -266,6 +271,7 @@ public class AddPatientFrm {
                                                                 .addComponent(patientGender, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(patientPhysicianNum, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
                                                                 .addComponent(patientPhysician, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(allergies, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
 								.addComponent(symptoms, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
 								.addComponent(patientSSN, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
 								.addComponent(patientProvider, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
@@ -301,6 +307,10 @@ public class AddPatientFrm {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblSymptoms, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 						.addComponent(symptoms, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18)
+                                        .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAllergies, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+						.addComponent(allergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                         .addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPhysician, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
