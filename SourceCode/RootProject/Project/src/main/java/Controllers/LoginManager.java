@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Patient;
 import Models.Staff_Model;
 import Views.*;
 import java.awt.EventQueue;
@@ -141,18 +142,23 @@ public class LoginManager extends JFrame {
 		});
   }
   
-  public void showPatientPanel(Staff_Model user)
+//  public void showPatientPanel(Staff_Model user)
+//  {
+//      LoginManager login = this;
+//      EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					checkInfo = new CheckInfoFrm(login, user);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//  }
+  
+  public void showPatientPanel(Patient patient, Staff_Model user)
   {
-      LoginManager login = this;
-      EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					checkInfo = new CheckInfoFrm(login, user);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+      
   }
 
 }

@@ -37,6 +37,8 @@ public class JTableButtonModel extends AbstractTableModel {
                     this.user = user;
                 }
                 
+                public ArrayList<Patient> getPatients() { return patients; }
+                
                 public void setRows(Document search)
                 {
                     if(search == null)
@@ -84,11 +86,11 @@ public class JTableButtonModel extends AbstractTableModel {
                 //TODO: Change the panel to a profile page for patient
 		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {			
-                            //TODO: Change name of button to name of patient
-				case 0: final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
+                            //TODO: pass getPatients().get(rowIndex) to a loginManager method that shows patient profile
+				case 0: final JButton button = new JButton(getPatients().get(rowIndex).getName());
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								loginManager.showMainPanel(user);
+								loginManager.showPatientPanel(getPatients().get(rowIndex), user);
 							}
 						});
 						return button;
