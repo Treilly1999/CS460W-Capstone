@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleLongProperty;
  */
 public class Patient {
     
-    
+    public Bill b;
     public SimpleStringProperty  name;
     public SimpleIntegerProperty  age;     
     public SimpleStringProperty phoneNumber;
@@ -36,6 +36,8 @@ public class Patient {
     private ArrayList<SimpleStringProperty> diagnoses;
     private ArrayList<SimpleStringProperty> tests_procedures;
     private ArrayList<SimpleStringProperty> medications;
+    
+    private SimpleIntegerProperty bill;
     
     public Patient()
     {
@@ -106,7 +108,11 @@ public class Patient {
     public void addTest(Tests_procedures t) { tests_procedures.add(new SimpleStringProperty(t.toString())); }
     
     public ArrayList<SimpleStringProperty> getMedications() { return medications; }
-    public void addDiagnosis(Medications m) { medications.add(new SimpleStringProperty(m.toString())); }
+    public void addMedications(Medications m) { medications.add(new SimpleStringProperty(m.toString())); }
+    
+    public int getBill() {return bill.get();}
+    public void addPayment(int i) {bill = new SimpleIntegerProperty(bill.get()+i);}
+    public void markPaid() {bill =  new SimpleIntegerProperty(0);}
     
     public String toString()
     {

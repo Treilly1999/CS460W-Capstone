@@ -8,13 +8,18 @@ public class Billing extends StaffMember{
 		name = n;
 	}
 	
-	public void addPayment()
+	public void addPayment(Patient p, Medications m)
 	{
-		//todo
+		p.addPayment(m.getPrice());
 	}
 	
-	public void markPaid()
+	public void addPayment(Patient p, Tests_procedures t)
 	{
-		//todo
+		p.addPayment(t.getPrice());
+	}
+	
+	public void markPaid(Patient p)
+	{
+		p.markPaid();
 	}
 }

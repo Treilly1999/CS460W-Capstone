@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 public class Nurse extends StaffMember{
 	Nurse(int i, int p, String a, String n)
 	{
@@ -27,6 +30,20 @@ public class Nurse extends StaffMember{
 	
 	public void printDischargeInstructions(Patient p)
 	{
-		//todo
+		String filename = p.getName() + ".txt";
+		try
+		{
+			File f = new File(filename);
+			f.createNewFile();
+			FileWriter w =  new FileWriter(filename);
+			w.write(p.getDischargeInstructions());
+			w.close();
+			System.out.println("Discharge instructions saved to computer.");
+		}
+		catch (IOException e)
+		{
+			System.out.println("An error occurred");
+			e.printStackTrace();
+		}
 	}
 }

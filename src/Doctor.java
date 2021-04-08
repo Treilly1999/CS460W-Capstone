@@ -14,24 +14,25 @@ public class Doctor extends StaffMember {
 		name = n;
 	}
 	
-	public void enterDiagnosis(Patient p)
+	/*public void enterDiagnosis(Patient p, Diagnoses d)
 	{
-		//todo. use enumeration here
+		
 	}
 	
-	public void orderTests(Patient p)
+	public void orderTests(Patient p, Tests_procedures t)
 	{
-		//todo. use enumeration here
+		
 	}
 	
-	public void orderMedications(Patient p)
+	public void orderMedications(Patient p, Medications m)
 	{
-		//todo. use enumeration here
-	}
+		
+	}*/
 	
 	public void enterDischargeInstructions(Patient p)
 	{
 		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter discharge instructions");
 		String s = scan.next();
 		p.setDischargeInstructions(new SimpleStringProperty(s));
 		scan.close();
