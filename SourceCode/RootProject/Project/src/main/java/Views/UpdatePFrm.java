@@ -1,9 +1,11 @@
 package Views;
 
 import Controllers.DoctorController;
+import Controllers.JTableButtonModel;
+import Controllers.JTableButtonRenderer;
+import Controllers.JTableMouseListener;
 import Controllers.LoginManager;
 import Models.Staff_Model;
-
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -17,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
-import javax.swing.ListSelectionModel;
+import javax.swing.table.TableCellRenderer;
 import org.bson.Document;
 
 public class UpdatePFrm {
@@ -57,7 +59,13 @@ public class UpdatePFrm {
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("Pick");
+		JButton btnNewButton_1 = new JButton("Find");
+                /*
+                Author: Tyler
+                Description: Button creates a search document from textfield, 
+                returns with a table of found entries that have a button to take
+                user to profile page for patient.
+                */
                 btnNewButton_1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                          Document search = new Document();
@@ -72,12 +80,21 @@ public class UpdatePFrm {
                               search.put("ssn", Integer.parseInt(textField_1.getText()));
                           }
 
-                          table.setModel(doctorController.getTable(search));
-                    }
+                        TableCellRenderer tableRenderer = new JTableButtonRenderer();
+                        JTableButtonModel button = new JTableButtonModel(loginManager, user);
+                        button.setRows(search);
+                        table.setModel(button);
+                        table.getColumn("Patients").setCellRenderer(tableRenderer);
+                        //tableRenderer = table.getDefaultRenderer(JButton.class);
+                        //table.setDefaultRenderer(JButton.class, new JTableButtonRenderer());
+                        table.addMouseListener(new JTableMouseListener(table));
+                }
                 });
 		
                 table = new JTable();
-                table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                table.setFillsViewportHeight(true);
+		//table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setFont(new Font("����", Font.PLAIN, 20));
                 
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Dialog", Font.PLAIN, 20));

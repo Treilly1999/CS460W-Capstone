@@ -164,8 +164,7 @@ public class DBConnection {
             
             if(type.equals("symptoms"))
             {
-                for (Iterator<Document> it = insideArray.iterator(); it.hasNext();) {
-                    Document symptom = it.next();
+                for (Document symptom : insideArray) {
                     returnList.add((T)new Symptoms(symptom.getString("name")));
                 }
             }

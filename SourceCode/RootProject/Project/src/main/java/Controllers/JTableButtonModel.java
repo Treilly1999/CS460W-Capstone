@@ -90,7 +90,8 @@ public class JTableButtonModel extends AbstractTableModel {
 				case 0: final JButton button = new JButton(getPatients().get(rowIndex).getName());
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								loginManager.showPatientPanel(getPatients().get(rowIndex), user);
+								//loginManager.showPatientPanel(getPatients().get(rowIndex), user);
+                                                                loginManager.showMainPanel(user);
 							}
 						});
 						return button;

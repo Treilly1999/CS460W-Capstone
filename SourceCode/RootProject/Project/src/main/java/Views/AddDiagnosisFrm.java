@@ -6,8 +6,9 @@ import Models.Staff_Model;
 import Controllers.JTableButtonModel;
 import Controllers.JTableButtonRenderer;
 import Controllers.JTableMouseListener;
-import java.awt.BorderLayout;
-
+import Models.Diagnoses;
+import Models.Medications;
+import Models.Symptoms;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,14 +18,13 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
 import javax.swing.table.TableCellRenderer;
 import org.bson.Document;
 
@@ -33,13 +33,17 @@ public class AddDiagnosisFrm {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
-	private JTextField textField_3;
+	//private JTextField textField_3;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
+        private JComboBox medications;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
         private DoctorController doctorController = new DoctorController();
         
+        private List<Medications> selectedMedications;
+        private List<Symptoms> selectedSymptoms;
+        private List<Diagnoses> selectedDiagnosis;
 	/**
 	 * Create the frame.
 	 */
@@ -60,6 +64,12 @@ public class AddDiagnosisFrm {
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
                 
+                /*
+                Author: Tyler
+                Description: Button creates a search document from textfield, 
+                returns with a table of found entries that have a button to take
+                user to profile page for patient.
+                */
                 btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                             Document search = new Document();
@@ -99,17 +109,60 @@ public class AddDiagnosisFrm {
 		JLabel lblMedicines = new JLabel("Medicines");
 		lblMedicines.setFont(new Font("����", Font.PLAIN, 20));
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		
+//		textField_3 = new JTextField();
+//		textField_3.setColumns(10);
+                
 		JList list = new JList();
 		
 		comboBox = new JComboBox();
-		
+                comboBox.addItem("Fever");
+                comboBox.addItem("Cough");
+                comboBox.addItem("Congestion");
+                comboBox.addItem("Aches");
+                comboBox.addItem("Fatigue");
+                comboBox.addItem("Nausea");
+		                
 		comboBox_1 = new JComboBox();
-		
+                comboBox_1.addItem(Models.Diagnoses.ABDOMINALPAIN);
+                comboBox_1.addItem(Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION);
+                comboBox_1.addItem(Models.Diagnoses.CHESTPAIN);
+                comboBox_1.addItem(Models.Diagnoses.DIZZINESSANDGIDDINESS);
+                comboBox_1.addItem(Models.Diagnoses.HEADACHE);
+                comboBox_1.addItem(Models.Diagnoses.INJURYOFHEAD);
+                comboBox_1.addItem(Models.Diagnoses.LOWERBACKPAIN);
+                comboBox_1.addItem(Models.Diagnoses.NONINFECTIVEGASTROENTERITISANDCOLITIS);
+                comboBox_1.addItem(Models.Diagnoses.SYNCOPEANDCOLLAPSE);
+                comboBox_1.addItem(Models.Diagnoses.URINARYTRACTINFECTION);
+                
+                medications = new JComboBox();
+                medications.addItem(Models.Medications.ACETAMINOPHEN);
+                medications.addItem(Models.Medications.ANTACID);
+		medications.addItem(Models.Medications.ANTIBIOTIC);
+                medications.addItem(Models.Medications.ANTISEIZURE);
+                medications.addItem(Models.Medications.ASPIRIN);
+                medications.addItem(Models.Medications.FOSCARNET);
+                medications.addItem(Models.Medications.GANCICLOVIR);
+                medications.addItem(Models.Medications.IBUPROFIN);
+                medications.addItem(Models.Medications.SIMETHICONE);
+                medications.addItem(Models.Medications.SUGAR);
+                medications.addItem(Models.Medications.VALDANCICLOVIR);
+                
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setFont(new Font("����", Font.PLAIN, 20));
+                btnNewButton_1.addActionListener(new ActionListener() {
+                    //TODO: Add diagnosis to selectedDiagnosis list
+                    public void actionPerformed(ActionEvent e) {
+                        //selectedDiagnosis.add(comboBox_1.getSelectedItem());
+//                        if(!textField_3.getText().isEmpty())
+//                            textField_3.setText(textField_3.getText() + ", " + comboBox_1.getSelectedItem().toString());
+//                        else
+//                        {                          
+//                            textField_3.setText("Selected diagnosis: " + comboBox_1.getSelectedItem().toString());
+//                        }
+                            
+                    }
+                });
+                
 		
 		btnNewButton_2 = new JButton("Back");
 		btnNewButton_2.setFont(new Font("����", Font.PLAIN, 20));
@@ -138,7 +191,7 @@ public class AddDiagnosisFrm {
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addComponent(comboBox, Alignment.TRAILING, 0, 438, Short.MAX_VALUE)
 										.addComponent(comboBox_1, 0, 438, Short.MAX_VALUE)
-										.addComponent(textField_3, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)))
+                                                                                .addComponent(medications, 0, 438, Short.MAX_VALUE)))
 								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 									.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
@@ -187,7 +240,7 @@ public class AddDiagnosisFrm {
 							.addComponent(lblMedicines, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(80)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(medications, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))                                                
 					.addGap(43)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton_1)

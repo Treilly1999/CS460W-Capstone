@@ -25,6 +25,7 @@ public class DoctorController
     /*
     Author: Tyler Reilly
     Description: Creates a table of patients based on a search parameter.
+    //LEGACY CODE
     */
     public DefaultTableModel getTable(Document search)
     {
