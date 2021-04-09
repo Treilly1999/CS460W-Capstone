@@ -22,9 +22,11 @@ public class Staff_Model {
     }
     
     private USER_ROLE role;
-    private int id;
-    private String name, userName, password;
-    private Address address;
+    protected int id;
+    protected String name, phoneNumber;
+    private String userName, password;
+    protected Address address;
+
        
     public Staff_Model() {}
     

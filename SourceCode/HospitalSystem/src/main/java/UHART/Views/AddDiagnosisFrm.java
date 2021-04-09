@@ -122,9 +122,8 @@ public class AddDiagnosisFrm {
                 comboBox.addItem("Aches");
                 comboBox.addItem("Fatigue");
                 comboBox.addItem("Nausea");
-		                
+		 
 		comboBox_1 = new JComboBox();
-                comboBox_1.addItem(UHART.Models.Diagnoses.ABDOMINALPAIN);
                 comboBox_1.addItem(UHART.Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION);
                 comboBox_1.addItem(UHART.Models.Diagnoses.CHESTPAIN);
                 comboBox_1.addItem(UHART.Models.Diagnoses.DIZZINESSANDGIDDINESS);
@@ -146,7 +145,6 @@ public class AddDiagnosisFrm {
                 medications.addItem(UHART.Models.Medications.IBUPROFIN);
                 medications.addItem(UHART.Models.Medications.SIMETHICONE);
                 medications.addItem(UHART.Models.Medications.SUGAR);
-                medications.addItem(UHART.Models.Medications.VALDANCICLOVIR);
                 
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setFont(new Font("����", Font.PLAIN, 20));

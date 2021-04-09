@@ -20,10 +20,8 @@ public class Patient {
     //TODO: Implement Billing variables
     
     //BILL OBJECT?
-    //private Bill bill;
-    
-    private int bill;
-    
+    //private Bill b;    
+    private Bill bill;
     private String  name;
     private int  age;     
     private String phoneNumber;
@@ -199,16 +197,20 @@ public class Patient {
     //Medications
     public ArrayList<Medications> getMedications() { return medications; }
     public void addMedication(Medications m) { medications.add(m); }
-    
-    //Bill
-    public int getBill() { return bill; }
-    public void setBill(int m) { bill = m; }
-    
+       
     public Date getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(Date dob) { dateOfBirth = dob; }
     
     public List<String> getAllergies() { return allergies; }
     public void setAllergies(List<String> allergies) { this.allergies = allergies; }
+
+    /*
+    Author: Jakob
+    */
+    public Bill getBill() {return bill;}
+    //TODO: Fix addPayment
+    //public void addPayment(int i) {bill = bill+i;}
+    public void markPaid() {bill.markPaid();}
     
     
     public String toString()

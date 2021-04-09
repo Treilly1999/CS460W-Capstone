@@ -78,35 +78,38 @@ public class LoginFrm {
 			public void actionPerformed(ActionEvent e) {
 				// function to login to other interface and start the program
                                 staffQuery.put("userName", user.getText());
-                                
-                                try
-                                {
-                                    
-                                    loginController = new LoginController(staffQuery);
-                                    currentUser = loginController.getCurrentUser();
-                                    System.out.println(currentUser.toString());
-
-                                    if(currentUser.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DEFAULT)
-                                    {
-                                        //errorMessage.setText("Unauthorized Access. Contact your system administrator.");
-                                        //errorMessage.setTextFill(Color.web("#0076a3"));
-                                    }
-                                    //System.out.println("BEFORE AUTHORZE");
-                                    Boolean accepted = loginController.authorize(currentUser, Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString(), user.getText());
-                                    //System.out.println("AFTER AUTHORZE");
-                                    if (accepted) {
-                                      loginManager.authenticated(currentUser);
-                                    }
-                                }
-                                catch (Exception exception)
-                                {
-                                    System.out.println("STAFF MEMBER NOT FOUND");
-                                    exception.printStackTrace();
-                                    //TODO: WHAT TO DO IF LOGIN FAIL
-                                    //loginManager.showLoginScreen(); 
-                                    errorMessage.setText("Username/Password inccorect.");
-                                    //errorMessage.setTextFill(Color.web("#0076a3"));
-                                }
+                                if(!user.getText().isEmpty() && !passwordField.getText().isEmpty())
+								{
+									try
+									{
+										
+										loginController = new LoginController(staffQuery);
+										currentUser = loginController.getCurrentUser();
+										System.out.println(currentUser.toString());
+	
+										if(currentUser.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DEFAULT)
+										{
+											//errorMessage.setText("Unauthorized Access. Contact your system administrator.");
+											//errorMessage.setTextFill(Color.web("#0076a3"));
+										}
+										//System.out.println("BEFORE AUTHORZE");
+										Boolean accepted = loginController.authorize(currentUser, Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString(), user.getText());
+										//System.out.println("AFTER AUTHORZE");
+										if (accepted) {
+										  loginManager.authenticated(currentUser);
+										}
+									}
+									catch (Exception exception)
+									{
+										System.out.println("STAFF MEMBER NOT FOUND");
+										exception.printStackTrace();
+										//TODO: WHAT TO DO IF LOGIN FAIL
+										//loginManager.showLoginScreen(); 
+										errorMessage.setText("Username/Password inccorect.");
+										//errorMessage.setTextFill(Color.web("#0076a3"));
+									}
+								}
+                               
                                
 			}
 		});
