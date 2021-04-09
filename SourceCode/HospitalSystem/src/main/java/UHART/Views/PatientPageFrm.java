@@ -1,20 +1,21 @@
 package UHART.Views;
 
+
+import UHART.Controllers.LoginManager;
+import UHART.Models.*;
+
 /**
  *
  * @author Yixun
  */
 public class PatientPageFrm extends javax.swing.JPanel {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    /**
-     * Creates new form PatientPageFrm
-     */
-    public PatientPageFrm() {
-        initComponents();
+   
+    private static final long serialVersionUID = 1L;    
+    
+    public PatientPageFrm(Patient patient, Staff_Model user, LoginManager loginManager) {
+        System.out.println(patient.toString());
+        initComponents(patient, user, loginManager);
     }
 
     /**
@@ -24,7 +25,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(Patient patient, Staff_Model user, LoginManager loginManager) {
+
+        loginManager.setContentPane(this);
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -93,16 +96,16 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel6.setText("Physician Number:");
 
         jLabel7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel7.setText("Allergies seperated by commns:");
+        jLabel7.setText("Allergies:");
 
         jLabel8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel8.setText("Symptons seperated by commas:");
+        jLabel8.setText("Symptons:");
 
         jLabel9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel9.setText("Medications seperated by commas:");
+        jLabel9.setText("Medications:");
 
         jLabel10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel10.setText("Steret Number:");
+        jLabel10.setText("Street:");
 
         jLabel11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
         jLabel11.setText("City:");
@@ -111,40 +114,48 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel12.setText("State:");
 
         jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText("jTextField1");
+        jTextField1.setText(patient.getName());
+        jTextField1.setEditable(false);
 
         jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText("jTextField1");
+        jTextField2.setText(patient.getGender());
+        jTextField2.setEditable(false);
 
         jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField3.setText("jTextField1");
+        jTextField3.setText(patient.getPhone());
+        jTextField3.setEditable(false);
 
         jTextField4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField4.setText("jTextField1");
+        jTextField4.setText("" + patient.getSSN());
+        jTextField4.setEditable(false);
 
         jTextField5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField5.setText("jTextField1");
+        jTextField5.setText(patient.getPhysician());
+        jTextField5.setEditable(false);
 
         jTextField6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField6.setText("jTextField1");
+        jTextField6.setText(patient.getPhysicianNumber());
+        jTextField6.setEditable(false);
 
         jTextField7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField7.setText("jTextField1");
+        //TODO: loop through and set
+        jTextField7.setText("PLACEHOLDER");
+        jTextField7.setEditable(false);
 
         jTextField8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField8.setText("jTextField1");
+        jTextField8.setText("PLACEHOLDER");
 
         jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField9.setText("jTextField1");
+        jTextField9.setText("PLACEHOLDER");
 
         jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("jTextField1");
+        jTextField10.setText("PLACEHOLDER");
 
         jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("jTextField1");
+        jTextField11.setText("PLACEHOLDER");
 
         jTextField12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField12.setText("jTextField1");
+        jTextField12.setText("PLACEHOLDER");
 
         jLabel15.setText("Symptom:");
 
@@ -232,7 +243,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel14.setText("Country:");
 
         jTextField13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField13.setText("jTextField1");
+        jTextField13.setText("PLACEHOLDER");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -246,6 +257,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         });
 
         jButton3.setText("Save");
+        jButton3.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -390,6 +402,23 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+
+        jTextField1.setEditable(true);
+        jTextField2.setEditable(true);
+        jTextField3.setEditable(true);
+        jTextField4.setEditable(true);
+        jTextField5.setEditable(true);
+        jTextField6.setEditable(true);
+        jTextField7.setEditable(true);
+        jTextField8.setEditable(true);
+        jTextField9.setEditable(true);
+        jTextField10.setEditable(true);
+        jTextField11.setEditable(true);
+        jTextField12.setEditable(true);
+        jTextField13.setEditable(true);
+        jButton3.setVisible(true);
+        jButton2.setVisible(false);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

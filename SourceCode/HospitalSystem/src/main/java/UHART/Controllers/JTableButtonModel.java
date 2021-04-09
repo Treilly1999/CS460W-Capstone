@@ -83,15 +83,13 @@ public class JTableButtonModel extends AbstractTableModel {
 			return COLUMN_TYPES[columnIndex];
 		}
 
-                //TODO: Change the panel to a profile page for patient
 		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {			
                             //TODO: pass getPatients().get(rowIndex) to a loginManager method that shows patient profile
 				case 0: final JButton button = new JButton(getPatients().get(rowIndex).getName());
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								//loginManager.showPatientPanel(getPatients().get(rowIndex), user);
-                                                                loginManager.showMainPanel(user);
+								loginManager.showPatientPanel(getPatients().get(rowIndex), user);
 							}
 						});
 						return button;

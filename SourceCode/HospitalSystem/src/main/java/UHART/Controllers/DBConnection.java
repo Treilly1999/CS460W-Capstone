@@ -122,9 +122,9 @@ public class DBConnection {
         try
         {
             name = patients.getString("name");
-            age = patients.getInteger("age");
+            //age = patients.getInteger("age");
             phoneNumber = patients.getString("phoneNumber");
-            ssn = patients.getInteger("ssn");
+            //ssn = patients.getInteger("ssn");
             physicianName = patients.getString("physicianName");
             physicianNumber = patients.getString("physicianNumber");           
             dischargeInstructions = patients.getString("dischargeInstructions");
@@ -143,13 +143,14 @@ public class DBConnection {
             
           } catch (Exception e)
           {
+              System.out.println(e);
               System.out.println("Some query parameters were not found in " + name + " profile");
           }
         
         Document patientID = new Document();
         patientID.put("patientID", "" + id);  
         
-        patientList.add(new Patient(id, name,  age,  phoneNumber, ssn,  physicianName, 
+        patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
                 medicalHistory,  progressReports, dischargeInstructions, gender));
         
@@ -164,44 +165,66 @@ public class DBConnection {
     public <T> List<T> buildLists(Document storage, String type, MongoCollection<Document> collection)
     {
         
-        List<T> returnList = new ArrayList<T>();
-                
-        List<Document> patients = (List<Document>)(ArrayList<?>)collection.find().into(new ArrayList<>());
+        List<T> returnList = new ArrayList<T>();       
+
+        //List<Document> patients = (List<Document>)(ArrayList<?>)collection.find().into(new ArrayList<>());     
         
-        //TODO: Convert to switch
-        for(Document patient : patients)
+
+        if(type.equals("symptoms"))
         {
-            List<Document> insideArray = (List<Document>) patient.get(type);
+            ArrayList<Symptoms> symptoms = (ArrayList<Symptoms>)storage.get("symptoms");
+            returnList = (List<T>)symptoms;
+        }
+        else if(type.equals("progressReports"))
+        {
+            ArrayList<ProgressReport> progressReports = (ArrayList<ProgressReport>)storage.get("progressReports");       
+            returnList = (List<T>)progressReports;
+        }
+        else if(type.equals("medicalHistory"))
+        {
+            ArrayList<MedicalHistory> medHist = (ArrayList<MedicalHistory>)storage.get("progressReports");       
+            returnList = (List<T>)medHist;               
+        }
+        else if(type.equals("allergies"))
+        {
+            ArrayList<String> allergies = (ArrayList<String>)storage.get("progressReports");       
+            returnList = (List<T>)allergies;      
+        }
+
+        //TODO: Convert to switch
+        // for(Document patient : patients)
+        // {
+        //     List<Document> insideArray = (List<Document>) patient.get(type);
             
-            if(type.equals("symptoms"))
-            {
-                for (Document symptom : insideArray) {
-                    returnList.add((T)new Symptoms(symptom.getString("name")));
-                }
-            }
-            else if(type.equals("progressReports"))
-            {
-                for(Document progRep : insideArray)
-                {
-                    returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
-                }                
-            }
-            else if(type.equals("medicalHistory"))
-            {
-                for (Document medHis : insideArray) {
-                    returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
-                }
+        //     if(type.equals("symptoms"))
+        //     {
+        //         for (Document symptom : insideArray) {
+        //             returnList.add((T)new Symptoms(symptom.getString("name")));
+        //         }
+        //     }
+        //     else if(type.equals("progressReports"))
+        //     {
+        //         for(Document progRep : insideArray)
+        //         {
+        //             returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
+        //         }                
+        //     }
+        //     else if(type.equals("medicalHistory"))
+        //     {
+        //         for (Document medHis : insideArray) {
+        //             returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
+        //         }
                 
                     
-            }
-            else if(type.equals("allergies"))
-            {
-                for (Document allergy : insideArray) {
-                    returnList.add((T)allergy.getString("allergy"));
-                }                
-            }
+        //     }
+        //     else if(type.equals("allergies"))
+        //     {
+        //         for (Document allergy : insideArray) {
+        //             returnList.add((T)allergy.getString("allergy"));
+        //         }                
+        //     }
             
-        }
+        // }
         
         return (List<T>)returnList;  
     }
