@@ -1,0 +1,57 @@
+patient
+
+db.patients.insert({
+	"name": "Steve",
+	"age": "21",
+	"phoneNumber": "860-860-8600",
+	"id": "2",
+	"provider": "Husky",
+	"ssn": "654789043",
+	"physicianName": "Dr. Yun",
+	"physicianNumber": "5432342123",
+	"dischargeInstructions": "Do not go to the vet.",
+	"assignedDoctor": "Dr. Opo",
+	"admitted": "true"
+})
+
+db.patients.insert({
+	"name": "Mason Wein",
+	"age": "21",
+	"phoneNumber": "860-078-8500",
+	"id": "3",
+	"provider": "Husky",
+	"ssn": "984234234",
+	"physicianName": "Dr. Yun",
+	"physicianNumber": "5432342123",
+	"dischargeInstructions": "Do not go to the vet.",
+	"assignedDoctor": "",
+	"admitted": "false"
+})
+
+db.patients.insert({
+	"name": "Sydnie Spitz",
+	"age": "20",
+	"phoneNumber": "233-241-5675",
+	"id": "4",
+	"provider": "Anthem",
+	"ssn": "984426759",
+	"physicianName": "Dr. Quan",
+	"physicianNumber": "765-432-1234",
+	"dischargeInstructions": "Do not go to the vet.",
+	"assignedDoctor": "Dr. Reilly",
+	"admitted": "true"
+})
+
+db.patients.insert({
+	"name": "Billy Zaimes",
+	"age": "22",
+	"phoneNumber": "678-234-1234",
+	"id": "5",
+	"provider": "Anthem",
+	"ssn": "234523453",
+	"physicianName": "Dr. Quan",
+	"physicianNumber": "543-134-8755",
+	"dischargeInstructions": "Do not go to the vet.",
+	"assignedDoctor": "Dr. Reilly",
+	"admitted": "true"
+})
