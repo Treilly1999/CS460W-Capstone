@@ -1,0 +1,14 @@
+Members present: Tyler, Jakob, Yixun, Professor
+Lead: Tyler
+Recorder: Jakob
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Work completed prior to meeting:
+No new work since previous meeting
+
+-Met with client to discuss progress on deliverable
+-Client said we were on track but emphasized that we should test everything to make sure it functioned
+
+TODO
+UI and Database integration: Tyler
+Polish UI by fixing spelling errors and removing unneeded elements: Yixun
+Update Bill class and check that StaffMember objects can properly interact with it: Jakob

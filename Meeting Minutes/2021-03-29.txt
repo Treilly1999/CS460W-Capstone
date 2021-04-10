@@ -1,0 +1,20 @@
+Members present: Tyler, Jakob, Yixun
+Lead: Tyler
+Recorder: Jakob
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Work completed prior to meeting:
+Tyler created working demo of database functionality
+Yixun completed first drafts of all UI elements
+Jakob continued work on classes derived from StaffMember and created additional class to store billing information
+
+-Team went over work from past meeting
+-Discussion of how new billing class needed to work.
+	-Bill should be itemized
+-Yixun demonstrated his UI elements
+	-A few typos
+	-Some extraneous UI elements
+
+TODO
+UI and Database integration: Tyler
+Polish UI by fixing spelling errors and removing unneeded elements: Yixun
+Update Bill class and check that StaffMember objects can properly interact with it: Jakob

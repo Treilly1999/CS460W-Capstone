@@ -1,0 +1,22 @@
+Members present: Tyler, Jakob, Yixun
+Lead: Tyler
+Recorder: Jakob
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Work completed prior to meeting:
+Tyler worked on UI and database integration
+Yixun completed work on most UI elements
+Jakob updated Bill class with itemized elements and a toString() method. Also worked on StaffMember classes.
+
+-Team went over work from past meeting
+-Final pass on Bill class
+	-Need to update patient to hold a Bill object
+	-Add removeItem() function
+-Discussed database and UI integration. Tyler reported that everything was working as expected.
+
+
+TODO
+Connect newest UI elements to existing code: Tyler
+Write install and run instructions: Tyler
+Update UI with scrolling, back buttons: Yixun
+Update Bill class as discussed in meeting: Jakob
+Document missing or incomplete features: Jakob
