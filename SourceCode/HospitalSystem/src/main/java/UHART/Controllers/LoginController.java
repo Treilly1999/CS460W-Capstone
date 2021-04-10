@@ -55,7 +55,14 @@ public class LoginController {
             cursor.close();
         }
               
-        staffMember = buildCurrentUser(staff);
+        try{
+            staffMember = buildCurrentUser(staff);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.out.println("User not found");
+        }
         
         //System.out.println(staffMember.getUSER_ROLE());
         
@@ -115,8 +122,13 @@ public class LoginController {
        
        //TODO: ADD SALT TO PASSWORD TO MAKE EVERY PASSWORD DIFFERENT       
        //System.out.println("AFTER HASHING: " + sha256hex);
-       
-       return staffMember.getUserName().equals(userName) && staffMember.getPassword().equals(sha256hex);
+       try{
+            return staffMember.getUserName().equals(userName) && staffMember.getPassword().equals(sha256hex);
+       }
+       catch(Exception e)
+       {
+            return false;
+       }
   }
  
 }

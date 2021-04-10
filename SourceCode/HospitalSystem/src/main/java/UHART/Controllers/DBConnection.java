@@ -1,5 +1,7 @@
 package UHART.Controllers;
 
+import UHART.Models.Address;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -114,7 +116,7 @@ public class DBConnection {
         //TODO: Convert to date
         Date dateOfBirth = new Date();
         String gender = "";
-        
+        Address address = new Address();
         List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
         List<Symptoms> symptoms = new ArrayList<Symptoms>();
         List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
@@ -140,6 +142,12 @@ public class DBConnection {
             symptoms = buildLists(patients, "symptoms", collection); 
             progressReports = buildLists(patients, "progressReports", collection); 
        
+
+            for(Document addr : (List<Document>)patients.get("address"))
+            {
+                address = new Address(addr.getString("street"),addr.getString("zipcode"),addr.getString("state"),addr.getString("country"),addr.getString("city"));
+            }
+            
             
           } catch (Exception e)
           {
@@ -152,7 +160,7 @@ public class DBConnection {
         
         patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
-                medicalHistory,  progressReports, dischargeInstructions, gender));
+                medicalHistory,  progressReports, dischargeInstructions, gender, address, allergies));
         
       
     } 
@@ -172,8 +180,14 @@ public class DBConnection {
 
         if(type.equals("symptoms"))
         {
-            ArrayList<Symptoms> symptoms = (ArrayList<Symptoms>)storage.get("symptoms");
-            returnList = (List<T>)symptoms;
+
+            for(Document symptom : (List<Document>)storage.get("symptoms"))
+            {
+                returnList.add((T)new Symptoms(symptom.getString("name")));
+            }
+
+            // ArrayList<Symptoms> symptoms = (ArrayList<Symptoms>)storage.get("symptoms");
+            // returnList = (List<T>)symptoms;
         }
         else if(type.equals("progressReports"))
         {
@@ -187,9 +201,11 @@ public class DBConnection {
         }
         else if(type.equals("allergies"))
         {
-            ArrayList<String> allergies = (ArrayList<String>)storage.get("progressReports");       
-            returnList = (List<T>)allergies;      
-        }
+            for(Document allergy : (List<Document>)storage.get("allergies"))
+            {
+                returnList.add((T)new String(allergy.getString("allergy")));
+            }     
+        }        
 
         //TODO: Convert to switch
         // for(Document patient : patients)
@@ -344,7 +360,7 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Creates a patient using a patient object.
     */
-    public static String createPatient(Patient patient, Staff_Model user)
+    public String createPatient(Patient patient, Staff_Model user)
     {
         MongoCollection<Document> patientCollection = database.getCollection("patients");            
             
@@ -367,13 +383,15 @@ public class DBConnection {
             document.put("id", id.toString());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
-            document.put("dateOfBirth", patient.getDateOfBirth());
+            //document.put("dateOfBirth", patient.getDateOfBirth());
             
             patientCollection.insertOne(document);      
             
             Document patientID = new Document();
             patientID.put("id", id.toString());
             
+            createAddress(patient.getAddress(), patientCollection, patientID);
+
             for(int i = 0; i<patient.getSymptoms().size(); i++)
             {
                 createSymptoms(patient.getSymptoms().get(i), patientCollection, patientID);
@@ -409,6 +427,25 @@ public class DBConnection {
         sympt.put("name", symptoms.getSymptom());
         
         patientCollection.updateOne(find, new Document("$push", new Document("symptoms", sympt)));
+    } 
+    
+    /*
+    Author: Tyler Reilly
+    // Description: Helper Method for createPatient
+    TODO: Way to do it without creating? Instead return nested doc?
+    */
+    public static void createAddress(Address address, MongoCollection<Document> patientCollection, Document find)
+    {        
+        
+        Document addr = new Document();
+        
+        addr.put("street", address.getStreet());
+        addr.put("city", address.getCity());
+        addr.put("state", address.getState());
+        addr.put("zipcode", address.getZipcode());
+        addr.put("country", address.getcountry());
+        
+        patientCollection.updateOne(find, new Document("$push", new Document("address", addr)));
     } 
     
     /*

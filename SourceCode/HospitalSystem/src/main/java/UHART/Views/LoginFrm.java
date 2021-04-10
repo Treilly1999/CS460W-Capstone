@@ -73,6 +73,7 @@ public class LoginFrm {
                 errorMessage.setEditable(false);
 		
                 JButton btnNewButton = new JButton("Log In");
+				loginManager.getRootPane().setDefaultButton(btnNewButton);
         		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +86,7 @@ public class LoginFrm {
 										
 										loginController = new LoginController(staffQuery);
 										currentUser = loginController.getCurrentUser();
-										System.out.println(currentUser.toString());
+										//System.out.println(currentUser.toString());
 	
 										if(currentUser.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DEFAULT)
 										{

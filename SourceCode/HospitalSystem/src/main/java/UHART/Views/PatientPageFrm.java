@@ -1,6 +1,9 @@
 package UHART.Views;
 
 
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.awt.event.ActionEvent;
 import UHART.Controllers.LoginManager;
 import UHART.Models.*;
 
@@ -14,7 +17,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;    
     
     public PatientPageFrm(Patient patient, Staff_Model user, LoginManager loginManager) {
-        System.out.println(patient.toString());
+        //System.out.println(patient.toString());
         initComponents(patient, user, loginManager);
     }
 
@@ -139,25 +142,55 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField6.setText(patient.getPhysicianNumber());
         jTextField6.setEditable(false);
 
+        String allergies = "";
+        for(String allergy: patient.getAllergies())
+        {
+            if(allergies.isEmpty())
+            {
+                allergies = allergy;
+            }
+            else
+            {
+                allergies += ", " +allergy;
+            }
+        }
+
         jTextField7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        //TODO: loop through and set
-        jTextField7.setText("PLACEHOLDER");
+        jTextField7.setText(allergies);
         jTextField7.setEditable(false);
 
+        String symptoms = "";
+        for(Symptoms symptom: patient.getSymptoms())
+        {
+            if(symptoms.isEmpty())
+            {
+                symptoms = symptom.toString();
+            }
+            else
+            {
+                symptoms += ", " +symptom.toString();
+            }
+        }
+
         jTextField8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField8.setText("PLACEHOLDER");
+        jTextField8.setText(symptoms);
+        jTextField8.setEditable(false);
 
         jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField9.setText("PLACEHOLDER");
+        jTextField9.setText("9");
+        jTextField9.setEditable(false);        
 
         jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("PLACEHOLDER");
+        jTextField10.setText(patient.getAddress().getStreet());
+        jTextField10.setEditable(false);
 
         jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("PLACEHOLDER");
+        jTextField11.setText(patient.getAddress().getCity());
+        jTextField11.setEditable(false);
 
         jTextField12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField12.setText("PLACEHOLDER");
+        jTextField12.setText(patient.getAddress().getState());
+        jTextField12.setEditable(false);
 
         jLabel15.setText("Symptom:");
 
@@ -167,11 +200,30 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jLabel16.setText("Diagnosis:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Diagnoses.ABDOMINALPAIN.toString(),
+        UHART.Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION.toString(),
+        UHART.Models.Diagnoses.CHESTPAIN.toString(),
+        UHART.Models.Diagnoses.DIZZINESSANDGIDDINESS.toString(),
+        UHART.Models.Diagnoses.HEADACHE.toString(),
+        UHART.Models.Diagnoses.INJURYOFHEAD.toString(),
+        UHART.Models.Diagnoses.LOWERBACKPAIN.toString(),
+        UHART.Models.Diagnoses.NONINFECTIVEGASTROENTERITISANDCOLITIS.toString(),
+        UHART.Models.Diagnoses.SYNCOPEANDCOLLAPSE.toString(),
+        UHART.Models.Diagnoses.URINARYTRACTINFECTION.toString()}));
 
         jLabel17.setText("Medicines: ");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Medications.ACETAMINOPHEN.toString(),
+            UHART.Models.Medications.ANTACID.toString(), 
+            UHART.Models.Medications.ANTIBIOTIC.toString(),
+            UHART.Models.Medications.ANTISEIZURE.toString(),
+            UHART.Models.Medications.ASPIRIN.toString(),
+            UHART.Models.Medications.FOSCARNET.toString(),
+            UHART.Models.Medications.GANCICLOVIR.toString(),
+            UHART.Models.Medications.IBUPROFIN.toString(),
+            UHART.Models.Medications.SIMETHICONE.toString(),
+            UHART.Models.Medications.SUGAR.toString(),
+            UHART.Models.Medications.VALGANCICLOVIR.toString()}));
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -232,7 +284,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel14.setText("Country:");
 
         jTextField13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField13.setText("PLACEHOLDER");
+        jTextField13.setText(patient.getAddress().getZipcode());
+        jTextField13.setEditable(false);
 
         jButton1.setText("Back");
 
@@ -245,13 +298,37 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jButton3.setText("Save");
         jButton3.setVisible(false);
+        jButton3.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                jTextField1.setEditable(false);
+                jTextField2.setEditable(false);
+                jTextField3.setEditable(false);
+                jTextField4.setEditable(false);
+                jTextField5.setEditable(false);
+                jTextField6.setEditable(false);
+                jTextField7.setEditable(false);
+                jTextField8.setEditable(false);
+                jTextField9.setEditable(false);
+                jTextField10.setEditable(false);
+                jTextField11.setEditable(false);
+                jTextField12.setEditable(false);
+                jTextField13.setEditable(false);
+                jTextField14.setEditable(false);
+                jTextField15.setEditable(false);
+                jTextField16.setEditable(false);
+                jButton3.setVisible(false);
+                jButton2.setVisible(true);
+            }
+        });
 
         jTextField14.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField14.setText("jTextField1");
+        jTextField14.setText(patient.getAddress().getcountry());
+        jTextField14.setEditable(false);
 
         jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField15.setText("jTextField1");
-
+        jTextField15.setText(patient.getName());
+        jTextField15.setEditable(false);
+        
         jLabel20.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel20.setText("Date of Birth:");
         jLabel20.setToolTipText("");
@@ -261,7 +338,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel21.setToolTipText("");
 
         jTextField16.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField16.setText("jTextField1");
+        jTextField16.setText(""+patient.getAge());
+        jTextField16.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -459,6 +537,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField13.setEditable(true);
         jButton3.setVisible(true);
         jButton2.setVisible(false);
+        jTextField15.setEditable(true);
+        jTextField14.setEditable(true);
+        jTextField16.setEditable(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

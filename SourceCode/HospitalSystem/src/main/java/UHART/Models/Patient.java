@@ -52,7 +52,7 @@ public class Patient {
     private ArrayList<Medications> medications;
     
     //assigned by registration
-    private List<Medications> currentMedications;
+    private ArrayList<String> currentMedications;
     private List<String> allergies;
     private Address address;
     private Date dateOfBirth;       
@@ -66,7 +66,7 @@ public class Patient {
     //Initial creation without the variables that are added once they are in the system
     public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
-            List<String> allergies)
+            List<String> allergies, Address address)
     {
         this.name = name;
         this.age = age;
@@ -79,13 +79,16 @@ public class Patient {
         this.gender = gender;
        // this.dateOfBirth = dateOfBirth;
         this.allergies = allergies;
+        this.address = address;
+        //this.currentMedications = currentMedications;
     }
     
     
     //Retrieve all variables after everything is set
     public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
-            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender)
+            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
+            Address address, List<String> allergies)
     {
         this.name = name;
         this.age = age;
@@ -102,6 +105,8 @@ public class Patient {
         this.progressReports = progressReports;
         this.symptoms = symptoms;
         this.gender = gender;
+        this.address = address;
+        this.allergies = allergies;
     }
     //ID
     public String getID() { return id; }
@@ -211,7 +216,9 @@ public class Patient {
     //TODO: Fix addPayment
     //public void addPayment(int i) {bill = bill+i;}
     public void markPaid() {bill.markPaid();}
-    
+
+    public ArrayList<String> getCurrentMedication() { return currentMedications; }
+
     
     public String toString()
     {

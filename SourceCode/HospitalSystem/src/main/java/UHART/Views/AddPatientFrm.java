@@ -5,17 +5,27 @@
  */
 package UHART.Views;
 
+import UHART.Controllers.DBConnection;
+import UHART.Controllers.LoginManager;
+import UHART.Models.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 /**
  *
  * @author MSI-PC
  */
 public class AddPatientFrm extends javax.swing.JPanel {
 
+    private Patient patient;
+    private DBConnection db = new DBConnection();
+    private Address address;
     /**
      * Creates new form AddPatientFrm
      */
-    public AddPatientFrm() {
-        initComponents();
+    public AddPatientFrm(final LoginManager loginManager, final Staff_Model user) {
+        initComponents(loginManager, user);
     }
 
     /**
@@ -25,7 +35,10 @@ public class AddPatientFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
+
+        loginManager.setContentPane(this);
+         
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -63,108 +76,202 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel2.setText("Provider: ");
 
-        jLabel3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel3.setText("Phone Number: ");
 
-        jLabel4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel4.setText("SSN:");
 
-        jLabel5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel5.setText("Physician:");
 
-        jLabel6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel6.setText("Physician Number:");
 
-        jLabel7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel7.setText("Allergies seperated by commns:");
+        jLabel7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jLabel7.setText("Allergies seperated by commas:");
 
-        jLabel8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel8.setText("Symptons seperated by commas:");
 
-        jLabel9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel9.setText("Medications seperated by commas:");
 
-        jLabel10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel10.setText("Steret Number:");
+        jLabel10.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jLabel10.setText("Street Number:");
 
-        jLabel11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel11.setText("City:");
 
-        jLabel12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel12.setText("State:");
 
-        jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText("jTextField1");
+        //NAME
+        jTextField1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField1.setText("1");
+        //DOB
+        jTextField2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField2.setText("2");
+        //GENDER
+        jTextField3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField3.setText("3");
+        //PROVIDER
+        jTextField4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField4.setText("4");
+        //PHONE
+        jTextField5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField5.setText("5");
+        //SSN
+        jTextField6.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField6.setText("6");
+        //PHYSICIAN
+        jTextField7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField7.setText("7");
+        //PHYISICIAN PHONE
+        jTextField8.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField8.setText("8");
+        //allergies        
+        jTextField9.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField9.setText("9");
+        //SYMPTOMS
+        jTextField10.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField10.setText("10");
+        //meds
+        jTextField11.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField11.setText("11");
+        //street
+        jTextField12.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField12.setText("12");
 
-        jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText("jTextField1");
-
-        jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField3.setText("jTextField1");
-
-        jTextField4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField4.setText("jTextField1");
-
-        jTextField5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField5.setText("jTextField1");
-
-        jTextField6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField6.setText("jTextField1");
-
-        jTextField7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField7.setText("jTextField1");
-
-        jTextField8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField8.setText("jTextField1");
-
-        jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField9.setText("jTextField1");
-
-        jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("jTextField1");
-
-        jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("jTextField1");
-
-        jTextField12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField12.setText("jTextField1");
-
-        jLabel13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel13.setText("Zip:");
 
-        jLabel14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel14.setText("Country:");
 
-        jTextField13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField13.setText("jTextField1");
+        //city
+        jTextField13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N        
+        jTextField13.setText("13");
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                loginManager.showMainPanel(user);
+            }
+        });
 
-        jButton3.setText("Save");
+        jButton3.setText("Add Patient");
+        jButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty() && !jTextField4.getText().isEmpty()
+                            && !jTextField5.getText().isEmpty() && !jTextField6.getText().isEmpty() && !jTextField7.getText().isEmpty() && !jTextField8.getText().isEmpty()
+                            && !jTextField9.getText().isEmpty() && !jTextField10.getText().isEmpty() && !jTextField11.getText().isEmpty() && !jTextField12.getText().isEmpty()
+                            && !jTextField13.getText().isEmpty() && !jTextField14.getText().isEmpty() && !jTextField15.getText().isEmpty() && !jTextField16.getText().isEmpty())
+                            {
+                                
+                                try
+                                {
+                                    int ssnLength = (int)(Math.log10(Integer.parseInt(jTextField4.getText())) + 1);
+                                    System.out.println(ssnLength);
+                                    if(ssnLength == 9)
+                                    {                                   
 
-        jTextField14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField14.setText("jTextField1");
+                                        ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
+                                        if(!jTextField8.getText().isEmpty())
+                                        {
+                                            String[] symptomValues = jTextField8.getText().split(",");                                         
 
-        jTextField15.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField15.setText("jTextField1");
+                                            for(int i = 0; i < symptomValues.length; i++)
+                                            {
+                                                Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                                                symptomList.add(symptom);
+                                            }
+                                        }                                         
+                                        ArrayList<String> allergyList = new ArrayList<String>();
+                                        if(!jTextField7.getText().isEmpty())
+                                        {
+                                            String[] allergieValues = jTextField7.getText().split(",");                                         
+        
+                                            for(int i = 0; i < allergieValues.length; i++)
+                                            {
+                                                String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+                                                allergyList.add(allergy);
+                                            }
+                                        }
+                                        // ArrayList<String> medList = new ArrayList<String>();
+                                        // if(!jTextField11.getText().isEmpty())
+                                        // {
+                                        //     String[] medValues = jTextField11.getText().split(",");                                         
+        
+                                        //     for(int i = 0; i < medValues.length; i++)
+                                        //     {
+                                        //         String med = new String(medValues[i].replaceAll("\\s+", ""));
+                                        //         medList.add(med);
+                                        //     }
+                                        // }
 
-        jLabel20.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+
+                                        address = new Address(jTextField10.getText(),jTextField13.getText(), jTextField12.getText(), jTextField14.getText(), jTextField11.getText());
+
+                                        //TODO: Remove null allergylist
+                                        patient = new Patient(jTextField15.getText(), Integer.parseInt(jTextField16.getText()), jTextField3.getText(),
+                                        Integer.parseInt(jTextField4.getText()), jTextField5.getText(), jTextField6.getText(),jTextField2.getText(), 
+                                        symptomList, jTextField1.getText(), allergyList, address);       
+                                        
+                                        //System.out.println(patient.toString());
+
+                                        String state = db.createPatient(patient, user);
+
+                                        //TODO: Add condition for failure to add patient
+                                        loginManager.showMainPanel(user);
+
+                                    }
+                                    else
+                                    {
+                                        //serverMessage.setText("SSN is not valid.");
+                                    }                                    
+                                }
+                                catch(Exception except)
+                                {
+                                    System.out.println(except);
+                                    //serverMessage.setText("Please check the fields");
+                                    
+                                }
+                                                                
+                            }
+                            else
+                            {
+                                //serverMessage.setText("You left a field blank.");
+                            }                               
+                            
+                        }
+		});
+
+        //state
+        jTextField14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField14.setText("14");
+        //zip
+        jTextField15.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField15.setText("15");
+
+        jLabel20.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel20.setText("Date of Birth:");
         jLabel20.setToolTipText("");
 
-        jLabel21.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel21.setText("Name: ");
         jLabel21.setToolTipText("");
 
-        jTextField16.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField16.setText("jTextField1");
+        //country
+        jTextField16.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField16.setText("16");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
