@@ -21,7 +21,7 @@ public class Patient {
     
     //BILL OBJECT?
     //private Bill b;    
-    private Bill bill;
+    private Bill bill = new Bill();
     private String  name;
     private int  age;     
     private String phoneNumber;
@@ -45,14 +45,14 @@ public class Patient {
     private String assignedDoctor;
     private Boolean admitted;
     
-    private ArrayList<Diagnoses> diagnoses;
+    private ArrayList<String> diagnoses;
     private ArrayList<Tests_procedures> tests_procedures;
     
     //assigned by doctor
-    private ArrayList<Medications> medications;
+    private List<String> medications;
     
     //assigned by registration
-    private List<Medications> currentMedications;
+    private ArrayList<String> currentMedications;
     private List<String> allergies;
     private Address address;
     private Date dateOfBirth;       
@@ -64,9 +64,9 @@ public class Patient {
     
     //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
-    public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+    public Patient(String id,String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
-            List<String> allergies)
+            List<String> allergies, Address address)
     {
         this.name = name;
         this.age = age;
@@ -79,13 +79,17 @@ public class Patient {
         this.gender = gender;
        // this.dateOfBirth = dateOfBirth;
         this.allergies = allergies;
+        this.address = address;
+        //this.currentMedications = currentMedications;
+        this.id = id;
     }
     
     
     //Retrieve all variables after everything is set
     public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
-            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender)
+            List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
+            Address address, List<String> allergies, List<String> medications)
     {
         this.name = name;
         this.age = age;
@@ -102,6 +106,9 @@ public class Patient {
         this.progressReports = progressReports;
         this.symptoms = symptoms;
         this.gender = gender;
+        this.address = address;
+        this.allergies = allergies;
+        this.medications = medications;
     }
     //ID
     public String getID() { return id; }
@@ -185,8 +192,8 @@ public class Patient {
     
     //Author: Jakob
     //Diagnosis
-    public ArrayList<Diagnoses> getDiagnosis() { return diagnoses; }
-    public void addDiagnosis(Diagnoses d) { diagnoses.add(d); }
+    public ArrayList<String> getDiagnosis() { return diagnoses; }
+    public void addDiagnosis(String d) { diagnoses.add(d); }
     
     //Author: Jakob
     //Tests
@@ -195,8 +202,8 @@ public class Patient {
     
     //Author: Jakob
     //Medications
-    public ArrayList<Medications> getMedications() { return medications; }
-    public void addMedication(Medications m) { medications.add(m); }
+    public List<String> getMedications() { return medications; }
+    public void addMedication(String m) { medications.add(m); }
        
     public Date getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(Date dob) { dateOfBirth = dob; }
@@ -211,7 +218,9 @@ public class Patient {
     //TODO: Fix addPayment
     //public void addPayment(int i) {bill = bill+i;}
     public void markPaid() {bill.markPaid();}
-    
+
+    public ArrayList<String> getCurrentMedication() { return currentMedications; }
+
     
     public String toString()
     {
