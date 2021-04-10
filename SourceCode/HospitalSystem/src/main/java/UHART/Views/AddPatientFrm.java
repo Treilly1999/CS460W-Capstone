@@ -11,6 +11,7 @@ import UHART.Models.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  *
@@ -217,11 +218,11 @@ public class AddPatientFrm extends javax.swing.JPanel {
                                         //     }
                                         // }
 
-
+                                        UUID id = UUID.randomUUID();
                                         address = new Address(jTextField10.getText(),jTextField13.getText(), jTextField12.getText(), jTextField14.getText(), jTextField11.getText());
 
                                         //TODO: Remove null allergylist
-                                        patient = new Patient(jTextField15.getText(), Integer.parseInt(jTextField16.getText()), jTextField3.getText(),
+                                        patient = new Patient(id.toString(), jTextField15.getText(), Integer.parseInt(jTextField16.getText()), jTextField3.getText(),
                                         Integer.parseInt(jTextField4.getText()), jTextField5.getText(), jTextField6.getText(),jTextField2.getText(), 
                                         symptomList, jTextField1.getText(), allergyList, address);       
                                         
@@ -230,7 +231,8 @@ public class AddPatientFrm extends javax.swing.JPanel {
                                         String state = db.createPatient(patient, user);
 
                                         //TODO: Add condition for failure to add patient
-                                        loginManager.showMainPanel(user);
+                                        //loginManager.showMainPanel(user);
+                                        loginManager.showPatientPanel(patient, user);
 
                                     }
                                     else

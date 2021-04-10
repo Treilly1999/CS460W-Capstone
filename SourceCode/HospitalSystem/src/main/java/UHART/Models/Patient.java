@@ -64,7 +64,7 @@ public class Patient {
     
     //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
-    public Patient(String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+    public Patient(String id,String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
             List<String> allergies, Address address)
     {
@@ -81,6 +81,7 @@ public class Patient {
         this.allergies = allergies;
         this.address = address;
         //this.currentMedications = currentMedications;
+        this.id = id;
     }
     
     

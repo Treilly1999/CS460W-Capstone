@@ -3,9 +3,17 @@ package UHART.Views;
 
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+
+import javax.swing.table.DefaultTableModel;
+
+import org.bson.Document;
+
 import java.awt.event.ActionEvent;
+
+import UHART.Controllers.DBConnection;
 import UHART.Controllers.LoginManager;
 import UHART.Models.*;
+import UHART.Models.Staff_Model.USER_ROLE;
 
 /**
  *
@@ -13,7 +21,11 @@ import UHART.Models.*;
  */
 public class PatientPageFrm extends javax.swing.JPanel {
 
+    javax.swing.GroupLayout layout;
    
+    private Patient patient;
+
+    private DBConnection db = new DBConnection();
     private static final long serialVersionUID = 1L;    
     
     public PatientPageFrm(Patient patient, Staff_Model user, LoginManager loginManager) {
@@ -28,9 +40,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Patient patient, Staff_Model user, LoginManager loginManager) {
+    private void initComponents(final Patient patient, final Staff_Model user, final LoginManager loginManager) {
 
         loginManager.setContentPane(this);
+        this.patient = patient;
+       
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -92,6 +106,96 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel24 = new javax.swing.JLabel();
 
+        /*
+        Author: Tyler
+        Description: Access Control
+        */
+        USER_ROLE role = user.getUSER_ROLE();
+        switch(role)
+        {
+            case BILLING:
+                jTextField1.setVisible(false);
+                jTextField2.setVisible(false);
+                jTextField3.setVisible(false);
+                jTextField4.setVisible(false);
+                jTextField5.setVisible(false);
+                jTextField6.setVisible(false);
+                jTextField7.setVisible(false);
+                jTextField8.setVisible(false);
+                jTextField9.setVisible(false);
+                //jTextField10.setVisible(false);
+                //jTextField11.setVisible(false);
+                //jTextField12.setVisible(false);
+                //jTextField13.setVisible(false);
+                //jTextField14.setVisible(false);
+                jTextField15.setVisible(false);
+                jTextField16.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel1.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel6.setVisible(false);
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                jLabel9.setVisible(false);
+               // jLabel10.setVisible(false);
+                //jLabel11.setVisible(false);
+                //jLabel12.setVisible(false);
+                //jLabel13.setVisible(false);
+                //jLabel14.setVisible(false);
+                //jLabel15.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel19.setVisible(false);
+                jLabel20.setVisible(false);
+                jLabel21.setVisible(false);
+                jLabel22.setVisible(false);
+                jTable1.setVisible(false);
+                jTextArea1.setVisible(false);
+                jTextArea3.setVisible(false);
+                jButton4.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jPanel2.setVisible(false);
+                jScrollPane3.setVisible(false);
+                jScrollPane2.setVisible(false);
+                break;
+            case NURSE:
+                jTextArea1.setVisible(false);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+                jTable1.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel22.setVisible(false);
+                jButton4.setVisible(false);
+                break;
+            case REGISTER:
+                jTextArea1.setVisible(false);
+                jTextArea3.setVisible(false);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+        }
+
         jLabel1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
@@ -130,11 +234,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel12.setText("State:");
 
         jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText(patient.getName());
+        jTextField1.setText(patient.getGender());
         jTextField1.setEditable(false);
 
         jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText(patient.getGender());
+        jTextField2.setText(patient.getProvider());
         jTextField2.setEditable(false);
 
         jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
@@ -247,11 +351,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jLabel18.setText("Date:");
 
-        jLabel22.setText("Medication:");
+        jLabel22.setText("Reason:");
 
-        jTextField17.setText("jTextField17");
+       // jTextField17.setText("jTextField17");
 
-        jTextField18.setText("jTextField18");
+       // jTextField18.setText("jTextField18");
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
@@ -259,13 +363,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
             },
             new String [] {
-                "Date", "Medication"
+                "Date", "Reason"
             }
         ) {
             Class[] types = new Class [] {
@@ -357,6 +457,12 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField13.setEditable(false);
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                loginManager.showMainPanel(user);
+            }
+        });
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -414,7 +520,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel23.setText("Bill: ");
 
         jTextField19.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField19.setText("jTextField1");
+        jTextField19.setText("bill");
+        jTextField19.setEditable(false);
 
         jCheckBox1.setText("Bill Paid");
 
@@ -596,7 +703,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextField10, jTextField11, jTextField12, jTextField13, jTextField14, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7, jTextField8, jTextField9});
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -635,11 +742,26 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField15.setEditable(true);
         jTextField14.setEditable(true);
         jTextField16.setEditable(true);
+        jTextField19.setEditable(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        model.addRow(new Object[] { jTextField17.getText(), jTextField18.getText()});
+
+        MedicalHistory medHistory = new MedicalHistory(jTextField17.getText(), jTextField18.getText());
+
+        Document patientID = new Document();
+        patientID.put("id", patient.getID());
+        System.out.println(patient.getID());
+
+        db.createMedicalHistory(medHistory, patientID);
+
+        jTextField18.setText("");
+        jTextField17.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
@@ -704,4 +826,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+
+   
+    
+
 }

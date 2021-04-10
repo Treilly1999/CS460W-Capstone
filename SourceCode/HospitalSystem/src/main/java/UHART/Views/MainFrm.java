@@ -134,7 +134,6 @@ public class MainFrm {
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
                 {
                     btnNewButton.setVisible(false);
-                    btnAddDiagno.setVisible(false);
                     btnUpdatePatientRecord.setVisible(false);
                     btnCheckPatientRecord.setVisible(false);
                 }

@@ -368,7 +368,7 @@ public class DBConnection {
        
         String state = "SUCCESSFUL";
        
-        UUID id = UUID.randomUUID();
+        
         
         try
         {
@@ -380,7 +380,7 @@ public class DBConnection {
             document.put("physicianNumber", patient.getPhysicianNumber());        
             //document.put("assignedDoctor", assignedDoctor);
             //document.put("dischargeInstructions", dischargeInstructions);     
-            document.put("id", id.toString());        
+            document.put("id", patient.getID());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
             //document.put("dateOfBirth", patient.getDateOfBirth());
@@ -388,7 +388,7 @@ public class DBConnection {
             patientCollection.insertOne(document);      
             
             Document patientID = new Document();
-            patientID.put("id", id.toString());
+            patientID.put("id", patient.getID());
             
             createAddress(patient.getAddress(), patientCollection, patientID);
 
@@ -400,11 +400,6 @@ public class DBConnection {
             {
                 createAllergies(patient.getAllergies().get(i), user, patientCollection, patientID);
             }
-            //Med his not implemented yet
-//            for(int i = 0; i < patient.getMedicalHistory().size(); i++)
-//            {
-//                createMedicalHistory(patient.getMedicalHistory().get(i), patientCollection, patientID);
-//            }
             
         } catch (Exception e)
         {
@@ -452,15 +447,17 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Helper Method for createPatient
     */
-    public static void createMedicalHistory(MedicalHistory medicalHistory, MongoCollection<Document> patientCollection, Document find)
+    public void createMedicalHistory(MedicalHistory medicalHistory, Document find)
     {
         
+        MongoCollection<Document> patientCollection = database.getCollection("patients");      
+
         Document medDoc = new Document();        
         
         medDoc.put("date", medicalHistory.getDate());
         medDoc.put("hospitalization", medicalHistory.getReason());
         
-        patientCollection.updateOne(find, new Document("$push", new Document("symptoms", medDoc)));      
+        patientCollection.updateOne(find, new Document("$push", new Document("medicalHistory", medDoc)));      
     }
     
     /*
@@ -478,7 +475,7 @@ public class DBConnection {
             progressDoc.put("date", progressRep.getDate());
             progressDoc.put("report", progressRep.getNote());
 
-            patientCollection.updateOne(find, new Document("$push", new Document("symptoms", progressDoc)));        
+            patientCollection.updateOne(find, new Document("$push", new Document("progressReports", progressDoc)));        
         }
     }
     
