@@ -3,6 +3,9 @@ package UHART.Views;
 
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionEvent;
 import UHART.Controllers.LoginManager;
 import UHART.Models.*;
@@ -28,7 +31,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Patient patient, Staff_Model user, LoginManager loginManager) {
+    private void initComponents(final Patient patient, Staff_Model user, LoginManager loginManager) {
 
         loginManager.setContentPane(this);
 
@@ -247,11 +250,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jLabel18.setText("Date:");
 
-        jLabel22.setText("Medication:");
+        jLabel22.setText("Reason:");
 
-        jTextField17.setText("jTextField17");
+        jTextField17.setText("17");
 
-        jTextField18.setText("jTextField18");
+        jTextField18.setText("18");
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
@@ -259,15 +262,15 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
             },
             new String [] {
-                "Date", "Medication"
+                "Date", "Reason"
             }
         ) {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 1L;
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
@@ -385,8 +388,16 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jTextField14.setEditable(false);
                 jTextField15.setEditable(false);
                 jTextField16.setEditable(false);
+                jTextField19.setEditable(false);
                 jButton3.setVisible(false);
                 jButton2.setVisible(true);
+
+                if(jCheckBox1.isEnabled())
+                {
+                    patient.markPaid();
+                    jTextField19.setText("$0");
+                }
+
             }
         });
 
@@ -413,8 +424,16 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel23.setText("Bill: ");
 
-        jTextField19.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField19.setText("jTextField1");
+        jTextField19.setFont(new java.awt.Font("����", 0, 20)); // NOI18N\
+        jTextField19.setEditable(false);
+        if(patient.getBill().getPrice() == 0)
+        {
+            jTextField19.setText("$0");
+        }
+        else
+        {
+            jTextField19.setText(patient.getBill().toString());
+        }
 
         jCheckBox1.setText("Bill Paid");
 
@@ -635,11 +654,21 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField15.setEditable(true);
         jTextField14.setEditable(true);
         jTextField16.setEditable(true);
-
+        jTextField17.setEditable(true);
+        jTextField19.setEditable(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        //MEDICAL HISTORY
+        //JTable1, JTextField17, JTextField18
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        model.addRow(new Object[] {jTextField17.getText(), jTextField18.getText()});
+
+        jTextField17.setText("");
+        jTextField18.setText("");
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

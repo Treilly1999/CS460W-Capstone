@@ -21,7 +21,7 @@ public class Patient {
     
     //BILL OBJECT?
     //private Bill b;    
-    private Bill bill;
+    private Bill bill = new Bill();
     private String  name;
     private int  age;     
     private String phoneNumber;
