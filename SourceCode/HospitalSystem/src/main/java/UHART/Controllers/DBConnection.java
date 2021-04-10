@@ -121,6 +121,7 @@ public class DBConnection {
         List<Symptoms> symptoms = new ArrayList<Symptoms>();
         List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
         List<String> allergies = new ArrayList<String>();
+        List<String> medications = new ArrayList<String>();
         try
         {
             name = patients.getString("name");
@@ -141,7 +142,8 @@ public class DBConnection {
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
             symptoms = buildLists(patients, "symptoms", collection); 
             progressReports = buildLists(patients, "progressReports", collection); 
-       
+            medications = buildLists(patients, "medications", collection);
+            
 
             for(Document addr : (List<Document>)patients.get("address"))
             {
@@ -159,8 +161,8 @@ public class DBConnection {
         patientID.put("patientID", "" + id);  
         
         patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
-                physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, 
-                medicalHistory,  progressReports, dischargeInstructions, gender, address, allergies));
+                physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
+                dischargeInstructions, gender, address, allergies, medications));
         
       
     } 
@@ -196,8 +198,11 @@ public class DBConnection {
         }
         else if(type.equals("medicalHistory"))
         {
-            ArrayList<MedicalHistory> medHist = (ArrayList<MedicalHistory>)storage.get("progressReports");       
-            returnList = (List<T>)medHist;               
+
+            for(Document medHist : (List<Document>) storage.get("medicalHistory"))
+            {
+                returnList.add((T)new MedicalHistory(medHist.getString("date"), medHist.getString("hospitalization")));
+            }            
         }
         else if(type.equals("allergies"))
         {
@@ -206,42 +211,13 @@ public class DBConnection {
                 returnList.add((T)new String(allergy.getString("allergy")));
             }     
         }        
-
-        //TODO: Convert to switch
-        // for(Document patient : patients)
-        // {
-        //     List<Document> insideArray = (List<Document>) patient.get(type);
-            
-        //     if(type.equals("symptoms"))
-        //     {
-        //         for (Document symptom : insideArray) {
-        //             returnList.add((T)new Symptoms(symptom.getString("name")));
-        //         }
-        //     }
-        //     else if(type.equals("progressReports"))
-        //     {
-        //         for(Document progRep : insideArray)
-        //         {
-        //             returnList.add((T)new ProgressReport(progRep.getString("nurseName"), progRep.getString("date"), progRep.getString("note")));
-        //         }                
-        //     }
-        //     else if(type.equals("medicalHistory"))
-        //     {
-        //         for (Document medHis : insideArray) {
-        //             returnList.add((T)new MedicalHistory(medHis.getString("date"), medHis.getString("reason")));
-        //         }
-                
-                    
-        //     }
-        //     else if(type.equals("allergies"))
-        //     {
-        //         for (Document allergy : insideArray) {
-        //             returnList.add((T)allergy.getString("allergy"));
-        //         }                
-        //     }
-            
-        // }
-        
+        else if(type.equals("medications"))
+        {
+            for(Document medication : (List<Document>)storage.get("medications"))
+            {
+                returnList.add((T)(medication.getString("medication")));
+            }     
+        }            
         return (List<T>)returnList;  
     }
     
@@ -268,7 +244,7 @@ public class DBConnection {
             {
                 for(int i = 0; i < patient.getMedications().size(); i++)
                 {
-                    createMedications(patient.getMedications().get(i), user, collection,patientID);
+                    createMedications(patient.getMedications().get(i), user, patientID);
                     successful = true;
                 }
             }
@@ -276,7 +252,7 @@ public class DBConnection {
             {
                 for(int i = 0; i < patient.getDiagnosis().size(); i++)
                 {
-                    createDiagnosis(patient.getDiagnosis().get(i),user, collection, patientID);
+                    createDiagnosis(patient.getDiagnosis().get(i).toString(),user, patientID);
                     successful = true;
                 }
             }
@@ -368,7 +344,7 @@ public class DBConnection {
        
         String state = "SUCCESSFUL";
        
-        UUID id = UUID.randomUUID();
+        
         
         try
         {
@@ -380,7 +356,7 @@ public class DBConnection {
             document.put("physicianNumber", patient.getPhysicianNumber());        
             //document.put("assignedDoctor", assignedDoctor);
             //document.put("dischargeInstructions", dischargeInstructions);     
-            document.put("id", id.toString());        
+            document.put("id", patient.getID());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
             //document.put("dateOfBirth", patient.getDateOfBirth());
@@ -388,7 +364,7 @@ public class DBConnection {
             patientCollection.insertOne(document);      
             
             Document patientID = new Document();
-            patientID.put("id", id.toString());
+            patientID.put("id", patient.getID());
             
             createAddress(patient.getAddress(), patientCollection, patientID);
 
@@ -400,11 +376,6 @@ public class DBConnection {
             {
                 createAllergies(patient.getAllergies().get(i), user, patientCollection, patientID);
             }
-            //Med his not implemented yet
-//            for(int i = 0; i < patient.getMedicalHistory().size(); i++)
-//            {
-//                createMedicalHistory(patient.getMedicalHistory().get(i), patientCollection, patientID);
-//            }
             
         } catch (Exception e)
         {
@@ -419,7 +390,7 @@ public class DBConnection {
     Description: Helper Method for createPatient
     TODO: Way to do it without creating? Instead return nested doc?
     */
-    public static void createSymptoms(Symptoms symptoms, MongoCollection<Document> patientCollection, Document find)
+    public void createSymptoms(Symptoms symptoms, MongoCollection<Document> patientCollection, Document find)
     {        
         
         Document sympt = new Document();
@@ -452,15 +423,17 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Helper Method for createPatient
     */
-    public static void createMedicalHistory(MedicalHistory medicalHistory, MongoCollection<Document> patientCollection, Document find)
+    public void createMedicalHistory(MedicalHistory medicalHistory, Document find)
     {
         
+        MongoCollection<Document> patientCollection = database.getCollection("patients");      
+
         Document medDoc = new Document();        
         
         medDoc.put("date", medicalHistory.getDate());
         medDoc.put("hospitalization", medicalHistory.getReason());
         
-        patientCollection.updateOne(find, new Document("$push", new Document("symptoms", medDoc)));      
+        patientCollection.updateOne(find, new Document("$push", new Document("medicalHistory", medDoc)));      
     }
     
     /*
@@ -478,7 +451,7 @@ public class DBConnection {
             progressDoc.put("date", progressRep.getDate());
             progressDoc.put("report", progressRep.getNote());
 
-            patientCollection.updateOne(find, new Document("$push", new Document("symptoms", progressDoc)));        
+            patientCollection.updateOne(find, new Document("$push", new Document("progressReports", progressDoc)));        
         }
     }
     
@@ -486,13 +459,14 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Called when a doctor assigns a diagnosis for a patient
     */
-    public static void createDiagnosis(Diagnoses diagnosis, Staff_Model staff, MongoCollection<Document> patientCollection, Document find)
+    public void createDiagnosis(String diagnosis, Staff_Model staff, Document find)
     {
+        MongoCollection<Document> patientCollection = database.getCollection("patients");  
         if(staff.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
         {
             Document diagnosisDoc = new Document();
         
-            diagnosisDoc.put("diagnostic", diagnosis.toString());
+            diagnosisDoc.put("diagnostic", diagnosis);
             diagnosisDoc.put("doctorID", staff.getID());
 
             patientCollection.updateOne(find, new Document("$push", new Document("diagnosis", diagnosisDoc)));
@@ -521,13 +495,14 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Called when a doctor is assigning medication for a patient    
     */
-    public static void createMedications(Medications medication, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
+    public void createMedications(String medication, Staff_Model user, Document find)
     {
+        MongoCollection<Document> patientCollection = database.getCollection("patients");  
         if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
         {
             Document medDoc = new Document();
             
-            medDoc.put("medication", medication.toString());
+            medDoc.put("medication", medication);
             medDoc.put("doctorID", user.getID());
 
             patientCollection.updateOne(find, new Document("$push", new Document("medications", medDoc)));

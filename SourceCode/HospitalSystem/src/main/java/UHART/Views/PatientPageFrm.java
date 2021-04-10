@@ -2,13 +2,22 @@ package UHART.Views;
 
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
+import com.mongodb.client.MongoCollection;
+
+import org.bson.Document;
+
 import java.awt.event.ActionEvent;
+
+import UHART.Controllers.DBConnection;
 import UHART.Controllers.LoginManager;
 import UHART.Models.*;
+import UHART.Models.Staff_Model.USER_ROLE;
 
 /**
  *
@@ -16,8 +25,17 @@ import UHART.Models.*;
  */
 public class PatientPageFrm extends javax.swing.JPanel {
 
+    javax.swing.GroupLayout layout;
    
+    private Patient patient;
+    Document patientID = new Document();        
+    private String medications;
+    private String symptoms;
+    private String diagnosis;
+
+    private DBConnection db = new DBConnection();
     private static final long serialVersionUID = 1L;    
+    private MongoCollection<Document> patientCollection = db.getDB().getCollection("patients");  
     
     public PatientPageFrm(Patient patient, Staff_Model user, LoginManager loginManager) {
         //System.out.println(patient.toString());
@@ -31,9 +49,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(final Patient patient, Staff_Model user, LoginManager loginManager) {
-
+    private void initComponents(final Patient patient, final Staff_Model user, final LoginManager loginManager) {
+        patientID.put("id", patient.getID());
         loginManager.setContentPane(this);
+        this.patient = patient;
+       
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -95,6 +115,149 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel24 = new javax.swing.JLabel();
 
+        JButton addMed = new JButton("Add");
+        JButton addDiagnosis = new JButton("Add");
+        JButton addSymptom = new JButton("Add");
+
+        jTextArea3.setEditable(false);
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {                
+            },
+            new String [] {
+                "Date", "Reason"
+            }
+        ) {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 1L;
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        
+        jScrollPane5.setViewportView(jTable1);
+
+        if(user.getUSER_ROLE() != UHART.Models.Staff_Model.USER_ROLE.REGISTER)
+        {
+            DefaultTableModel model =(DefaultTableModel) jTable1.getModel();
+            for(MedicalHistory medHist : patient.getMedicalHistory())
+            {
+                model.addRow(new Object[] {medHist.getDate(), medHist.getReason()});
+            }
+        }
+
+        /*
+        Author: Tyler
+        Description: Access Control
+        */        
+        USER_ROLE role = user.getUSER_ROLE();
+        switch(role)
+        {
+            case BILLING:
+                jTextField1.setVisible(false);
+                jTextField2.setVisible(false);
+                jTextField3.setVisible(false);
+                jTextField4.setVisible(false);
+                jTextField5.setVisible(false);
+                jTextField6.setVisible(false);
+                jTextField7.setVisible(false);
+                jTextField8.setVisible(false);
+                jTextField9.setVisible(false);
+                //jTextField10.setVisible(false);
+                //jTextField11.setVisible(false);
+                //jTextField12.setVisible(false);
+                //jTextField13.setVisible(false);
+                //jTextField14.setVisible(false);
+                jTextField15.setVisible(false);
+                jTextField16.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel1.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel6.setVisible(false);
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                jLabel9.setVisible(false);
+               // jLabel10.setVisible(false);
+                //jLabel11.setVisible(false);
+                //jLabel12.setVisible(false);
+                //jLabel13.setVisible(false);
+                //jLabel14.setVisible(false);
+                //jLabel15.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel19.setVisible(false);
+                jLabel20.setVisible(false);
+                jLabel21.setVisible(false);
+                jLabel22.setVisible(false);
+                jTextArea1.setVisible(false);
+                jTextArea3.setVisible(false);
+                jButton4.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jPanel2.setVisible(false);
+                jScrollPane3.setVisible(false);
+                jScrollPane2.setVisible(false);
+                addMed.setVisible(false);
+                addDiagnosis.setVisible(false);
+                break;
+            case NURSE:
+                jTextArea1.setVisible(false);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel22.setVisible(false);
+                jButton4.setVisible(false);
+                addMed.setVisible(false);
+                addDiagnosis.setVisible(false);                
+                break;
+            case REGISTER:
+                jTextArea1.setVisible(false);
+                jTextArea3.setVisible(false);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+                addMed.setVisible(false);
+                addDiagnosis.setVisible(false);
+                break;
+            case DOCTOR:
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jLabel22.setVisible(false);
+                jLabel18.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel19.setVisible(false);
+                jButton4.setVisible(false);
+                jCheckBox1.setVisible(false);
+        }
+
         jLabel1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
@@ -133,11 +296,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel12.setText("State:");
 
         jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText(patient.getName());
+        jTextField1.setText(patient.getGender());
         jTextField1.setEditable(false);
 
         jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText(patient.getGender());
+        jTextField2.setText(patient.getProvider());
         jTextField2.setEditable(false);
 
         jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
@@ -173,7 +336,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField7.setText(allergies);
         jTextField7.setEditable(false);
 
-        String symptoms = "";
+        symptoms = "";
         for(Symptoms symptom: patient.getSymptoms())
         {
             if(symptoms.isEmpty())
@@ -190,8 +353,21 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField8.setText(symptoms);
         jTextField8.setEditable(false);
 
+        medications = "";
+        for(String medication: patient.getMedications())
+        {
+            if(medications.isEmpty())
+            {
+                medications = medication.toString();
+            }
+            else
+            {
+                medications += ", " +medication.toString();
+            }
+        }
+
         jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField9.setText("9");
+        jTextField9.setText(medications);
         jTextField9.setEditable(false);        
 
         jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
@@ -248,38 +424,122 @@ public class PatientPageFrm extends javax.swing.JPanel {
             }
         });
 
+        addMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+                String medication = jComboBox3.getSelectedItem().toString();
+                if(!patient.getMedications().contains(medication))
+                {
+
+                    if(jTextArea3.getText().isEmpty())
+                    {
+                        jTextArea3.setText("Medication selected: " + jComboBox3.getSelectedItem().toString());
+                    }
+                    else
+                    {
+                        jTextArea3.setText(jTextArea3.getText() + "\nMedication's selected: " + jComboBox3.getSelectedItem().toString());
+                    }
+
+                    db.createMedications(medication, user, patientID);
+                    patient.addMedication(medication);
+                    
+                    if(medications.isEmpty())
+                    {
+                        medications = jComboBox3.getSelectedItem().toString();
+                    }
+                    else
+                    {
+                        medications += ", "  +jComboBox3.getSelectedItem().toString();
+                    }
+                }
+                else
+                {
+                    //TODO: Popup message
+                    System.out.println("Medication already added");
+                }
+            }
+        });
+
+        addDiagnosis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+                String diagnosis = jComboBox2.getSelectedItem().toString();
+                if(!patient.getDiagnosis().contains(diagnosis))
+                {
+                    if(jTextArea3.getText().isEmpty())
+                    {
+                        jTextArea3.setText("Diagnosis selected: " + jComboBox2.getSelectedItem().toString());
+                    }
+                    else
+                    {
+                        jTextArea3.setText(jTextArea3.getText() + "\nDiagnosis selected: " + jComboBox2.getSelectedItem().toString());
+                    }
+                    
+                    db.createDiagnosis(diagnosis, user, patientID);
+                    patient.addDiagnosis(diagnosis);
+
+                    if(diagnosis.isEmpty())
+                    {
+                        diagnosis = jComboBox2.getSelectedItem().toString();
+                    }
+                    else
+                    {
+                        diagnosis += ", "  +jComboBox2.getSelectedItem().toString();
+                    }
+                }
+                else
+                {
+                    //TODO: Popup message
+                    System.out.println("Diagnosis already added");
+                }
+                
+                
+
+            }
+        });
+
+        addSymptom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(!jTextArea1.getText().isEmpty())
+                {
+                    String[] symptomValues = jTextArea1.getText().split(",");    
+
+                    for(int i = 0; i < symptomValues.length; i++)
+                    {
+                        if(!patient.getSymptoms().get(i).toString().equals(symptomValues[i]))
+                        {
+                            Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                            db.createSymptoms(symptom, patientCollection, patientID);
+                            patient.setSymptoms(symptom);
+                            
+                            if(symptoms.isEmpty())
+                            {
+                                symptoms = symptomValues[i].replaceAll("\\s+", "");
+                            }
+                            else
+                            {
+                                symptoms += ", " + symptomValues[i].replaceAll("\\s+", "");
+                            }
+                        }
+                        
+                    }
+                    
+                }
+
+            }
+        });
+
         jLabel18.setText("Date:");
 
         jLabel22.setText("Reason:");
 
-        jTextField17.setText("17");
+       // jTextField17.setText("jTextField17");
 
-        jTextField18.setText("18");
+       // jTextField18.setText("jTextField18");
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane1.setViewportView(jTextArea3);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-            },
-            new String [] {
-                "Date", "Reason"
-            }
-        ) {
-            /**
-             *
-             */
-            private static final long serialVersionUID = 1L;
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -295,7 +555,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addDiagnosis)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)     
+                            .addComponent(addMed)                       
                             .addComponent(jLabel17)
                             .addComponent(jLabel16)
                             .addComponent(jScrollPane3)
@@ -325,9 +587,13 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(addDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(addMed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel19)
                 .addGap(18, 18, 18)
@@ -360,6 +626,12 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField13.setEditable(false);
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                loginManager.showMainPanel(user);
+            }
+        });
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -394,8 +666,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
                 if(jCheckBox1.isEnabled())
                 {
-                    patient.markPaid();
-                    jTextField19.setText("$0");
+                    //TODO: Implement billing features
+                    //patient.markPaid();
+                   // jTextField19.setText("$0");
                 }
 
             }
@@ -432,7 +705,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         }
         else
         {
-            jTextField19.setText(patient.getBill().toString());
+            jTextField19.setText("" +patient.getBill().getPrice());
         }
 
         jCheckBox1.setText("Bill Paid");
@@ -615,7 +888,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextField10, jTextField11, jTextField12, jTextField13, jTextField14, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7, jTextField8, jTextField9});
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,21 +927,24 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField15.setEditable(true);
         jTextField14.setEditable(true);
         jTextField16.setEditable(true);
-        jTextField17.setEditable(true);
         jTextField19.setEditable(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //MEDICAL HISTORY
-        //JTable1, JTextField17, JTextField18
-        
+        // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-        model.addRow(new Object[] {jTextField17.getText(), jTextField18.getText()});
+        model.addRow(new Object[] { jTextField17.getText(), jTextField18.getText()});
 
-        jTextField17.setText("");
-        jTextField18.setText("");
+        MedicalHistory medHistory = new MedicalHistory(jTextField17.getText(), jTextField18.getText());
         
+        //System.out.println(patient.getID());
+
+        db.createMedicalHistory(medHistory, patientID);
+
+        jTextField18.setText("");
+        jTextField17.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
@@ -733,4 +1009,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+
+   
+    
+
 }

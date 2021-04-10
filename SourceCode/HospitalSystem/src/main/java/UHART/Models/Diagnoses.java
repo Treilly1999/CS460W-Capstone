@@ -21,7 +21,9 @@ public enum Diagnoses {
 	LOWERBACKPAIN("lower back pain"),
 	INJURYOFHEAD("injury of head");
 
+	
 	private String string;
 	Diagnoses(String s){string = s;}
 	public String toString() { return string;}
+
 }
