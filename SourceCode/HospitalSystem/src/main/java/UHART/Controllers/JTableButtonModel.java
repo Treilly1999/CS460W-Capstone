@@ -84,8 +84,7 @@ public class JTableButtonModel extends AbstractTableModel {
 		}
 
 		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
-			switch (columnIndex) {			
-                            //TODO: pass getPatients().get(rowIndex) to a loginManager method that shows patient profile
+			switch (columnIndex) {			                           
 				case 0: final JButton button = new JButton(getPatients().get(rowIndex).getName());
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {

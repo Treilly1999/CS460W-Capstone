@@ -1,6 +1,7 @@
 package UHART.Controllers;
 
 import UHART.Models.Address;
+import UHART.Models.Bill;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -122,6 +123,8 @@ public class DBConnection {
         List<ProgressReport> progressReports = new ArrayList<ProgressReport>();
         List<String> allergies = new ArrayList<String>();
         List<String> medications = new ArrayList<String>();
+        List<String> diagnosis = new ArrayList<String>();
+        Bill bill = new Bill();
         try
         {
             name = patients.getString("name");
@@ -142,13 +145,31 @@ public class DBConnection {
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
             symptoms = buildLists(patients, "symptoms", collection); 
             progressReports = buildLists(patients, "progressReports", collection); 
-            medications = buildLists(patients, "medications", collection);
-            
+            try {
+                medications = buildLists(patients, "medications", collection);
+                diagnosis = buildLists(patients, "diagnosis", collection);
+            }
+            catch(Exception e)
+            {
+                System.out.println("medications or diagnosis not found");
+            }          
 
             for(Document addr : (List<Document>)patients.get("address"))
             {
                 address = new Address(addr.getString("street"),addr.getString("zipcode"),addr.getString("state"),addr.getString("country"),addr.getString("city"));
             }
+
+            try{
+                for(Document eachBill : (List<Document>)patients.get("bill"))
+                {
+                    bill.addPrice(eachBill.getInteger("cost"));
+                }  
+            }
+            catch(Exception e)
+            {
+                System.out.println("User has no bill.");
+            }
+            
             
             
           } catch (Exception e)
@@ -162,7 +183,7 @@ public class DBConnection {
         
         patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
-                dischargeInstructions, gender, address, allergies, medications));
+                dischargeInstructions, gender, address, allergies, medications, diagnosis, bill));
         
       
     } 
@@ -170,7 +191,6 @@ public class DBConnection {
     /*
     Author: Tyler Reilly
     Description: Builds the medical history,  symptoms, and progress reports for patient. 
-    TODO: Refactor to where the collection isnt queried each time. || Might need a query || Use storage instead of the List<Document> patients
     */
     public <T> List<T> buildLists(Document storage, String type, MongoCollection<Document> collection)
     {
@@ -217,7 +237,14 @@ public class DBConnection {
             {
                 returnList.add((T)(medication.getString("medication")));
             }     
-        }            
+        }   
+        else if(type.equals("diagnosis"))
+        {
+            for(Document diagnostic : (List<Document>)storage.get("diagnosis"))
+            {
+                returnList.add((T)(diagnostic.getString("diagnostic")));
+            }     
+        }                    
         return (List<T>)returnList;  
     }
     
@@ -330,6 +357,15 @@ public class DBConnection {
         }
         
     }   
+
+    public void markBillPaid(Document query)
+    {
+        MongoCollection<Document> collection = database.getCollection("patients"); 
+        
+        Document bill = new Document();         
+
+        collection.updateOne(query, new Document("$set", new Document("bill", bill)));
+    }
     
 //--------------------------------------------------  
     /*
@@ -387,8 +423,7 @@ public class DBConnection {
     
     /*
     Author: Tyler Reilly
-    Description: Helper Method for createPatient
-    TODO: Way to do it without creating? Instead return nested doc?
+    Description: Helper Method for createPatient    
     */
     public void createSymptoms(Symptoms symptoms, MongoCollection<Document> patientCollection, Document find)
     {        
@@ -403,7 +438,6 @@ public class DBConnection {
     /*
     Author: Tyler Reilly
     // Description: Helper Method for createPatient
-    TODO: Way to do it without creating? Instead return nested doc?
     */
     public static void createAddress(Address address, MongoCollection<Document> patientCollection, Document find)
     {        
@@ -517,6 +551,17 @@ public class DBConnection {
         allergyDoc.put("allergy", allergy);
 
         patientCollection.updateOne(find, new Document("$push", new Document("allergies", allergyDoc)));
+             
+    }
+
+    public void addBill(Medications medication, MongoCollection<Document> patientCollection, Document find)
+    {
+        
+        Document billDoc = new Document();
+
+        billDoc.put("cost", medication.getPrice());
+
+        patientCollection.updateOne(find, new Document("$push", new Document("bill", billDoc)));
              
     }
 }
