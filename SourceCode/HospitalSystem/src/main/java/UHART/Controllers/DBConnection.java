@@ -637,6 +637,13 @@ public class DBConnection {
     {
         patientCollection.updateOne(find, new Document("$set", new Document("admitted", true)));
     }
+
+    public void changePassword(Staff_Model user, String password)
+    {
+        MongoCollection<Document> staffCollection = getDB().getCollection("staff");
+        staffCollection.updateOne(new Document("id", "" + user.getID()), new Document("$set", new Document("password", password)));
+    }
+    
 }
     
     

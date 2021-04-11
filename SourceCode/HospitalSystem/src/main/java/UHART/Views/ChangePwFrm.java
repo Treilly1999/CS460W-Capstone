@@ -5,9 +5,14 @@
  */
 package UHART.Views;
 
+import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.awt.event.ActionEvent;
+
+import UHART.Controllers.DBConnection;
 import UHART.Controllers.LoginManager;
 import UHART.Models.Staff_Model;
-
+import com.google.common.hash.Hashing;
 /**
  *
  * @author MSI-PC
@@ -16,7 +21,7 @@ public class ChangePwFrm extends javax.swing.JPanel {
 
     private LoginManager loginManager;
     private Staff_Model user;
-
+    private DBConnection db = new DBConnection();
     /**
      * Creates new form ChangePwFrm
      */
@@ -133,6 +138,25 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 134, 89, 0);
         add(jButton2, gridBagConstraints);
+        jButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(!jPasswordField1.getText().isEmpty() && !jPasswordField2.getText().isEmpty() && !jPasswordField3.getText().isEmpty())
+                {
+                    if(jPasswordField1.getText().equals(jPasswordField2.getText()))
+                    {
+                        String sha256oldPassword = Hashing.sha256().hashString(jPasswordField1.getText(), StandardCharsets.UTF_8).toString();
+                        if(sha256oldPassword.equals(user.getPassword()))
+                        {
+                            String sha256newPassword = Hashing.sha256().hashString(jPasswordField3.getText(), StandardCharsets.UTF_8).toString();
+                            db.changePassword(user, sha256newPassword);
+                            loginManager.showLoginScreen();
+                        }
+                       
+                    }
+                }
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("����", 0, 36)); // NOI18N
         jLabel4.setText("Change Password");
