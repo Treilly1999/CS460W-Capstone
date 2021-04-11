@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import UHART.Models.Patient;
 import UHART.Models.Address;
 
+/*
+Author: Jakob
+*/
 public class Nurse extends UHART.Models.Staff_Model{
 	Nurse(int i, String p, Address a, String n)
 	{

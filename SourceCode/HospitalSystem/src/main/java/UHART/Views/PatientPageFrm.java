@@ -162,7 +162,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         {
             case BILLING:
                 jTextField1.setVisible(false);
-                jTextField2.setVisible(false);
+                //jTextField2.setVisible(false);
                 jTextField3.setVisible(false);
                 jTextField4.setVisible(false);
                 jTextField5.setVisible(false);
@@ -180,7 +180,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jTextField17.setVisible(false);
                 jTextField18.setVisible(false);
                 jLabel1.setVisible(false);
-                jLabel2.setVisible(false);
+                //jLabel2.setVisible(false);
                 jLabel3.setVisible(false);
                 jLabel4.setVisible(false);
                 jLabel5.setVisible(false);
@@ -356,17 +356,24 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField8.setEditable(false);
 
         medications = "";
-        for(String medication: patient.getMedications())
+        if(patient.getMedications() != null)
         {
-            if(medications.isEmpty())
+            for(String medication: patient.getMedications())
             {
-                medications = medication.toString();
-            }
-            else
-            {
-                medications += ", " +medication.toString();
+                if(medications.isEmpty())
+                {
+                    medications = medication.toString();
+                }
+                else
+                {
+                    medications += ", " +medication.toString();
+                }
             }
         }
+        else{
+            medications = "none";
+        }
+        
 
         jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
         jTextField9.setText(medications);
@@ -729,8 +736,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel21.setText("Name: ");
         jLabel21.setToolTipText("");
 
+        //TODO: Fix date format
         jTextField16.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField16.setText(""+patient.getAge());
+        jTextField16.setText(patient.getDateOfBirthString());
         jTextField16.setEditable(false);
 
         jLabel23.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
@@ -738,15 +746,19 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jTextField19.setFont(new java.awt.Font("����", 0, 20)); // NOI18N\
         jTextField19.setEditable(false);
-        if(patient.getBill().getPrice() == 0)
+        if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
         {
-            jTextField19.setText("$0");
+            if(patient.getBill().getPrice() == 0)
+            {
+                jTextField19.setText("$0");
+            }
+            else
+            {
+                jTextField19.setText("$" +patient.getBill().getPrice());
+            }
+    
         }
-        else
-        {
-            jTextField19.setText("$" +patient.getBill().getPrice());
-        }
-
+       
         jCheckBox1.setText("Bill Paid");
         jCheckBox1.setVisible(false);
 

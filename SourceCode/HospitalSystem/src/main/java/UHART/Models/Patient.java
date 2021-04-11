@@ -6,6 +6,7 @@
 package UHART.Models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class Patient {
     
     //BILL OBJECT?
     //private Bill b;    
-    private Bill bill = new Bill();
+    private Bill bill;
     private String  name;
     private int  age;     
     private String phoneNumber;
@@ -43,7 +44,10 @@ public class Patient {
     
     private String dischargeInstructions;
     private String assignedDoctor;
+
     private Boolean admitted;
+    private Date dateAdmitted;
+    private Date dateLeft;
     
     private List<String> diagnosis;
     private ArrayList<Tests_procedures> tests_procedures;
@@ -64,12 +68,12 @@ public class Patient {
     
     //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
-    public Patient(String id,String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+    public Patient(String id, String name, Date dateOfBirth, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
             List<String> allergies, Address address)
     {
         this.name = name;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.ssn = ssn;
         this.physicianName = physicianName;
@@ -86,10 +90,11 @@ public class Patient {
     
     
     //Retrieve all variables after everything is set
-    public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
+    public Patient(String id, String name, Date dob, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
             List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
-            Address address, List<String> allergies, List<String> medications, List<String> diagnosis, Bill bill)
+            Address address, List<String> allergies, List<String> medications, List<String> diagnosis, Bill bill, Date dateAdmitted
+            , Date dateLeft)
     {
         this.name = name;
         this.age = age;
@@ -111,6 +116,14 @@ public class Patient {
         this.medications = medications;
         this.diagnosis = diagnosis;
         this.bill = bill;
+        this.dateAdmitted = dateAdmitted;
+        this.dateLeft = dateLeft;
+        dateOfBirth = dob;
+        System.out.println(dateOfBirth.toString());
+        if(admitted)
+        {
+            bill.calculateStay(dateLeft, dateAdmitted);
+        }
     }
     //ID
     public String getID() { return id; }
@@ -163,6 +176,7 @@ public class Patient {
     
     //Admission?
     public Boolean getAdmittedBool() { return admitted; }
+
     public String getAdmitted() 
     {
         String admittedString;
@@ -177,7 +191,7 @@ public class Patient {
         }
         return admittedString ; 
     }    
-    public void setAdmitted(Boolean isAdmitted) { this.admitted = admitted; }
+    public void setAdmitted(Boolean isAdmitted) { this.admitted = isAdmitted; }
     
     //Progress Reports
     public List<ProgressReport> getProgressReports() { return progressReports; }
@@ -206,8 +220,9 @@ public class Patient {
     //Medications
     public List<String> getMedications() { return medications; }
     public void addMedication(String m) { medications.add(m); }
-       
+    
     public Date getDateOfBirth() { return dateOfBirth; }
+    public String getDateOfBirthString() { return removeTime(dateOfBirth).toString(); }
     public void setDateOfBirth(Date dob) { dateOfBirth = dob; }
     
     public List<String> getAllergies() { return allergies; }
@@ -223,6 +238,8 @@ public class Patient {
 
     public ArrayList<String> getCurrentMedication() { return currentMedications; }
 
+    public Date getDateAdmitted() { return dateAdmitted; }
+    public Date getDateLeft() { return dateLeft; }
     
     public String toString()
     {
@@ -232,6 +249,15 @@ public class Patient {
                 ". Medical History: " + getMedicalHistory().toString()
                 + ". Symptoms: " + getSymptoms().toString() + ". Progress Reports: " + getProgressReports().toString()
                 + ". Discharge Instructions: " + getDischargeInstructions();
+    }    
+
+    public static Date removeTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
-    
 }

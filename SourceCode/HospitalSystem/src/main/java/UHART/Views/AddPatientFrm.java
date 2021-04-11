@@ -10,7 +10,9 @@ import UHART.Controllers.LoginManager;
 import UHART.Models.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -220,9 +222,10 @@ public class AddPatientFrm extends javax.swing.JPanel {
 
                                         UUID id = UUID.randomUUID();
                                         address = new Address(jTextField10.getText(),jTextField13.getText(), jTextField12.getText(), jTextField14.getText(), jTextField11.getText());
+                                        Date dob = new SimpleDateFormat("MM/dd/yyyy").parse(jTextField16.getText());
 
                                         //TODO: Remove null allergylist
-                                        patient = new Patient(id.toString(), jTextField15.getText(), Integer.parseInt(jTextField16.getText()), jTextField3.getText(),
+                                        patient = new Patient(id.toString(), jTextField15.getText(), dob, jTextField3.getText(),
                                         Integer.parseInt(jTextField4.getText()), jTextField5.getText(), jTextField6.getText(),jTextField2.getText(), 
                                         symptomList, jTextField1.getText(), allergyList, address);       
                                         
@@ -264,7 +267,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jTextField15.setText("15");
 
         jLabel20.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel20.setText("Date of Birth:");
+        jLabel20.setText("Date of Birth mm/dd/yyyy:");
         jLabel20.setToolTipText("");
 
         jLabel21.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
@@ -419,7 +422,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

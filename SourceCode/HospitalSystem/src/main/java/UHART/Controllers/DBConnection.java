@@ -116,6 +116,8 @@ public class DBConnection {
         Boolean admitted = false;   
         //TODO: Convert to date
         Date dateOfBirth = new Date();
+        Date dateAdmitted = new Date();
+        Date dateLeft = new Date();
         String gender = "";
         Address address = new Address();
         List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
@@ -124,7 +126,7 @@ public class DBConnection {
         List<String> allergies = new ArrayList<String>();
         List<String> medications = new ArrayList<String>();
         List<String> diagnosis = new ArrayList<String>();
-        Bill bill = new Bill();
+        Bill bill = new Bill(false);
         try
         {
             name = patients.getString("name");
@@ -167,9 +169,36 @@ public class DBConnection {
             }
             catch(Exception e)
             {
+                try{
+                    for(Document eachBill : (List<Document>)patients.get("bill"))
+                    {
+                        if(eachBill.getBoolean("paid"))
+                            bill.markPaid();
+                    }  
+                }
+                catch(Exception excep)
+                {
+                    System.out.println(excep);
+                }
                 System.out.println("User has no bill.");
             }
             
+            try{
+                
+                dateAdmitted = patients.getDate("dateAdmitted");
+            }
+            catch(Exception e)
+            {
+                System.out.println("Patient not admitted.");
+            }
+            try{
+                
+                dateLeft = patients.getDate("dateLeft");
+            }
+            catch(Exception e)
+            {
+                System.out.println("Patient either not admitted or still in hospital.");
+            }
             
             
           } catch (Exception e)
@@ -181,9 +210,9 @@ public class DBConnection {
         Document patientID = new Document();
         patientID.put("patientID", "" + id);  
         
-        patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
+        patientList.add(new Patient(id, name,  dateOfBirth,  phoneNumber, patients.getInteger("ssn"),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
-                dischargeInstructions, gender, address, allergies, medications, diagnosis, bill));
+                dischargeInstructions, gender, address, allergies, medications, diagnosis, bill, dateAdmitted, dateLeft));
         
       
     } 
@@ -362,9 +391,11 @@ public class DBConnection {
     {
         MongoCollection<Document> collection = database.getCollection("patients"); 
         
-        Document bill = new Document();         
+        Document bill = new Document();
+        bill.put("paid", "true");
 
-        collection.updateOne(query, new Document("$set", new Document("bill", bill)));
+        collection.updateOne(query, new Document("$pull", new Document("bill", new Document())));
+        collection.updateOne(query, new Document("$push", new Document("bill", bill)));
     }
     
 //--------------------------------------------------  
@@ -385,17 +416,14 @@ public class DBConnection {
         try
         {
             document.put("name", patient.getName());
-            document.put("age", patient.getAge());
+            document.put("dateOfBirth", patient.getDateOfBirth());
             document.put("phoneNumber", patient.getPhone());
             document.put("ssn", patient.getSSN());
             document.put("physicianName", patient.getPhysician());
             document.put("physicianNumber", patient.getPhysicianNumber());        
-            //document.put("assignedDoctor", assignedDoctor);
-            //document.put("dischargeInstructions", dischargeInstructions);     
             document.put("id", patient.getID());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
-            //document.put("dateOfBirth", patient.getDateOfBirth());
             
             patientCollection.insertOne(document);      
             
