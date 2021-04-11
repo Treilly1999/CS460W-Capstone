@@ -41,10 +41,15 @@ public class MainFrm {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Search Patient");
 		mntmNewMenuItem_3.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		mnNewMenu_2.add(mntmNewMenuItem_3);
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginManager.search(user);
+			}
+		});
 		
 		JMenu mnNewMenu = new JMenu("Setting");
 		mnNewMenu.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 20));
-		menuBar.add(mnNewMenu);
+		menuBar.add(mnNewMenu);		
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Change Password");
 		mntmNewMenuItem.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
@@ -97,11 +102,12 @@ public class MainFrm {
                     }
                 });
 		
-		JButton btnCheckPatientRecord = new JButton("Check Patient Record");
+		JButton btnCheckPatientRecord = new JButton("Search");
 		btnCheckPatientRecord.setFont(new Font("����", Font.PLAIN, 20));
                 btnCheckPatientRecord.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //TODO: Add view for searching patient
+                        //TODO: Add view for searching patient\
+						loginManager.search(user);
                     }
                 });
 		
@@ -116,26 +122,31 @@ public class MainFrm {
                 if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.REGISTER)
                 {
                     btnAddDiagno.setVisible(false);
-                    btnUpdatePatientRecord.setVisible(false);
-                    btnCheckPatientRecord.setVisible(false);
-                    btnBilling.setVisible(false);                    
+                    btnUpdatePatientRecord.setVisible(false);                    
+                    btnBilling.setVisible(false);        
+					
+					btnCheckPatientRecord.setVisible(false);
                 }
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.NURSE)
                 {
                     btnNewButton.setVisible(false);
-                    btnAddDiagno.setVisible(false);
-                    btnBilling.setVisible(false);   
+                    btnBilling.setVisible(false);
+					btnAddDiagno.setVisible(false);
+                    btnUpdatePatientRecord.setVisible(false);  
                 }
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
                 {
                     btnNewButton.setVisible(false);
                     btnBilling.setVisible(false);
+					btnAddDiagno.setVisible(false);
+                    btnUpdatePatientRecord.setVisible(false);    
                 }
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
                 {
                     btnNewButton.setVisible(false);
                     btnUpdatePatientRecord.setVisible(false);
-                    btnCheckPatientRecord.setVisible(false);
+					btnAddDiagno.setVisible(false);                  
+                    btnBilling.setVisible(false);        
                 }
                 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

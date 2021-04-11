@@ -10,6 +10,8 @@ public class Bill {
     public Bill()
     {
     	price = 0;
+		medications = new ArrayList<Medications>();
+		tests_procedures = new ArrayList<Tests_procedures>();
     }
     
     public void markPaid()
@@ -30,6 +32,11 @@ public class Bill {
     	price = price + m.getPrice();
     	medications.add(m);
     }
+
+	public void addPrice(int price)
+	{
+		this.price += price;
+	}
     
     public String toString()
     {

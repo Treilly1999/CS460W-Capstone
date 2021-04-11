@@ -52,6 +52,7 @@ public class LoginManager extends JFrame {
   private UpdatePFrm updatePatient;
   private MainFrm main;
   private PatientPageFrm patientProfile;
+  private SearchPatientFrm searchPatient;
   
   /*
   Description: Shows the login panel. This is done by default by the constructor. 
@@ -169,6 +170,20 @@ public class LoginManager extends JFrame {
     public void run() {
       try {
         patientProfile = new PatientPageFrm(patient, user, login);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  });
+  }
+
+  public void search(final Staff_Model user)
+  {
+    final LoginManager login = this;
+    EventQueue.invokeLater(new Runnable() {
+    public void run() {
+      try {
+        searchPatient = new SearchPatientFrm(login, user);
       } catch (Exception e) {
         e.printStackTrace();
       }

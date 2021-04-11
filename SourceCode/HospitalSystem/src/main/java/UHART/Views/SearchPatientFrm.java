@@ -5,17 +5,31 @@
  */
 package UHART.Views;
 
+import java.awt.event.ActionListener;
+
+import javax.swing.JTextField;
+
+import UHART.Controllers.LoginManager;
+import UHART.Models.Staff_Model;
+import java.awt.event.ActionEvent;
+import javax.swing.table.TableCellRenderer;
+import org.bson.Document;
+import UHART.Controllers.JTableButtonModel;
+import UHART.Controllers.JTableButtonRenderer;
+import UHART.Controllers.JTableMouseListener;
 /**
  *
  * @author MSI-PC
  */
 public class SearchPatientFrm extends javax.swing.JPanel {
 
+    private JTextField searchField;
+
     /**
      * Creates new form SearchPatientFrm
      */
-    public SearchPatientFrm() {
-        initComponents();
+    public SearchPatientFrm(final LoginManager loginManager, final Staff_Model user) {
+        initComponents(loginManager, user);
     }
 
     /**
@@ -25,50 +39,78 @@ public class SearchPatientFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
 
+
+        loginManager.setContentPane(this);
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        searchField = new JTextField();
+		searchField.setColumns(10);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Search");
+        jButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            Document search = new Document();
+                            if(searchField.getText().isEmpty())
+                            {
+                                search = null;
+                            }
+                            else
+                            {
+                                search.put("ssn", Integer.parseInt(searchField.getText()));
+                            }
+                            
+                            TableCellRenderer tableRenderer = new JTableButtonRenderer();
+                            JTableButtonModel button = new JTableButtonModel(loginManager, user);
+                            button.setRows(search);
+                            jTable1.setModel(button);
+                            jTable1.getColumn("Patients").setCellRenderer(tableRenderer);
+                            //tableRenderer = table.getDefaultRenderer(JButton.class);
+                            //table.setDefaultRenderer(JButton.class, new JTableButtonRenderer());
+                            jTable1.addMouseListener(new JTableMouseListener(jTable1));
+                            
+                            //System.out.println(table.getValueAt(0, 0));
+                        }
+		});	        
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("ËÎÌå", 0, 24)); // NOI18N
-        jLabel1.setText("Seach Patient ");
+        jLabel1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 24)); // NOI18N
+        jLabel1.setText("Enter SSN: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)  
+                .addGap(20)                         
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE))
+            
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()                
+                .addGap(50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

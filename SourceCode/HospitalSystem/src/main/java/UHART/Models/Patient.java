@@ -45,7 +45,7 @@ public class Patient {
     private String assignedDoctor;
     private Boolean admitted;
     
-    private ArrayList<String> diagnoses;
+    private List<String> diagnosis;
     private ArrayList<Tests_procedures> tests_procedures;
     
     //assigned by doctor
@@ -89,7 +89,7 @@ public class Patient {
     public Patient(String id, String name, Integer age, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
             List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
-            Address address, List<String> allergies, List<String> medications)
+            Address address, List<String> allergies, List<String> medications, List<String> diagnosis, Bill bill)
     {
         this.name = name;
         this.age = age;
@@ -109,6 +109,8 @@ public class Patient {
         this.address = address;
         this.allergies = allergies;
         this.medications = medications;
+        this.diagnosis = diagnosis;
+        this.bill = bill;
     }
     //ID
     public String getID() { return id; }
@@ -192,8 +194,8 @@ public class Patient {
     
     //Author: Jakob
     //Diagnosis
-    public ArrayList<String> getDiagnosis() { return diagnoses; }
-    public void addDiagnosis(String d) { diagnoses.add(d); }
+    public List<String> getDiagnosis() { return diagnosis; }
+    public void addDiagnosis(String d) { diagnosis.add(d); }
     
     //Author: Jakob
     //Tests

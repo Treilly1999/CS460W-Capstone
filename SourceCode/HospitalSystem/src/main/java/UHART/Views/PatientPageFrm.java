@@ -28,7 +28,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
     javax.swing.GroupLayout layout;
    
     private Patient patient;
-    Document patientID = new Document();        
+    private Staff_Model user;
+    private Document patientID = new Document();        
     private String medications;
     private String symptoms;
     private String diagnosis;
@@ -53,7 +54,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         patientID.put("id", patient.getID());
         loginManager.setContentPane(this);
         this.patient = patient;
-       
+        this.user = user;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -228,7 +229,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jLabel22.setVisible(false);
                 jButton4.setVisible(false);
                 addMed.setVisible(false);
-                addDiagnosis.setVisible(false);                
+                addDiagnosis.setVisible(false); 
+                jTextArea3.setEditable(true);               
                 break;
             case REGISTER:
                 jTextArea1.setVisible(false);
@@ -391,15 +393,15 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel16.setText("Diagnosis:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Diagnoses.ABDOMINALPAIN.toString(),
-        UHART.Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION.toString(),
-        UHART.Models.Diagnoses.CHESTPAIN.toString(),
-        UHART.Models.Diagnoses.DIZZINESSANDGIDDINESS.toString(),
-        UHART.Models.Diagnoses.HEADACHE.toString(),
-        UHART.Models.Diagnoses.INJURYOFHEAD.toString(),
-        UHART.Models.Diagnoses.LOWERBACKPAIN.toString(),
-        UHART.Models.Diagnoses.NONINFECTIVEGASTROENTERITISANDCOLITIS.toString(),
-        UHART.Models.Diagnoses.SYNCOPEANDCOLLAPSE.toString(),
-        UHART.Models.Diagnoses.URINARYTRACTINFECTION.toString()}));
+            UHART.Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION.toString(),
+            UHART.Models.Diagnoses.CHESTPAIN.toString(),
+            UHART.Models.Diagnoses.DIZZINESSANDGIDDINESS.toString(),
+            UHART.Models.Diagnoses.HEADACHE.toString(),
+            UHART.Models.Diagnoses.INJURYOFHEAD.toString(),
+            UHART.Models.Diagnoses.LOWERBACKPAIN.toString(),
+            UHART.Models.Diagnoses.NONINFECTIVEGASTROENTERITISANDCOLITIS.toString(),
+            UHART.Models.Diagnoses.SYNCOPEANDCOLLAPSE.toString(),
+            UHART.Models.Diagnoses.URINARYTRACTINFECTION.toString()}));
 
         jLabel17.setText("Medicines: ");
 
@@ -442,7 +444,64 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
                     db.createMedications(medication, user, patientID);
                     patient.addMedication(medication);
+
+                    if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ACETAMINOPHEN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ACETAMINOPHEN);
+                        db.addBill(UHART.Models.Medications.ACETAMINOPHEN, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTACID.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTACID);
+                        db.addBill(UHART.Models.Medications.ANTACID, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTIBIOTIC.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTIBIOTIC);
+                        db.addBill(UHART.Models.Medications.ANTIBIOTIC, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTISEIZURE.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTISEIZURE);
+                        db.addBill(UHART.Models.Medications.ANTISEIZURE, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SUGAR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.SUGAR);
+                        db.addBill(UHART.Models.Medications.SUGAR, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.IBUPROFIN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.IBUPROFIN);
+                        db.addBill(UHART.Models.Medications.IBUPROFIN, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SIMETHICONE.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.SIMETHICONE);
+                        db.addBill(UHART.Models.Medications.SIMETHICONE, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.GANCICLOVIR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.GANCICLOVIR);
+                        db.addBill(UHART.Models.Medications.GANCICLOVIR, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.FOSCARNET.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.FOSCARNET);
+                        db.addBill(UHART.Models.Medications.FOSCARNET, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ASPIRIN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ASPIRIN);
+                        db.addBill(UHART.Models.Medications.ASPIRIN, patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.VALGANCICLOVIR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.VALGANCICLOVIR);
+                        db.addBill(UHART.Models.Medications.VALGANCICLOVIR, patientCollection, patientID);
+                    }                    
                     
+
                     if(medications.isEmpty())
                     {
                         medications = jComboBox3.getSelectedItem().toString();
@@ -498,6 +557,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
             }
         });
 
+        //TODO: Implement with button
         addSymptom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(!jTextArea1.getText().isEmpty())
@@ -511,7 +571,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
                             Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
                             db.createSymptoms(symptom, patientCollection, patientID);
                             patient.setSymptoms(symptom);
-                            
+
                             if(symptoms.isEmpty())
                             {
                                 symptoms = symptomValues[i].replaceAll("\\s+", "");
@@ -521,6 +581,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
                                 symptoms += ", " + symptomValues[i].replaceAll("\\s+", "");
                             }
                         }
+                        else
+                        {
+                            //TODO: Popup button
+                            System.out.println(symptomValues[i] + " already added");
+                        }                        
                         
                     }
                     
@@ -643,34 +708,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jButton3.setText("Save");
         jButton3.setVisible(false);
         jButton3.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-                jTextField1.setEditable(false);
-                jTextField2.setEditable(false);
-                jTextField3.setEditable(false);
-                jTextField4.setEditable(false);
-                jTextField5.setEditable(false);
-                jTextField6.setEditable(false);
-                jTextField7.setEditable(false);
-                jTextField8.setEditable(false);
-                jTextField9.setEditable(false);
-                jTextField10.setEditable(false);
-                jTextField11.setEditable(false);
-                jTextField12.setEditable(false);
-                jTextField13.setEditable(false);
-                jTextField14.setEditable(false);
-                jTextField15.setEditable(false);
-                jTextField16.setEditable(false);
-                jTextField19.setEditable(false);
-                jButton3.setVisible(false);
-                jButton2.setVisible(true);
-
-                if(jCheckBox1.isEnabled())
-                {
-                    //TODO: Implement billing features
-                    //patient.markPaid();
-                   // jTextField19.setText("$0");
-                }
-
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -705,12 +744,14 @@ public class PatientPageFrm extends javax.swing.JPanel {
         }
         else
         {
-            jTextField19.setText("" +patient.getBill().getPrice());
+            jTextField19.setText("$" +patient.getBill().getPrice());
         }
 
         jCheckBox1.setText("Bill Paid");
+        jCheckBox1.setVisible(false);
 
         jLabel24.setText("Bill state");
+        jLabel24.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -906,33 +947,77 @@ public class PatientPageFrm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //EDIT
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-        jTextField1.setEditable(true);
-        jTextField2.setEditable(true);
-        jTextField3.setEditable(true);
-        jTextField4.setEditable(true);
-        jTextField5.setEditable(true);
-        jTextField6.setEditable(true);
-        jTextField7.setEditable(true);
-        jTextField8.setEditable(true);
-        jTextField9.setEditable(true);
-        jTextField10.setEditable(true);
-        jTextField11.setEditable(true);
-        jTextField12.setEditable(true);
-        jTextField13.setEditable(true);
         jButton3.setVisible(true);
-        jButton2.setVisible(false);
-        jTextField15.setEditable(true);
-        jTextField14.setEditable(true);
-        jTextField16.setEditable(true);
-        jTextField19.setEditable(true);
+        jButton2.setVisible(false);        
+
+        if(user.getUSER_ROLE() != UHART.Models.Staff_Model.USER_ROLE.BILLING)
+        {
+            jTextField1.setEditable(true);
+            jTextField2.setEditable(true);
+            jTextField3.setEditable(true);
+            jTextField4.setEditable(true);
+            jTextField5.setEditable(true);
+            jTextField6.setEditable(true);
+            jTextField7.setEditable(true);
+            jTextField8.setEditable(true);
+            jTextField9.setEditable(true);
+            jTextField10.setEditable(true);
+            jTextField11.setEditable(true);
+            jTextField12.setEditable(true);
+            jTextField13.setEditable(true);
+            
+            jTextField15.setEditable(true);
+            jTextField14.setEditable(true);
+            jTextField16.setEditable(true);        
+        }
+        else
+        {
+            jCheckBox1.setVisible(true);
+            jLabel24.setVisible(true);
+        }       
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //SAVE
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+       
+        jTextField1.setEditable(false);
+        jTextField2.setEditable(false);
+        jTextField3.setEditable(false);
+        jTextField4.setEditable(false);
+        jTextField5.setEditable(false);
+        jTextField6.setEditable(false);
+        jTextField7.setEditable(false);
+        jTextField8.setEditable(false);
+        jTextField9.setEditable(false);
+        jTextField10.setEditable(false);
+        jTextField11.setEditable(false);
+        jTextField12.setEditable(false);
+        jTextField13.setEditable(false);
+        jTextField14.setEditable(false);
+        jTextField15.setEditable(false);
+        jTextField16.setEditable(false);
+        jTextField19.setEditable(false);
+        jButton3.setVisible(false);
+        jButton2.setVisible(true);
+
+        jCheckBox1.setVisible(false);
+        jLabel24.setVisible(false);
+
+        if(jCheckBox1.isSelected())
+        {
+            //TODO: Implement billing features
+            patient.markPaid();
+            jTextField19.setText("$" +patient.getBill().getPrice());
+            db.markBillPaid(patientID);
+        }    
+    }
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         model.addRow(new Object[] { jTextField17.getText(), jTextField18.getText()});
