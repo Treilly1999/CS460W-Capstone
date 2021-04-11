@@ -5,17 +5,23 @@
  */
 package UHART.Views;
 
+import UHART.Controllers.LoginManager;
+import UHART.Models.Staff_Model;
+
 /**
  *
  * @author MSI-PC
  */
 public class ChangePwFrm extends javax.swing.JPanel {
 
+    private LoginManager loginManager;
+    private Staff_Model user;
+
     /**
      * Creates new form ChangePwFrm
      */
-    public ChangePwFrm() {
-        initComponents();
+    public ChangePwFrm(final LoginManager loginManager, final Staff_Model user) {
+        initComponents(loginManager, user);
     }
 
     /**
@@ -25,9 +31,15 @@ public class ChangePwFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
         java.awt.GridBagConstraints gridBagConstraints;
+        this.loginManager = loginManager;
+        this.user = user;
 
+        loginManager.setContentPane(this);
+
+
+        //TODO: Implement backend
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -41,7 +53,7 @@ public class ChangePwFrm extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("ËÎÌå", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 18)); // NOI18N
         jLabel1.setText("Old Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -51,8 +63,8 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(46, 98, 0, 0);
         add(jLabel1, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("ËÎÌå", 0, 18)); // NOI18N
-        jLabel2.setText("Old Password");
+        jLabel2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 18)); // NOI18N
+        jLabel2.setText("Re-enter Old Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -61,7 +73,6 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(22, 98, 0, 0);
         add(jLabel2, gridBagConstraints);
 
-        jPasswordField1.setText("jPasswordField1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -72,7 +83,6 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(49, 160, 0, 86);
         add(jPasswordField1, gridBagConstraints);
 
-        jPasswordField2.setText("jPasswordField2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -83,7 +93,7 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(25, 160, 0, 86);
         add(jPasswordField2, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("ËÎÌå", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 18)); // NOI18N
         jLabel3.setText("New Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -93,7 +103,6 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(18, 98, 0, 0);
         add(jLabel3, gridBagConstraints);
 
-        jPasswordField3.setText("jPasswordField3");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -125,8 +134,8 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(18, 134, 89, 0);
         add(jButton2, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("ËÎÌå", 0, 36)); // NOI18N
-        jLabel4.setText("User password setting");
+        jLabel4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 36)); // NOI18N
+        jLabel4.setText("Change Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -135,8 +144,8 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(31, 130, 0, 0);
         add(jLabel4, gridBagConstraints);
 
-        jLabel5.setFont(new java.awt.Font("ËÎÌå", 0, 18)); // NOI18N
-        jLabel5.setText("Message out");
+        //Error message
+        jLabel5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 7;
@@ -150,6 +159,7 @@ public class ChangePwFrm extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        loginManager.showMainPanel(user);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

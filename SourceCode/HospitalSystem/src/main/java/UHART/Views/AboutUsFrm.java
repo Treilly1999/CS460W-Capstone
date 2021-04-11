@@ -5,6 +5,9 @@
  */
 package UHART.Views;
 
+import UHART.Controllers.LoginManager;
+import UHART.Models.Staff_Model;
+
 /**
  *
  * @author MSI-PC
@@ -14,8 +17,8 @@ public class AboutUsFrm extends javax.swing.JPanel {
     /**
      * Creates new form AboutUsFrm
      */
-    public AboutUsFrm() {
-        initComponents();
+    public AboutUsFrm(final LoginManager loginManager, final Staff_Model user) {
+        initComponents(loginManager, user);
     }
 
     /**
@@ -25,8 +28,10 @@ public class AboutUsFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
         java.awt.GridBagConstraints gridBagConstraints;
+
+        loginManager.setContentPane(this);
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();

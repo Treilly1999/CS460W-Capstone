@@ -31,7 +31,7 @@ public class Patient {
     
     private String provider; 
     
-    private List<ProgressReport> progressReports;
+    private List<ProgressReport> progressReports = new ArrayList<>();
     
     private int ssn;
     
@@ -50,7 +50,7 @@ public class Patient {
     private Date dateLeft;
     
     private List<String> diagnosis;
-    private ArrayList<Tests_procedures> tests_procedures;
+    private List<String> tests_procedures;
     
     //assigned by doctor
     private List<String> medications;
@@ -94,7 +94,7 @@ public class Patient {
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
             List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
             Address address, List<String> allergies, List<String> medications, List<String> diagnosis, Bill bill, Date dateAdmitted
-            , Date dateLeft)
+            , Date dateLeft, List<String> tests)
     {
         this.name = name;
         this.age = age;
@@ -118,12 +118,13 @@ public class Patient {
         this.bill = bill;
         this.dateAdmitted = dateAdmitted;
         this.dateLeft = dateLeft;
+        this.tests_procedures = tests;
         dateOfBirth = dob;
         System.out.println(dateOfBirth.toString());
-        if(admitted)
-        {
-            bill.calculateStay(dateLeft, dateAdmitted);
-        }
+        // if(admitted)
+        // {
+        //     bill.calculateStay(dateLeft, dateAdmitted);
+        // }
     }
     //ID
     public String getID() { return id; }
@@ -213,8 +214,8 @@ public class Patient {
     
     //Author: Jakob
     //Tests
-    public ArrayList<Tests_procedures> getTests() { return tests_procedures; }
-    public void addTests(Tests_procedures t) { tests_procedures.add(t); }
+    public List<String> getTests() { return tests_procedures; }
+    public void addTests(String t) { tests_procedures.add(t); }
     
     //Author: Jakob
     //Medications

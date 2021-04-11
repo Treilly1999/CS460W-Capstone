@@ -118,40 +118,28 @@ public class AddPatientFrm extends javax.swing.JPanel {
 
         //NAME
         jTextField1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField1.setText("1");
         //DOB
         jTextField2.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField2.setText("2");
         //GENDER
         jTextField3.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField3.setText("3");
         //PROVIDER
         jTextField4.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField4.setText("4");
         //PHONE
         jTextField5.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField5.setText("5");
         //SSN
         jTextField6.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField6.setText("6");
         //PHYSICIAN
         jTextField7.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField7.setText("7");
         //PHYISICIAN PHONE
         jTextField8.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField8.setText("8");
         //allergies        
         jTextField9.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField9.setText("9");
         //SYMPTOMS
         jTextField10.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField10.setText("10");
         //meds
         jTextField11.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField11.setText("11");
         //street
         jTextField12.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField12.setText("12");
 
         jLabel13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel13.setText("Zip:");
@@ -160,8 +148,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel14.setText("Country:");
 
         //city
-        jTextField13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N        
-        jTextField13.setText("13");
+        jTextField13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N       
 
         jButton1.setText("Back");
         jButton1.addActionListener(new ActionListener(){
@@ -261,10 +248,8 @@ public class AddPatientFrm extends javax.swing.JPanel {
 
         //state
         jTextField14.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField14.setText("14");
         //zip
-        jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField15.setText("15");
+        jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18
 
         jLabel20.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel20.setText("Date of Birth mm/dd/yyyy:");
@@ -276,7 +261,6 @@ public class AddPatientFrm extends javax.swing.JPanel {
 
         //country
         jTextField16.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField16.setText("16");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
