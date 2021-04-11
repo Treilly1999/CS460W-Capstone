@@ -229,7 +229,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jLabel22.setVisible(false);
                 jButton4.setVisible(false);
                 addMed.setVisible(false);
-                addDiagnosis.setVisible(false);                
+                addDiagnosis.setVisible(false); 
+                jTextArea3.setEditable(true);               
                 break;
             case REGISTER:
                 jTextArea1.setVisible(false);
