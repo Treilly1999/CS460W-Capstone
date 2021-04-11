@@ -116,6 +116,8 @@ public class DBConnection {
         Boolean admitted = false;   
         //TODO: Convert to date
         Date dateOfBirth = new Date();
+        Date dateAdmitted = new Date();
+        Date dateLeft = new Date();
         String gender = "";
         Address address = new Address();
         List<MedicalHistory> medicalHistory = new ArrayList<MedicalHistory>();
@@ -124,7 +126,8 @@ public class DBConnection {
         List<String> allergies = new ArrayList<String>();
         List<String> medications = new ArrayList<String>();
         List<String> diagnosis = new ArrayList<String>();
-        Bill bill = new Bill();
+        List<String> tests = new ArrayList<String>();
+        Bill bill = new Bill(false);
         try
         {
             name = patients.getString("name");
@@ -132,10 +135,17 @@ public class DBConnection {
             phoneNumber = patients.getString("phoneNumber");
             //ssn = patients.getInteger("ssn");
             physicianName = patients.getString("physicianName");
-            physicianNumber = patients.getString("physicianNumber");           
-            dischargeInstructions = patients.getString("dischargeInstructions");
-            assignedDoctor = patients.getString("assignedDoctor");
-            admitted = Boolean.parseBoolean(patients.getString("admitted"));
+            physicianNumber = patients.getString("physicianNumber");      
+            
+            try{
+                admitted = patients.getBoolean("admitted");
+                dischargeInstructions = patients.getString("dischargeInstructions");
+                assignedDoctor = patients.getString("assignedDoctor");                    
+            }  
+            catch(Exception e)
+            {
+                System.out.println("params not found");
+            }         
             provider = patients.getString("provider");
             id = patients.getString("id");  
             gender = patients.getString("gender");
@@ -144,15 +154,37 @@ public class DBConnection {
             allergies = buildLists(patients, "allergies", collection);
             medicalHistory = buildLists(patients, "medicalHistory", collection);           
             symptoms = buildLists(patients, "symptoms", collection); 
-            progressReports = buildLists(patients, "progressReports", collection); 
+            
             try {
                 medications = buildLists(patients, "medications", collection);
+                
+            }
+            catch(Exception e)
+            {
+                System.out.println("medications or diagnosis not found");
+            }   
+            try {
                 diagnosis = buildLists(patients, "diagnosis", collection);
             }
             catch(Exception e)
             {
                 System.out.println("medications or diagnosis not found");
-            }          
+            }    
+            try {
+                progressReports = buildLists(patients, "progressReports", collection); 
+            }
+            catch(Exception e)
+            {
+                System.out.println("medications or diagnosis not found");
+            }   
+            try {
+                
+            tests = buildLists(patients, "tests", collection); 
+            }
+            catch(Exception e)
+            {
+                System.out.println("medications or diagnosis not found");
+            }    
 
             for(Document addr : (List<Document>)patients.get("address"))
             {
@@ -167,9 +199,36 @@ public class DBConnection {
             }
             catch(Exception e)
             {
+                try{
+                    for(Document eachBill : (List<Document>)patients.get("bill"))
+                    {
+                        if(eachBill.getBoolean("paid"))
+                            bill.markPaid();
+                    }  
+                }
+                catch(Exception excep)
+                {
+                    System.out.println(excep);
+                }
                 System.out.println("User has no bill.");
             }
             
+            try{
+                
+                dateAdmitted = patients.getDate("dateAdmitted");
+            }
+            catch(Exception e)
+            {
+                System.out.println("Patient not admitted.");
+            }
+            try{
+                
+                dateLeft = patients.getDate("dateLeft");
+            }
+            catch(Exception e)
+            {
+                System.out.println("Patient either not admitted or still in hospital.");
+            }
             
             
           } catch (Exception e)
@@ -177,13 +236,14 @@ public class DBConnection {
               System.out.println(e);
               System.out.println("Some query parameters were not found in " + name + " profile");
           }
-        
+    
         Document patientID = new Document();
         patientID.put("patientID", "" + id);  
         
-        patientList.add(new Patient(id, name,  patients.getInteger("age"),  phoneNumber, patients.getInteger("ssn"),  physicianName, 
+        patientList.add(new Patient(id, name,  dateOfBirth,  phoneNumber, patients.getInteger("ssn"),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
-                dischargeInstructions, gender, address, allergies, medications, diagnosis, bill));
+                dischargeInstructions, gender, address, allergies, medications, diagnosis, bill, dateAdmitted, dateLeft,
+                tests));
         
       
     } 
@@ -213,8 +273,10 @@ public class DBConnection {
         }
         else if(type.equals("progressReports"))
         {
-            ArrayList<ProgressReport> progressReports = (ArrayList<ProgressReport>)storage.get("progressReports");       
-            returnList = (List<T>)progressReports;
+            for(Document prog : (List<Document>)storage.get("progressReports"))
+            {
+                returnList.add((T)new ProgressReport(prog.getString("nurse"), prog.getString("date"), prog.getString("report")));
+            }
         }
         else if(type.equals("medicalHistory"))
         {
@@ -244,7 +306,14 @@ public class DBConnection {
             {
                 returnList.add((T)(diagnostic.getString("diagnostic")));
             }     
-        }                    
+        }     
+        else if(type.equals("tests"))
+        {
+            for(Document test : (List<Document>)storage.get("tests"))
+            {
+                returnList.add((T)(test.getString("test")));
+            }
+        }                
         return (List<T>)returnList;  
     }
     
@@ -287,7 +356,7 @@ public class DBConnection {
             {
                 for(int i = 0; i <patient.getTests().size(); i++)
                 {
-                    createTestsProcedures(patient.getTests().get(i), user, collection, patientID);
+                    //createTestsProcedures(patient.getTests().get(i), user, collection, patientID);
                     successful = true;
                 }
             }
@@ -362,9 +431,11 @@ public class DBConnection {
     {
         MongoCollection<Document> collection = database.getCollection("patients"); 
         
-        Document bill = new Document();         
+        Document bill = new Document();
+        bill.put("paid", true);
 
-        collection.updateOne(query, new Document("$set", new Document("bill", bill)));
+        collection.updateOne(query, new Document("$pull", new Document("bill", new Document())));
+        collection.updateOne(query, new Document("$push", new Document("bill", bill)));
     }
     
 //--------------------------------------------------  
@@ -385,17 +456,14 @@ public class DBConnection {
         try
         {
             document.put("name", patient.getName());
-            document.put("age", patient.getAge());
+            document.put("dateOfBirth", patient.getDateOfBirth());
             document.put("phoneNumber", patient.getPhone());
             document.put("ssn", patient.getSSN());
             document.put("physicianName", patient.getPhysician());
             document.put("physicianNumber", patient.getPhysicianNumber());        
-            //document.put("assignedDoctor", assignedDoctor);
-            //document.put("dischargeInstructions", dischargeInstructions);     
             document.put("id", patient.getID());        
             document.put("provider", patient.getProvider());   
             document.put("gender", patient.getGender());
-            //document.put("dateOfBirth", patient.getDateOfBirth());
             
             patientCollection.insertOne(document);      
             
@@ -474,7 +542,7 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Helper Method for createPatient
     */
-    public static void createProgressReports(ProgressReport progressRep, Staff_Model staff, MongoCollection<Document> patientCollection, Document find)
+    public void createProgressReports(ProgressReport progressRep, Staff_Model staff, MongoCollection<Document> patientCollection, Document find)
     {       
         if(staff.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.NURSE)
         {
@@ -512,7 +580,7 @@ public class DBConnection {
     Author: Tyler Reilly
     Description: Called when a doctor is ordering tests for patient
     */
-    public static void createTestsProcedures(Tests_procedures tests, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
+    public void createTestsProcedures(Tests_procedures tests, Staff_Model user, MongoCollection<Document> patientCollection, Document find)
     {
         if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
         {
@@ -564,6 +632,18 @@ public class DBConnection {
         patientCollection.updateOne(find, new Document("$push", new Document("bill", billDoc)));
              
     }
+
+    public void admit(MongoCollection<Document> patientCollection, Document find)
+    {
+        patientCollection.updateOne(find, new Document("$set", new Document("admitted", true)));
+    }
+
+    public void changePassword(Staff_Model user, String password)
+    {
+        MongoCollection<Document> staffCollection = getDB().getCollection("staff");
+        staffCollection.updateOne(new Document("id", "" + user.getID()), new Document("$set", new Document("password", password)));
+    }
+    
 }
     
     

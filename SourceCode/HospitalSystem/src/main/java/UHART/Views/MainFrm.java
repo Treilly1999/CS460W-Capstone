@@ -54,6 +54,11 @@ public class MainFrm {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Change Password");
 		mntmNewMenuItem.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		mnNewMenu.add(mntmNewMenuItem);
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginManager.changePassword(user);
+			}
+		});
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Log out");
 		mntmNewMenuItem_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
@@ -72,6 +77,12 @@ public class MainFrm {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("About us");
 		mntmNewMenuItem_2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		mnNewMenu_1.add(mntmNewMenuItem_2);
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginManager.aboutUs(user);
+			}
+		});
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		loginManager.setContentPane(contentPane);

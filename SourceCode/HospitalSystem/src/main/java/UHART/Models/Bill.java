@@ -1,17 +1,22 @@
 package UHART.Models;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Bill {
 	private int price;
 	private ArrayList<Tests_procedures> tests_procedures;
     private ArrayList<Medications> medications;
-    
-    public Bill()
+    private final int stayCostPerDay = 150;
+	Boolean paid;
+
+    public Bill(Boolean paid)
     {
     	price = 0;
 		medications = new ArrayList<Medications>();
 		tests_procedures = new ArrayList<Tests_procedures>();
+		this.paid = paid;
     }
     
     public void markPaid()
@@ -19,6 +24,7 @@ public class Bill {
     	price = 0;
     	tests_procedures.clear();
     	medications.clear();
+		paid = true;
     }
     
     public void addItem(Tests_procedures t)
@@ -37,7 +43,16 @@ public class Bill {
 	{
 		this.price += price;
 	}
-    
+	
+    public void calculateStay(Date left, Date admitted)
+	{
+		int stayTime = left.compareTo(admitted) * stayCostPerDay;
+		if(stayTime > 0)
+			price += stayTime;
+		else
+			price += stayCostPerDay;
+	}
+
     public String toString()
     {
     	String bill = "Bill \n" + String.format("15%s", "Item") + String.format("%s", "Price") + "\n";
@@ -56,6 +71,8 @@ public class Bill {
     	return bill;
     }
     
+	public Boolean isPaid() {return paid; }
+
     public int getPrice()
     {
     	return price;
