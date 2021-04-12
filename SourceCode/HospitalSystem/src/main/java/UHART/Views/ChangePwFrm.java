@@ -138,6 +138,10 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 134, 89, 0);
         add(jButton2, gridBagConstraints);
+        /*
+        Author: Tyler
+        Description: Change password
+        */
         jButton2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
