@@ -1,0 +1,4 @@
+{"_id":{"$oid":"607387871734a0e5b7777568"},"name":"register","id":"1","userName":"register","user_role":"REGISTER","password":"87780fa5de684e87cb92b279f0bc07b14f572851e73b8943a097c1770a5f38e6"}
+{"_id":{"$oid":"607387871734a0e5b7777569"},"name":"billing","id":"2","userName":"biller","user_role":"BILLING","password":"116d3dda100429ca77030fdc21e8ba95ea25e0c9804ffee1a43045243170d9a6"}
+{"_id":{"$oid":"607387871734a0e5b777756a"},"name":"doctor","id":"3","userName":"doctor","user_role":"DOCTOR","password":"72f4be89d6ebab1496e21e38bcd7c8ca0a68928af3081ad7dff87e772eb350c2"}
+{"_id":{"$oid":"607387881734a0e5b777756b"},"name":"nurse","id":"4","userName":"nurse","user_role":"NURSE","password":"781e5116a1e14a34eada50159d589e690c81ec4c5063115ea1f10b99441d5b94"}
