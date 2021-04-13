@@ -41,6 +41,7 @@ public class ChangePwFrm extends javax.swing.JPanel {
         this.loginManager = loginManager;
         this.user = user;
 
+        //loginManager.setVisible(false);
         loginManager.setContentPane(this);
 
 
@@ -183,6 +184,8 @@ public class ChangePwFrm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 160, 0, 86);
         add(jLabel5, gridBagConstraints);
+
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
