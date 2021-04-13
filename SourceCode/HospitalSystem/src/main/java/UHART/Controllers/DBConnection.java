@@ -25,6 +25,7 @@ import UHART.Models.Bill;
  import org.bson.Document;
  import java.util.*;
  import java.util.ArrayList;
+ import UHART.Controllers.AES256;
 /**
  *
  * @author Tyler
@@ -36,6 +37,7 @@ public class DBConnection {
     
     //TODO: Research MongoDB date object
     private ArrayList<Patient> patientList = new ArrayList<Patient>();
+    private AES256 aes = new AES256();
     
     public ArrayList<Patient> getPatients()
     {
@@ -146,7 +148,7 @@ public class DBConnection {
             {
                 System.out.println("params not found");
             }         
-            provider = patients.getString("provider");
+            provider = aes.decrypt(patients.getString("provider"));
             id = patients.getString("id");  
             gender = patients.getString("gender");
             dateOfBirth = patients.getDate("dateOfBirth");            
@@ -188,7 +190,8 @@ public class DBConnection {
 
             for(Document addr : (List<Document>)patients.get("address"))
             {
-                address = new Address(addr.getString("street"),addr.getString("zipcode"),addr.getString("state"),addr.getString("country"),addr.getString("city"));
+                address = new Address(aes.decrypt(addr.getString("street")), aes.decrypt(addr.getString("zipcode")), 
+                aes.decrypt(addr.getString("state")), aes.decrypt(addr.getString("country")), aes.decrypt(addr.getString("city")));
             }
 
             try{
@@ -240,7 +243,7 @@ public class DBConnection {
         Document patientID = new Document();
         patientID.put("patientID", "" + id);  
         
-        patientList.add(new Patient(id, name,  dateOfBirth,  phoneNumber, patients.getInteger("ssn"),  physicianName, 
+        patientList.add(new Patient(id, name,  dateOfBirth,  phoneNumber, Integer.parseInt(aes.decrypt(patients.getString("ssn"))),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
                 dischargeInstructions, gender, address, allergies, medications, diagnosis, bill, dateAdmitted, dateLeft,
                 tests));
@@ -283,7 +286,7 @@ public class DBConnection {
 
             for(Document medHist : (List<Document>) storage.get("medicalHistory"))
             {
-                returnList.add((T)new MedicalHistory(medHist.getString("date"), medHist.getString("hospitalization")));
+                returnList.add((T)new MedicalHistory(aes.decrypt(medHist.getString("date")), aes.decrypt(medHist.getString("hospitalization"))));
             }            
         }
         else if(type.equals("allergies"))
@@ -297,21 +300,21 @@ public class DBConnection {
         {
             for(Document medication : (List<Document>)storage.get("medications"))
             {
-                returnList.add((T)(medication.getString("medication")));
+                returnList.add((T)(aes.decrypt(medication.getString("medication"))));
             }     
         }   
         else if(type.equals("diagnosis"))
         {
             for(Document diagnostic : (List<Document>)storage.get("diagnosis"))
             {
-                returnList.add((T)(diagnostic.getString("diagnostic")));
+                returnList.add((T)(aes.decrypt(diagnostic.getString("diagnostic"))));
             }     
         }     
         else if(type.equals("tests"))
         {
             for(Document test : (List<Document>)storage.get("tests"))
             {
-                returnList.add((T)(test.getString("test")));
+                returnList.add((T)(aes.decrypt(test.getString("test"))));
             }
         }                
         return (List<T>)returnList;  
@@ -458,11 +461,11 @@ public class DBConnection {
             document.put("name", patient.getName());
             document.put("dateOfBirth", patient.getDateOfBirth());
             document.put("phoneNumber", patient.getPhone());
-            document.put("ssn", patient.getSSN());
+            document.put("ssn", aes.encrypt("" + patient.getSSN()));
             document.put("physicianName", patient.getPhysician());
             document.put("physicianNumber", patient.getPhysicianNumber());        
             document.put("id", patient.getID());        
-            document.put("provider", patient.getProvider());   
+            document.put("provider", aes.encrypt(patient.getProvider()));   
             document.put("gender", patient.getGender());
             
             patientCollection.insertOne(document);      
@@ -507,16 +510,16 @@ public class DBConnection {
     Author: Tyler Reilly
     // Description: Helper Method for createPatient
     */
-    public static void createAddress(Address address, MongoCollection<Document> patientCollection, Document find)
+    public void createAddress(Address address, MongoCollection<Document> patientCollection, Document find)
     {        
         
         Document addr = new Document();
         
-        addr.put("street", address.getStreet());
-        addr.put("city", address.getCity());
-        addr.put("state", address.getState());
-        addr.put("zipcode", address.getZipcode());
-        addr.put("country", address.getcountry());
+        addr.put("street", aes.encrypt(address.getStreet()));
+        addr.put("city", aes.encrypt(address.getCity()));
+        addr.put("state", aes.encrypt(address.getState()));
+        addr.put("zipcode", aes.encrypt(address.getZipcode()));
+        addr.put("country", aes.encrypt(address.getcountry()));
         
         patientCollection.updateOne(find, new Document("$push", new Document("address", addr)));
     } 
@@ -532,8 +535,8 @@ public class DBConnection {
 
         Document medDoc = new Document();        
         
-        medDoc.put("date", medicalHistory.getDate());
-        medDoc.put("hospitalization", medicalHistory.getReason());
+        medDoc.put("date", aes.encrypt(medicalHistory.getDate()));
+        medDoc.put("hospitalization", aes.encrypt(medicalHistory.getReason()));
         
         patientCollection.updateOne(find, new Document("$push", new Document("medicalHistory", medDoc)));      
     }
@@ -568,7 +571,7 @@ public class DBConnection {
         {
             Document diagnosisDoc = new Document();
         
-            diagnosisDoc.put("diagnostic", diagnosis);
+            diagnosisDoc.put("diagnostic", aes.encrypt(diagnosis));
             diagnosisDoc.put("doctorID", staff.getID());
 
             patientCollection.updateOne(find, new Document("$push", new Document("diagnosis", diagnosisDoc)));
@@ -586,7 +589,7 @@ public class DBConnection {
         {
             Document testsDoc = new Document();
             
-            testsDoc.put("test", tests.toString());
+            testsDoc.put("test", aes.encrypt(tests.toString()));
             testsDoc.put("doctorID", user.getID());
 
             patientCollection.updateOne(find, new Document("$push", new Document("tests", testsDoc)));
@@ -604,7 +607,7 @@ public class DBConnection {
         {
             Document medDoc = new Document();
             
-            medDoc.put("medication", medication);
+            medDoc.put("medication", aes.encrypt(medication));
             medDoc.put("doctorID", user.getID());
 
             patientCollection.updateOne(find, new Document("$push", new Document("medications", medDoc)));
