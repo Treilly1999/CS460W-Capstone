@@ -278,7 +278,7 @@ public class DBConnection {
         {
             for(Document prog : (List<Document>)storage.get("progressReports"))
             {
-                returnList.add((T)new ProgressReport(prog.getString("nurse"), prog.getString("date"), prog.getString("report")));
+                returnList.add((T)new ProgressReport(aes.decrypt(prog.getString("nurse")), aes.decrypt(prog.getString("date")), aes.decrypt(prog.getString("report"))));
             }
         }
         else if(type.equals("medicalHistory"))
@@ -553,8 +553,8 @@ public class DBConnection {
 
             progressDoc.put("nurse", progressRep.getNurseName());
             progressDoc.put("nurseID", "" + staff.getID());
-            progressDoc.put("date", progressRep.getDate());
-            progressDoc.put("report", progressRep.getNote());
+            progressDoc.put("date", aes.encrypt(progressRep.getDate()));
+            progressDoc.put("report", aes.encrypt(progressRep.getNote()));
 
             patientCollection.updateOne(find, new Document("$push", new Document("progressReports", progressDoc)));        
         }
