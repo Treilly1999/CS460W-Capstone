@@ -53,6 +53,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
     private void initComponents(final Patient patient, final Staff_Model user, final LoginManager loginManager) {
         java.awt.GridBagConstraints gridBagConstraints;
         patientID.put("id", patient.getID());
+
+       // loginManager.setVisible(false);
         loginManager.setContentPane(this);
         this.patient = patient;
         this.user = user;
@@ -1159,6 +1161,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(jScrollPane1, gridBagConstraints);
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
 
     //EDIT

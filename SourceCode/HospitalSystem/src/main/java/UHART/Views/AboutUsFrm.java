@@ -31,6 +31,8 @@ public class AboutUsFrm extends javax.swing.JPanel {
     private void initComponents(final LoginManager loginManager, final Staff_Model user) {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        //loginManager.setVisible(false);
+        
         loginManager.setContentPane(this);
 
         jLabel1 = new javax.swing.JLabel();
@@ -93,6 +95,8 @@ public class AboutUsFrm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(60, 8, 29, 94);
         add(jButton1, gridBagConstraints);
+
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
 
 
