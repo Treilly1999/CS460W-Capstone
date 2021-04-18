@@ -544,57 +544,57 @@ public class PatientPageFrm extends javax.swing.JPanel {
                     if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ACETAMINOPHEN.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.ACETAMINOPHEN);
-                        db.addBill(UHART.Models.Medications.ACETAMINOPHEN, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.ACETAMINOPHEN.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTACID.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.ANTACID);
-                        db.addBill(UHART.Models.Medications.ANTACID, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.ANTACID.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTIBIOTIC.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.ANTIBIOTIC);
-                        db.addBill(UHART.Models.Medications.ANTIBIOTIC, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.ANTIBIOTIC.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTISEIZURE.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.ANTISEIZURE);
-                        db.addBill(UHART.Models.Medications.ANTISEIZURE, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.ANTISEIZURE.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SUGAR.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.SUGAR);
-                        db.addBill(UHART.Models.Medications.SUGAR, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.SUGAR.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.IBUPROFIN.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.IBUPROFIN);
-                        db.addBill(UHART.Models.Medications.IBUPROFIN, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.IBUPROFIN.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SIMETHICONE.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.SIMETHICONE);
-                        db.addBill(UHART.Models.Medications.SIMETHICONE, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.SIMETHICONE.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.GANCICLOVIR.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.GANCICLOVIR);
-                        db.addBill(UHART.Models.Medications.GANCICLOVIR, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.GANCICLOVIR.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.FOSCARNET.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.FOSCARNET);
-                        db.addBill(UHART.Models.Medications.FOSCARNET, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.FOSCARNET.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ASPIRIN.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.ASPIRIN);
-                        db.addBill(UHART.Models.Medications.ASPIRIN, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.ASPIRIN.getPrice(), patientCollection, patientID);
                     }
                     else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.VALGANCICLOVIR.toString())
                     {
                         patient.getBill().addItem(UHART.Models.Medications.VALGANCICLOVIR);
-                        db.addBill(UHART.Models.Medications.VALGANCICLOVIR, patientCollection, patientID);
+                        db.addBill(UHART.Models.Medications.VALGANCICLOVIR.getPrice(), patientCollection, patientID);
                     }                    
                     
 
@@ -1273,41 +1273,51 @@ public class PatientPageFrm extends javax.swing.JPanel {
         String test = jComboBox1.getSelectedItem().toString();
         if(!patient.getTests().contains(test))
         {
+            patient.addTests(test);
             if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.ANGIOGRAM.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.ANGIOGRAM, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.ANGIOGRAM.getPrice(), patientCollection, patientID);
             }
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.BLOODTEST.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.BLOODTEST, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.BLOODTEST.getPrice(), patientCollection, patientID);
             }
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.CTSCAN.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.CTSCAN, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.CTSCAN.getPrice(), patientCollection, patientID);
             }        
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.ECHOCARDIOGRAM.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.ECHOCARDIOGRAM, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.ECHOCARDIOGRAM.getPrice(), patientCollection, patientID);
             }        
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.LATERALNECKXRAY.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.LATERALNECKXRAY, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.LATERALNECKXRAY.getPrice(), patientCollection, patientID);
             }        
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.REHABILITATION.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.REHABILITATION, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.REHABILITATION.getPrice(), patientCollection, patientID);
             }
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.STRESSTEST.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.STRESSTEST, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.STRESSTEST.getPrice(), patientCollection, patientID);
             }
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.SURGERY.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.SURGERY, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.SURGERY.getPrice(), patientCollection, patientID);
             }
             else if(jComboBox1.getSelectedItem().toString().equals(UHART.Models.Tests_procedures.URINETEST.toString()))
             {
                 db.createTestsProcedures(UHART.Models.Tests_procedures.URINETEST, user, patientCollection, patientID);
+                db.addBill(UHART.Models.Tests_procedures.URINETEST.getPrice(), patientCollection, patientID);
             }
         }        
 

@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
 import java.util.Base64;
  
+/*
+Adapted from https://howtodoinjava.com/java/java-security/aes-256-encryption-decryption/
+*/
 public class AES256 {
   private static final String SECRET_KEY = "this_system_must_be_secure!@#$";
   private static final String SALT = "donttellanyone!!!!";

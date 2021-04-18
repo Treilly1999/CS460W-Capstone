@@ -163,21 +163,21 @@ public class DBConnection {
             }
             catch(Exception e)
             {
-                System.out.println("medications or diagnosis not found");
+                System.out.println("medications not found");
             }   
             try {
                 diagnosis = buildLists(patients, "diagnosis", collection);
             }
             catch(Exception e)
             {
-                System.out.println("medications or diagnosis not found");
+                System.out.println("no diagnosis found");
             }    
             try {
                 progressReports = buildLists(patients, "progressReports", collection); 
             }
             catch(Exception e)
             {
-                System.out.println("medications or diagnosis not found");
+                System.out.println("no progress reports found");
             }   
             try {
                 
@@ -185,7 +185,7 @@ public class DBConnection {
             }
             catch(Exception e)
             {
-                System.out.println("medications or diagnosis not found");
+                System.out.println("no tests found");
             }    
 
             for(Document addr : (List<Document>)patients.get("address"))
@@ -278,7 +278,7 @@ public class DBConnection {
         {
             for(Document prog : (List<Document>)storage.get("progressReports"))
             {
-                returnList.add((T)new ProgressReport(aes.decrypt(prog.getString("nurse")), aes.decrypt(prog.getString("date")), aes.decrypt(prog.getString("report"))));
+                returnList.add((T)new ProgressReport(prog.getString("nurse"), aes.decrypt(prog.getString("date")), aes.decrypt(prog.getString("report"))));
             }
         }
         else if(type.equals("medicalHistory"))
@@ -411,7 +411,7 @@ public class DBConnection {
     
 //---------------------------------------------------
     //TODO: TEST MORE
-    public static void removeEntry(Document query, Boolean allMatch)
+    public void removeEntry(Document query, Boolean allMatch)
     {
         //MongoClient mongoClient = new MongoClient("localhost", 27017);
        // MongoDatabase database = mongoClient.getDatabase("hospital");
@@ -625,12 +625,12 @@ public class DBConnection {
              
     }
 
-    public void addBill(Medications medication, MongoCollection<Document> patientCollection, Document find)
+    public void addBill(int price, MongoCollection<Document> patientCollection, Document find)
     {
         
         Document billDoc = new Document();
 
-        billDoc.put("cost", medication.getPrice());
+        billDoc.put("cost", price);
 
         patientCollection.updateOne(find, new Document("$push", new Document("bill", billDoc)));
              
