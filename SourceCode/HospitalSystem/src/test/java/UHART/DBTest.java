@@ -24,6 +24,17 @@ public class DBTest extends TestCase
     AES256 aes = new AES256();
     LoginController lcTest;
 
+    Date date = new Date();
+    ArrayList<Symptoms> symptoms = new ArrayList<>();
+    Symptoms symp = new Symptoms("Fever");    
+
+    ArrayList<String> allergies = new ArrayList<>();    
+
+    Address address = new Address("1 Yeah rd", "12345", "AZ", "USA", "YEAH");
+
+    Patient patient = new Patient("1", "Test", date, "111-111-1111", 921343213, "Dr. Yeah", "987-654-3210", "Anthem",
+    symptoms, "Male", allergies, address);
+
     Staff_Model testUser = new Staff_Model(USER_ROLE.NURSE, 10, "TestUser", "testtest", "testtest");
 
     public DBTest( String testName )
@@ -72,19 +83,9 @@ public class DBTest extends TestCase
 
     public void testCreatePatient() throws Throwable 
     {
-        Date date = new Date();
-        ArrayList<Symptoms> symptoms = new ArrayList<>();
-        Symptoms symp = new Symptoms("Fever");
         symptoms.add(symp);
-
-        ArrayList<String> allergies = new ArrayList<>();
         allergies.add("peanut");
-
-        Address address = new Address("1 Yeah rd", "12345", "AZ", "USA", "YEAH");
-
-        Patient patient = new Patient("1", "Test", date, "111-111-1111", 921343213, "Dr. Yeah", "987-654-3210", "Anthem",
-        symptoms, "Male", allergies, address);
-
+        
         String result = dbTest.createPatient(patient, testUser);
 
         assertEquals("SUCCESSFUL", result);
