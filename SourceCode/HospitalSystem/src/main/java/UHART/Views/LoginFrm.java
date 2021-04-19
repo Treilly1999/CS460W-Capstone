@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.ImageIcon;
 
 public class LoginFrm {
 
@@ -50,20 +54,6 @@ public class LoginFrm {
 //		setBounds(100, 100, 849, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//setContentPane(contentPane);
-		
-		
-		JLabel lblNewLabel = new JLabel("User Name: ");
-		lblNewLabel.setFont(new Font("����", Font.PLAIN, 20));
-		
-		JLabel lblNewLabel_2 = new JLabel("Hospital Management System");
-		lblNewLabel_2.setFont(new Font("����", Font.PLAIN, 25));
-		
-		user = new JTextField();
-		user.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("User Password: ");
-		lblNewLabel_1.setFont(new Font("����", Font.PLAIN, 20));
 		
                 
 		errorMessage.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
@@ -71,96 +61,93 @@ public class LoginFrm {
                 errorMessage.setWrapStyleWord(true);
                 errorMessage.setOpaque(false);
                 errorMessage.setEditable(false);
+		contentPane.setLayout(null);
 		
-                JButton btnNewButton = new JButton("Log In");
-				loginManager.getRootPane().setDefaultButton(btnNewButton);
-        		btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// function to login to other interface and start the program
-                                staffQuery.put("userName", user.getText());
-                                if(!user.getText().isEmpty() && !passwordField.getText().isEmpty())
-								{
-									try
-									{
-										
-										loginController = new LoginController(staffQuery);
-										currentUser = loginController.getCurrentUser();
-										//System.out.println(currentUser.toString());
-	
-										if(currentUser.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DEFAULT)
-										{
-											//errorMessage.setText("Unauthorized Access. Contact your system administrator.");
-											//errorMessage.setTextFill(Color.web("#0076a3"));
-										}
-										//System.out.println("BEFORE AUTHORZE");
-										Boolean accepted = loginController.authorize(currentUser, Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString(), user.getText());
-										//System.out.println("AFTER AUTHORZE");
-										if (accepted) {
-										  loginManager.authenticated(currentUser);
-										}
-									}
-									catch (Exception exception)
-									{
-										System.out.println("STAFF MEMBER NOT FOUND");
-										exception.printStackTrace();
-										//TODO: WHAT TO DO IF LOGIN FAIL
-										//loginManager.showLoginScreen(); 
-										errorMessage.setText("Username/Password inccorect.");
-										//errorMessage.setTextFill(Color.web("#0076a3"));
-									}
-								}
-                               
-                               
-			}
-		});
+		JLabel lblNewLabel_2 = new JLabel("Hospital Management System");
+		lblNewLabel_2.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u533B\u9662.png")));
+		lblNewLabel_2.setBounds(178, 72, 364, 35);
+		lblNewLabel_2.setFont(new Font("����", Font.PLAIN, 25));
+		contentPane.add(lblNewLabel_2);
+		//setContentPane(contentPane);
+		
+		
+		JLabel lblNewLabel = new JLabel("User Name: ");
+		lblNewLabel.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u7528\u6237.png")));
+		lblNewLabel.setBounds(68, 203, 160, 29);
+		lblNewLabel.setFont(new Font("����", Font.PLAIN, 20));
+		contentPane.add(lblNewLabel);
+		
+		user = new JTextField();
+		user.setBounds(282, 210, 325, 21);
+		user.setColumns(10);
+		contentPane.add(user);
+		
+		JLabel lblNewLabel_1 = new JLabel("User Password: ");
+		lblNewLabel_1.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u5BC6\u7801.png")));
+		lblNewLabel_1.setBounds(66, 298, 186, 29);
+		lblNewLabel_1.setFont(new Font("����", Font.PLAIN, 20));
+		contentPane.add(lblNewLabel_1);
+		
+		 final JLabel lblNewLabel_3 = new JLabel("");
+         lblNewLabel_3.setEnabled(false);
+         lblNewLabel_3.setFont(new Font("����", Font.PLAIN, 20));
+         lblNewLabel_3.setBounds(462, 453, 145, 37);
+         contentPane.add(lblNewLabel_3);
 		
 		passwordField = new JPasswordField();
+		passwordField.setBounds(282, 295, 325, 35);
 		passwordField.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+		contentPane.add(passwordField);
 		
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);       
-		gl_contentPane.setHorizontalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(133)
-						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(185, Short.MAX_VALUE))
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(113)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-										.addGap(35))
-									.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)))
-								.addGap(107)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(passwordField)
-									.addComponent(user, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
-						.addGap(134))
-			);
-			gl_contentPane.setVerticalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(61)
-						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addGap(81)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblNewLabel)
-							.addComponent(user, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(54)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblNewLabel_1)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-						.addComponent(btnNewButton)
-						.addGap(82))
-			);
-		contentPane.setLayout(gl_contentPane);
+                JButton btnNewButton = new JButton("Log In");
+                btnNewButton.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/log-in.png")));
+                btnNewButton.setBounds(212, 453, 168, 37);
+                loginManager.getRootPane().setDefaultButton(btnNewButton);
+                btnNewButton.setFont(new Font("����", Font.PLAIN, 20));
+                btnNewButton.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		// function to login to other interface and start the program
+                                staffQuery.put("userName", user.getText());
+                                if(!user.getText().isEmpty() && !passwordField.getText().isEmpty())
+                						{
+                							try
+                							{
+                								
+                								loginController = new LoginController(staffQuery);
+                								currentUser = loginController.getCurrentUser();
+                								//System.out.println(currentUser.toString());
+	
+                								if(currentUser.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DEFAULT)
+                								{
+                									//errorMessage.setText("Unauthorized Access. Contact your system administrator.");
+                									//errorMessage.setTextFill(Color.web("#0076a3"));
+                								}
+                								//System.out.println("BEFORE AUTHORZE");
+                								Boolean accepted = loginController.authorize(currentUser, Hashing.sha256().hashString(passwordField.getText(), StandardCharsets.UTF_8).toString(), user.getText());
+                								//System.out.println("AFTER AUTHORZE");
+                								if (accepted) {
+                								  loginManager.authenticated(currentUser);
+                								}
+                							}
+                							catch (Exception exception)
+                							{
+                								System.out.println("STAFF MEMBER NOT FOUND");
+                								lblNewLabel_3.setEnabled(true);
+                								lblNewLabel_3.setText("STAFF MEMBER NOT FOUND");
+                								exception.printStackTrace();
+                								//TODO: WHAT TO DO IF LOGIN FAIL
+                								//loginManager.showLoginScreen(); 
+                								errorMessage.setText("Username/Password inccorect.");
+                								lblNewLabel_3.setEnabled(true);
+                								lblNewLabel_3.setText("Username/Password inccorect.");
+                								//errorMessage.setTextFill(Color.web("#0076a3"));
+                							}
+                						}
+                               
+                               
+                	}
+                });
+                contentPane.add(btnNewButton);
+                
 	}
 }

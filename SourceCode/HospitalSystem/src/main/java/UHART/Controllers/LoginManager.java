@@ -67,7 +67,7 @@ public class LoginManager extends JFrame {
 				try {
 					loginFrame = new LoginFrm(login);
                                         setContentPane(loginFrame.getLoginForm());
-                                        setSize(1200,800);
+                                        setSize(750,560);
 					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
