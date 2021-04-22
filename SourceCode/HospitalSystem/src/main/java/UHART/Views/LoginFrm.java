@@ -64,7 +64,7 @@ public class LoginFrm {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("Hospital Management System");
-		lblNewLabel_2.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u533B\u9662.png")));
+		//lblNewLabel_2.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/resources/\u533B\u9662.png")));
 		lblNewLabel_2.setBounds(178, 72, 364, 35);
 		lblNewLabel_2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 25));
 		contentPane.add(lblNewLabel_2);
@@ -72,7 +72,7 @@ public class LoginFrm {
 		
 		
 		JLabel lblNewLabel = new JLabel("User Name: ");
-		lblNewLabel.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u7528\u6237.png")));
+		//lblNewLabel.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/resources/\u7528\u6237.png")));
 		lblNewLabel.setBounds(68, 203, 160, 29);
 		lblNewLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel);
@@ -83,14 +83,14 @@ public class LoginFrm {
 		contentPane.add(user);
 		
 		JLabel lblNewLabel_1 = new JLabel("User Password: ");
-		lblNewLabel_1.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/\u5BC6\u7801.png")));
+		//lblNewLabel_1.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/resources/\u5BC6\u7801.png")));
 		lblNewLabel_1.setBounds(66, 298, 186, 29);
 		lblNewLabel_1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel_1);
 		
 		 final JLabel lblNewLabel_3 = new JLabel("");
          lblNewLabel_3.setEnabled(false);
-         lblNewLabel_3.setFont(new Font("ËÎÌå", Font.PLAIN, 20));
+         lblNewLabel_3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));
          lblNewLabel_3.setBounds(462, 453, 145, 37);
          contentPane.add(lblNewLabel_3);
 		
@@ -100,7 +100,7 @@ public class LoginFrm {
 		contentPane.add(passwordField);
 		
                 JButton btnNewButton = new JButton("Log In");
-                btnNewButton.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/Icon/log-in.png")));
+                //btnNewButton.setIcon(new ImageIcon(LoginFrm.class.getResource("/UHART/resources/log-in.png")));
                 btnNewButton.setBounds(212, 453, 168, 37);
                 loginManager.getRootPane().setDefaultButton(btnNewButton);
                 btnNewButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 20));

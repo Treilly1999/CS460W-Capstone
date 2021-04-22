@@ -46,6 +46,7 @@ public class Patient {
     private String assignedDoctor;
 
     private Boolean admitted;
+    private Boolean checkedOut;
     private Date dateAdmitted;
     private Date dateLeft;
     
@@ -94,7 +95,7 @@ public class Patient {
             String physicianNumber, String provider, List<Symptoms> symptoms, String assignedDoctor, Boolean admitted, 
             List<MedicalHistory> medicalHistory, List<ProgressReport> progressReports, String dischargeInstructions, String gender,
             Address address, List<String> allergies, List<String> medications, List<String> diagnosis, Bill bill, Date dateAdmitted
-            , Date dateLeft, List<String> tests)
+            , Date dateLeft, List<String> tests, Boolean checkedOut)
     {
         this.name = name;
         this.age = age;
@@ -120,6 +121,7 @@ public class Patient {
         this.dateLeft = dateLeft;
         this.tests_procedures = tests;
         dateOfBirth = dob;
+        this.checkedOut = checkedOut;
         System.out.println(dateOfBirth.toString());
         // if(admitted)
         // {
@@ -241,6 +243,8 @@ public class Patient {
 
     public Date getDateAdmitted() { return dateAdmitted; }
     public Date getDateLeft() { return dateLeft; }
+
+    public Boolean getCheckOut() { return checkedOut; }
     
     public String toString()
     {

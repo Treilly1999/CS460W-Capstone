@@ -1,0 +1,19 @@
+Meeting 4/19/2021
+
+Team Lead: Jakob
+Recorder: Tyler
+
+Purpose: To ensure everyone knows how to do the JUnit testing.
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Memebers present: Yixun, Jakob, Tyler
+
+Deliverable 5 -- Tesing
+Start time: 2:00pm
+
+Notes:
+	-Jakob will do most of testing this week
+	-Yixun will continue testing front end and add last minute things for the demo
+	-Tyler will continue testing back end
+	-We will present based on the sections that we did.
+	
+End time: 2:10pm
