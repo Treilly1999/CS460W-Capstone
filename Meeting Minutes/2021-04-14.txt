@@ -1,0 +1,20 @@
+Meeting 4/14/2021
+
+Team Lead: Jakob
+Recorder: Tyler
+
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Members present: Tyler, Yixun, Jakob
+
+Deliverable 5 -- Tesing
+
+What are we going test?
+-Patient creation
+-Database connections
+-UI
+
+Action Items: 
+All: Research JUnit testing
+Yixun: Test UI
+Tyler: Test DBConnections
+Jakon: Test class interpendability

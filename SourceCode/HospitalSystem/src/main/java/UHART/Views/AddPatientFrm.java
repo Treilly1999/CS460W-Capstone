@@ -38,10 +38,11 @@ public class AddPatientFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        loginManager.setContentPane(this);
+         
+
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,110 +79,188 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
 
-        setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel2.setText("Provider: ");
 
-        jLabel3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel3.setText("Phone Number: ");
 
-        jLabel4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel4.setText("SSN:");
 
-        jLabel5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel5.setText("Physician:");
 
-        jLabel6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel6.setText("Physician Number:");
 
-        jLabel7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel7.setText("Allergies seperated by commns:");
+        jLabel7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jLabel7.setText("Allergies seperated by commas:");
 
-        jLabel8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel8.setText("Symptons seperated by commas:");
 
-        jLabel9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel9.setText("Medications seperated by commas:");
 
-        jLabel10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel10.setText("Steret Number:");
+        jLabel10.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jLabel10.setText("Street Number:");
 
-        jLabel11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel11.setText("City:");
 
-        jLabel12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel12.setText("State:");
 
-        jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText("jTextField1");
+        //NAME
+        jTextField1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //DOB
+        jTextField2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //GENDER
+        jTextField3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //PROVIDER
+        jTextField4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //PHONE
+        jTextField5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //SSN
+        jTextField6.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //PHYSICIAN
+        jTextField7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //PHYISICIAN PHONE
+        jTextField8.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //allergies        
+        jTextField9.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //SYMPTOMS
+        jTextField10.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //meds
+        jTextField11.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //street
+        jTextField12.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText("jTextField1");
-
-        jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField3.setText("jTextField1");
-
-        jTextField4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField4.setText("jTextField1");
-
-        jTextField5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField5.setText("jTextField1");
-
-        jTextField6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField6.setText("jTextField1");
-
-        jTextField7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField7.setText("jTextField1");
-
-        jTextField8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField8.setText("jTextField1");
-
-        jTextField9.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField9.setText("jTextField1");
-
-        jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("jTextField1");
-
-        jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("jTextField1");
-
-        jTextField12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField12.setText("jTextField1");
-
-        jLabel13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel13.setText("Zip:");
 
-        jLabel14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel14.setText("Country:");
 
-        jTextField13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField13.setText("jTextField1");
+        //city
+        jTextField13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N       
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                loginManager.showMainPanel(user);
+            }
+        });
 
-        jButton3.setText("Save");
+        jButton3.setText("Add Patient");
+        jButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty() && !jTextField4.getText().isEmpty()
+                            && !jTextField5.getText().isEmpty() && !jTextField6.getText().isEmpty() && !jTextField7.getText().isEmpty() && !jTextField8.getText().isEmpty()
+                            && !jTextField9.getText().isEmpty() && !jTextField10.getText().isEmpty() && !jTextField11.getText().isEmpty() && !jTextField12.getText().isEmpty()
+                            && !jTextField13.getText().isEmpty() && !jTextField14.getText().isEmpty() && !jTextField15.getText().isEmpty() && !jTextField16.getText().isEmpty())
+                            {
+                                
+                                try
+                                {
+                                    int ssnLength = (int)(Math.log10(Integer.parseInt(jTextField4.getText())) + 1);
+                                    System.out.println(ssnLength);
+                                    if(ssnLength == 9)
+                                    {                                   
 
-        jTextField14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField14.setText("jTextField1");
+                                        ArrayList<Symptoms> symptomList = new ArrayList<Symptoms>();  
+                                        if(!jTextField8.getText().isEmpty())
+                                        {
+                                            String[] symptomValues = jTextField8.getText().split(",");                                         
 
-        jTextField15.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField15.setText("jTextField1");
+                                            for(int i = 0; i < symptomValues.length; i++)
+                                            {
+                                                Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                                                symptomList.add(symptom);
+                                            }
+                                        }                                         
+                                        ArrayList<String> allergyList = new ArrayList<String>();
+                                        if(!jTextField7.getText().isEmpty())
+                                        {
+                                            String[] allergieValues = jTextField7.getText().split(",");                                         
+        
+                                            for(int i = 0; i < allergieValues.length; i++)
+                                            {
+                                                String allergy = new String(allergieValues[i].replaceAll("\\s+", ""));
+                                                allergyList.add(allergy);
+                                            }
+                                        }
+                                        // ArrayList<String> medList = new ArrayList<String>();
+                                        // if(!jTextField11.getText().isEmpty())
+                                        // {
+                                        //     String[] medValues = jTextField11.getText().split(",");                                         
+        
+                                        //     for(int i = 0; i < medValues.length; i++)
+                                        //     {
+                                        //         String med = new String(medValues[i].replaceAll("\\s+", ""));
+                                        //         medList.add(med);
+                                        //     }
+                                        // }
 
-        jLabel20.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel20.setText("Date of Birth:");
+                                        UUID id = UUID.randomUUID();
+                                        address = new Address(jTextField10.getText(),jTextField13.getText(), jTextField12.getText(), jTextField14.getText(), jTextField11.getText());
+                                        Date dob = new SimpleDateFormat("MM/dd/yyyy").parse(jTextField16.getText());
+
+                                        //TODO: Remove null allergylist
+                                        patient = new Patient(id.toString(), jTextField15.getText(), dob, jTextField3.getText(),
+                                        Integer.parseInt(jTextField4.getText()), jTextField5.getText(), jTextField6.getText(),jTextField2.getText(), 
+                                        symptomList, jTextField1.getText(), allergyList, address);       
+                                        
+                                        //System.out.println(patient.toString());
+
+                                        String state = db.createPatient(patient, user);
+
+                                        //TODO: Add condition for failure to add patient
+                                        //loginManager.showMainPanel(user);
+                                        loginManager.showPatientPanel(patient, user);
+
+                                    }
+                                    else
+                                    {
+                                        //serverMessage.setText("SSN is not valid.");
+                                    }                                    
+                                }
+                                catch(Exception except)
+                                {
+                                    System.out.println(except);
+                                    //serverMessage.setText("Please check the fields");
+                                    
+                                }
+                                                                
+                            }
+                            else
+                            {
+                                //serverMessage.setText("You left a field blank.");
+                            }                               
+                            
+                        }
+		});
+
+        //state
+        jTextField14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        //zip
+        jTextField15.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18
+
+        jLabel20.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jLabel20.setText("Date of Birth mm/dd/yyyy:");
         jLabel20.setToolTipText("");
 
-        jLabel21.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel21.setText("Name: ");
         jLabel21.setToolTipText("");
 
-        jTextField16.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField16.setText("jTextField1");
+        //country
+        jTextField16.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,21 +293,21 @@ public class AddPatientFrm extends javax.swing.JPanel {
                         .addGap(78, 78, 78)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addComponent(jTextField11)
+                            .addComponent(jTextField10)
+                            .addComponent(jTextField9)
+                            .addComponent(jTextField8)
+                            .addComponent(jTextField6)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField7)
+                            .addComponent(jTextField13)
+                            .addComponent(jTextField14)
+                            .addComponent(jTextField16, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField15)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField4))
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,18 +389,22 @@ public class AddPatientFrm extends javax.swing.JPanel {
                 .addGap(46, 46, 46))
         );
 
-        jScrollPane1.setViewportView(jPanel1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 415;
-        gridBagConstraints.ipady = 462;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(jScrollPane1, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
     
 
@@ -345,7 +428,6 @@ public class AddPatientFrm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;

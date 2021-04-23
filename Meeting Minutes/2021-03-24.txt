@@ -1,0 +1,19 @@
+Members present: Tyler, Jakob, Yixun
+Lead: Tyler
+Recorder: Jakob
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Work completed prior to meeting:
+Database: Tyler has implemented basic patient profile in database as well as login/logout functionality
+UI: Several UI elements have been completed by Yixun
+Staff Member Classes: Jakob started implementation of Doctor, Nurse, Registration, and Billing classes
+
+-Team discussed work completed prior to meeting
+-Clarification on how various classes would interact with each other and with the database and UI 
+-Assignments for next meeting were handed out and meeting date was set for March 29, 2021
+
+
+TODO
+
+Database: Tyler will continue work on storing patient details
+UI: Yixun will continue work on UI elements for staff members
+Staff Member Classes: Jakob will implement methods and classes relating to tests, procedures, and medications

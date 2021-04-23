@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package UHART.Views;
-import java.net.*;
+
+import UHART.Controllers.LoginManager;
+import UHART.Models.Staff_Model;
+
 /**
  *
  * @author MSI-PC
@@ -14,8 +17,8 @@ public class AboutUsFrm extends javax.swing.JPanel {
     /**
      * Creates new form AboutUsFrm
      */
-    public AboutUsFrm() {
-        initComponents();
+    public AboutUsFrm(final LoginManager loginManager, final Staff_Model user) {
+        initComponents(loginManager, user);
     }
 
     /**
@@ -25,8 +28,12 @@ public class AboutUsFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(final LoginManager loginManager, final Staff_Model user) {
         java.awt.GridBagConstraints gridBagConstraints;
+
+        //loginManager.setVisible(false);
+        
+        loginManager.setContentPane(this);
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,11 +87,6 @@ public class AboutUsFrm extends javax.swing.JPanel {
         add(jLabel5, gridBagConstraints);
 
         jButton1.setText("Click it!");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -93,14 +95,9 @@ public class AboutUsFrm extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(60, 8, 29, 94);
         add(jButton1, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        try {
-            Desktop.getDesktop().browse(new URL("https://github.com/Treilly1999/CS460W-Capstone").toURI());
-} catch (Exception e) {}
-    }//GEN-LAST:event_jButton1ActionPerformed
+        loginManager.validate();
+    }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
