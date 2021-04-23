@@ -6,7 +6,7 @@ Installation:
 2. Once downloaded - type in 'mongoimport -d hospital -c staff staff.json' where the directory for staff.json is the directory where the folder "hospital" is stored in the repository. 
 For example: C:\users\{user_name}\Documents\GitHub\CS460W-Capstone\hospital
 This command will import the pre-installed users.
-You have to run this command from the /bin directory of your mongodb installation or add the command to your %PATH% environment variable by entering 'set PATH = %PATH%; C:\Program Files\MongoDB\Server\4.4\bin'
+You have to run this command from the \bin directory of your mongodb installation or add the command to your %PATH% environment variable by entering 'set PATH = %PATH%; C:\Program Files\MongoDB\Server\4.4\bin'
 3. Start the executable JAR file
 4. To login use one of the following 4 users:
 
