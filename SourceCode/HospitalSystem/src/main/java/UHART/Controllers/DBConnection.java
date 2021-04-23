@@ -115,7 +115,7 @@ public class DBConnection {
               dischargeInstructions = "",  assignedDoctor = "",
               provider = "", phoneNumber = "", id = "";
         int age = 1, ssn = 1;
-        Boolean admitted = false;   
+        Boolean admitted = false, checkedOut = false;   
         //TODO: Convert to date
         Date dateOfBirth = new Date();
         Date dateAdmitted = new Date();
@@ -141,6 +141,7 @@ public class DBConnection {
             
             try{
                 admitted = patients.getBoolean("admitted");
+                checkedOut = patients.getBoolean("checkedOut");
                 dischargeInstructions = patients.getString("dischargeInstructions");
                 assignedDoctor = patients.getString("assignedDoctor");                    
             }  
@@ -154,8 +155,20 @@ public class DBConnection {
             dateOfBirth = patients.getDate("dateOfBirth");            
             
             allergies = buildLists(patients, "allergies", collection);
-            medicalHistory = buildLists(patients, "medicalHistory", collection);           
-            symptoms = buildLists(patients, "symptoms", collection); 
+            try{
+                medicalHistory = buildLists(patients, "medicalHistory", collection);    
+            }
+            catch(Exception e)
+            {
+                System.out.println("Medical History not found");
+            }
+            try{
+                symptoms = buildLists(patients, "symptoms", collection); 
+            }     
+            catch(Exception e)
+            {
+                System.out.println("No symptoms");
+            }
             
             try {
                 medications = buildLists(patients, "medications", collection);
@@ -179,9 +192,8 @@ public class DBConnection {
             {
                 System.out.println("no progress reports found");
             }   
-            try {
-                
-            tests = buildLists(patients, "tests", collection); 
+            try {                
+                tests = buildLists(patients, "tests", collection); 
             }
             catch(Exception e)
             {
@@ -246,7 +258,7 @@ public class DBConnection {
         patientList.add(new Patient(id, name,  dateOfBirth,  phoneNumber, Integer.parseInt(aes.decrypt(patients.getString("ssn"))),  physicianName, 
                 physicianNumber, provider,  symptoms,  assignedDoctor,  admitted, medicalHistory,  progressReports, 
                 dischargeInstructions, gender, address, allergies, medications, diagnosis, bill, dateAdmitted, dateLeft,
-                tests));
+                tests, checkedOut));
         
       
     } 
@@ -646,6 +658,13 @@ public class DBConnection {
         MongoCollection<Document> staffCollection = getDB().getCollection("staff");
         staffCollection.updateOne(new Document("id", "" + user.getID()), new Document("$set", new Document("password", password)));
     }
+
+    public void checkOut(MongoCollection<Document> patientCollection, Document find)
+    {
+        patientCollection.updateOne(find, new Document("$set", new Document("admitted", false)));
+        patientCollection.updateOne(find, new Document("$set", new Document("checkedOut", true)));
+    }
+
     
 }
     

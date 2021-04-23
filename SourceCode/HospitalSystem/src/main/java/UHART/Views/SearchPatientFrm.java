@@ -14,6 +14,8 @@ import UHART.Models.Staff_Model;
 import java.awt.event.ActionEvent;
 import javax.swing.table.TableCellRenderer;
 import org.bson.Document;
+
+import UHART.Controllers.AES256;
 import UHART.Controllers.JTableButtonModel;
 import UHART.Controllers.JTableButtonRenderer;
 import UHART.Controllers.JTableMouseListener;
@@ -24,7 +26,7 @@ import UHART.Controllers.JTableMouseListener;
 public class SearchPatientFrm extends javax.swing.JPanel {
 
     private JTextField searchField;
-
+    AES256 aes = new AES256();
     /**
      * Creates new form SearchPatientFrm
      */
@@ -60,7 +62,7 @@ public class SearchPatientFrm extends javax.swing.JPanel {
                             }
                             else
                             {
-                                search.put("ssn", Integer.parseInt(searchField.getText()));
+                                search.put("ssn", aes.encrypt(searchField.getText()));
                             }
                             
                             TableCellRenderer tableRenderer = new JTableButtonRenderer();
