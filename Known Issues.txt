@@ -1,4 +1,2 @@
 -No front end for discharge instructions
 -Multiple instances of app not fully tested
--Certain UI views only update after window is manually resized by user
--Patient information is not encrypted in database, possible HIPAA issue

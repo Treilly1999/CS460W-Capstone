@@ -1,0 +1,21 @@
+Meeting 4/23/2021
+
+Team Lead: Jakob
+Recorder: Tyler
+
+Purpose: To get tests ironed out and completed.
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Memebers present: Yixun, Jakob, Tyler
+To be done before meeting: JUnit tests
+
+Deliverable 5 -- Tesing
+Start time: 12:00pm
+
+Notes:
+	-Went over what to submit for deliverable
+	-Addressed install instructions and added a step to add the MongoDB bin to the path
+	-Went over the presentation and ensured we had what we needed
+	-Went over each others tests to varify we are on track
+	-Fixed all known issues	
+	
+End time: 12:20pm
