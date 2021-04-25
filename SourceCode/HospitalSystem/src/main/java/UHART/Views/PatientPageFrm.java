@@ -41,7 +41,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
     public PatientPageFrm(final Patient patient, final Staff_Model user, final LoginManager loginManager) {
         //System.out.println(patient.toString());
         initComponents(patient, user, loginManager);
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,11 +50,14 @@ public class PatientPageFrm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-<<<<<<< Updated upstream
+    private void initComponents(final Patient patient, final Staff_Model user, final LoginManager loginManager) {
         java.awt.GridBagConstraints gridBagConstraints;
-=======
->>>>>>> Stashed changes
+        patientID.put("id", patient.getID());
+
+       // loginManager.setVisible(false);
+        loginManager.setContentPane(this);
+        this.patient = patient;
+        this.user = user;
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -135,90 +138,211 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         jCheckBox2 = new javax.swing.JCheckBox();
         jLabel27 = new javax.swing.JLabel();
-<<<<<<< Updated upstream
 
         setNextFocusableComponent(jScrollPane1);
         setLayout(new java.awt.GridBagLayout());
-=======
-        jButton11 = new javax.swing.JButton();
 
-        setNextFocusableComponent(jScrollPane1);
-        setLayout(new java.awt.GridLayout());
->>>>>>> Stashed changes
+        jLabel27.setVisible(false);
+        jLabel28.setVisible(false);
+        jLabel29.setVisible(false);
+        jLabel30.setVisible(false);
+        jTable2.setVisible(false);
+        jTextField22.setVisible(false);
+        jTextField23.setVisible(false);
+        jTextField24.setVisible(false);
+        jCheckBox2.setVisible(false);        
+        jButton8.setVisible(false);
+        /*
+        Author: Tyler
+        Description: Access Control
+        */        
+        USER_ROLE role = user.getUSER_ROLE();
+        switch(role)
+        {
+            case BILLING:
+                jTextField1.setVisible(false);
+                jTextField3.setVisible(false);
+                jTextField4.setVisible(false);
+                jTextField5.setVisible(false);
+                jTextField6.setVisible(false);
+                jTextField7.setVisible(false);
+                jTextField8.setVisible(false);
+                jTextField16.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel1.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel6.setVisible(false);
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel19.setVisible(false);
+                jLabel20.setVisible(false);
+                jLabel22.setVisible(false);
+                jTextArea1.setVisible(false);
+                jButton4.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jPanel2.setVisible(false);
+                jScrollPane3.setVisible(false);
+                jScrollPane2.setVisible(false);
+                break;
+            case NURSE:
+                jTextArea1.setVisible(false);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+                jLabel18.setVisible(false);
+                jLabel22.setVisible(false);
+                jButton4.setVisible(false);
+                jButton8.setVisible(true);
+                jLabel28.setVisible(true);
+                jLabel29.setVisible(true);
+                jTextField20.setVisible(false);
+                jTextField21.setVisible(false);
+                jLabel30.setVisible(true);
+                jTable2.setVisible(true);
+                jTextField22.setVisible(true);
+                jTextField23.setVisible(true);
+                jTextField24.setVisible(true);
+                jCheckBox2.setVisible(true);
+                jButton5.setVisible(false);
+                jButton6.setVisible(false);
+                jButton7.setVisible(false);
+                jButton9.setVisible(false);
+                jLabel27.setVisible(true);
+                jLabel26.setVisible(false);           
+                break;
+            case REGISTER:
+                jTextArea1.setVisible(false);
+                jTextField19.setVisible(false);
+                jTextField20.setVisible(false);
+                jTextField21.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jComboBox1.setVisible(false);
+                jComboBox2.setVisible(false);
+                jComboBox3.setVisible(false);
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel15.setVisible(false);
+                jLabel19.setVisible(false);
+                jButton5.setVisible(false);
+                jButton6.setVisible(false);
+                jButton7.setVisible(false);
+                jButton9.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jLabel22.setVisible(false);
+                break;
+            case DOCTOR:
+                jTable2.setVisible(true);
+                jTextField19.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jLabel22.setVisible(false);
+                jLabel18.setVisible(false);
+                jTextField17.setVisible(false);
+                jTextField18.setVisible(false);
+                jLabel19.setVisible(false);
+                jButton4.setVisible(false);
+                jCheckBox1.setVisible(false);
+                jTextArea1.setColumns(20);
+                jTextArea1.setRows(5);
+                jScrollPane3.setViewportView(jTextArea1);
+                break;
+        }
 
-        jLabel1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel2.setText("Provider: ");
 
-        jLabel3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel3.setText("Phone Number: ");
 
-        jLabel4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel4.setText("SSN:");
 
-        jLabel5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel5.setText("Physician:");
 
-        jLabel6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel6.setText("Physician Number:");
 
-        jLabel10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel10.setText("Steret Number:");
 
-        jLabel11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel11.setText("City:");
 
-        jLabel12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel12.setText("State:");
 
-        jTextField1.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField1.setText("jTextField1");
+        jTextField1.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField1.setText(patient.getGender());
+        jTextField1.setEditable(false);
 
-        jTextField2.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField2.setText("jTextField1");
+        jTextField2.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField2.setText(patient.getProvider());
+        jTextField2.setEditable(false);
 
-        jTextField3.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField3.setText("jTextField1");
-<<<<<<< Updated upstream
+        jTextField3.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField3.setText(patient.getPhone());
+        jTextField3.setEditable(false);
 
-        jTextField4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField4.setText("jTextField1");
+        jTextField4.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField4.setText("" + patient.getSSN());
+        jTextField4.setEditable(false);
 
-        jTextField5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField5.setText("jTextField1");
+        jTextField5.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField5.setText(patient.getPhysician());
+        jTextField5.setEditable(false);
 
-        jTextField6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField6.setText("jTextField1");
+        jTextField6.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField6.setText(patient.getPhysicianNumber());
+        jTextField6.setEditable(false);
 
-        jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("jTextField1");
+        String allergies = "";
+        for(String allergy: patient.getAllergies())
+        {
+            if(allergies.isEmpty())
+            {
+                allergies = allergy;
+            }
+            else
+            {
+                allergies += ", " +allergy;
+            }
+        }
 
-        jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("jTextField1");
+        jTextField10.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField10.setText(patient.getAddress().getStreet());
+        jTextField10.setEditable(false);
 
-=======
+        jTextField11.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField11.setText(patient.getAddress().getCity());
+        jTextField11.setEditable(false);
 
-        jTextField4.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField4.setText("jTextField1");
-
-        jTextField5.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField5.setText("jTextField1");
-
-        jTextField6.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField6.setText("jTextField1");
-
-        jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField10.setText("jTextField1");
-
-        jTextField11.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField11.setText("jTextField1");
-
->>>>>>> Stashed changes
-        jTextField12.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField12.setText("jTextField1");
+        jTextField12.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField12.setText(patient.getAddress().getState());
+        jTextField12.setEditable(false);
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -230,11 +354,30 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jLabel16.setText("Diagnosis:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Diagnoses.ABDOMINALPAIN.toString(),
+            UHART.Models.Diagnoses.ACUTEUPPERRESPIRATORYINFECTION.toString(),
+            UHART.Models.Diagnoses.CHESTPAIN.toString(),
+            UHART.Models.Diagnoses.DIZZINESSANDGIDDINESS.toString(),
+            UHART.Models.Diagnoses.HEADACHE.toString(),
+            UHART.Models.Diagnoses.INJURYOFHEAD.toString(),
+            UHART.Models.Diagnoses.LOWERBACKPAIN.toString(),
+            UHART.Models.Diagnoses.NONINFECTIVEGASTROENTERITISANDCOLITIS.toString(),
+            UHART.Models.Diagnoses.SYNCOPEANDCOLLAPSE.toString(),
+            UHART.Models.Diagnoses.URINARYTRACTINFECTION.toString()}));
 
         jLabel17.setText("Medicines: ");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Medications.ACETAMINOPHEN.toString(),
+            UHART.Models.Medications.ANTACID.toString(), 
+            UHART.Models.Medications.ANTIBIOTIC.toString(),
+            UHART.Models.Medications.ANTISEIZURE.toString(),
+            UHART.Models.Medications.ASPIRIN.toString(),
+            UHART.Models.Medications.FOSCARNET.toString(),
+            UHART.Models.Medications.GANCICLOVIR.toString(),
+            UHART.Models.Medications.IBUPROFIN.toString(),
+            UHART.Models.Medications.SIMETHICONE.toString(),
+            UHART.Models.Medications.SUGAR.toString(),
+            UHART.Models.Medications.VALGANCICLOVIR.toString()}));
 
         jLabel19.setText("Nurse info: ");
 
@@ -244,32 +387,181 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+                String medication = jComboBox3.getSelectedItem().toString();
+                if(!patient.getMedications().contains(medication))
+                {
+                    db.createMedications(medication, user, patientID);
+                    patient.addMedication(medication);
+
+                    if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ACETAMINOPHEN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ACETAMINOPHEN);
+                        db.addBill(UHART.Models.Medications.ACETAMINOPHEN.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTACID.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTACID);
+                        db.addBill(UHART.Models.Medications.ANTACID.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTIBIOTIC.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTIBIOTIC);
+                        db.addBill(UHART.Models.Medications.ANTIBIOTIC.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ANTISEIZURE.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ANTISEIZURE);
+                        db.addBill(UHART.Models.Medications.ANTISEIZURE.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SUGAR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.SUGAR);
+                        db.addBill(UHART.Models.Medications.SUGAR.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.IBUPROFIN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.IBUPROFIN);
+                        db.addBill(UHART.Models.Medications.IBUPROFIN.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.SIMETHICONE.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.SIMETHICONE);
+                        db.addBill(UHART.Models.Medications.SIMETHICONE.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.GANCICLOVIR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.GANCICLOVIR);
+                        db.addBill(UHART.Models.Medications.GANCICLOVIR.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.FOSCARNET.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.FOSCARNET);
+                        db.addBill(UHART.Models.Medications.FOSCARNET.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.ASPIRIN.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.ASPIRIN);
+                        db.addBill(UHART.Models.Medications.ASPIRIN.getPrice(), patientCollection, patientID);
+                    }
+                    else if(jComboBox3.getSelectedItem() == UHART.Models.Medications.VALGANCICLOVIR.toString())
+                    {
+                        patient.getBill().addItem(UHART.Models.Medications.VALGANCICLOVIR);
+                        db.addBill(UHART.Models.Medications.VALGANCICLOVIR.getPrice(), patientCollection, patientID);
+                    }                    
+                    
+
+                    if(jTextField21.getText().isEmpty())
+                    {
+                        jTextField21.setText(jComboBox3.getSelectedItem().toString());
+                    }
+                    else
+                    {
+                        jTextField21.setText(jTextField21.getText() + ", "  +jComboBox3.getSelectedItem().toString());
+                    }
+                }
+                else
+                {
+                    //TODO: Popup message
+                    System.out.println("Medication already added");
+                }
+            }
+        });
+
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+                String diagnosis = jComboBox2.getSelectedItem().toString();
+                if(!patient.getDiagnosis().contains(diagnosis))
+                {
+                                        
+                    db.createDiagnosis(diagnosis, user, patientID);
+                    patient.addDiagnosis(diagnosis);
+
+                    if(jTextField20.getText().isEmpty())
+                    {
+                        jTextField20.setText(jComboBox2.getSelectedItem().toString());
+                    }
+                    else
+                    {
+                        jTextField20.setText(jTextField20.getText() + ", "  +jComboBox2.getSelectedItem().toString());
+                    }
+                }
+                else
+                {
+                    //TODO: Popup message
+                    System.out.println("Diagnosis already added");
+                }
+                
+                
+
+            }
+        });
+
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //symptoms
+                //jTextField8
+            }
+        });
+
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(!jTextArea1.getText().isEmpty())
+                {
+                    String[] symptomValues = jTextArea1.getText().split(",");    
+
+                    for(int i = 0; i < symptomValues.length; i++)
+                    {
+                        if(!patient.getSymptoms().get(i).toString().equals(symptomValues[i]))
+                        {
+                            Symptoms symptom = new Symptoms(symptomValues[i].replaceAll("\\s+", ""));
+                            db.createSymptoms(symptom, patientCollection, patientID);
+                            patient.setSymptoms(symptom);
+
+                            if(jTextField8.getText().isEmpty())
+                            {
+                                jTextField8.setText(symptomValues[i].replaceAll("\\s+", ""));
+                            }
+                            else
+                            {
+                                jTextField8.setText(jTextField8.getText() + ", " + symptomValues[i].replaceAll("\\s+", ""));
+                            }
+                        }
+                        else
+                        {
+                            //TODO: Popup button
+                            System.out.println(symptomValues[i] + " already added");
+                        }                        
+                        
+                    }
+                    
+                }
+
+            }
+        });
 
         jLabel18.setText("Date:");
 
         jLabel22.setText("Medication:");
-<<<<<<< Updated upstream
 
-        jTextField17.setText("jTextField17");
+        jTextField17.setText("");
 
-=======
-
-        jTextField17.setText("jTextField17");
-
->>>>>>> Stashed changes
-        jTextField18.setText("jTextField18");
+        jTextField18.setText("");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+            new Object [][] {                
             },
             new String [] {
-                "Date", "Medication"
+                "Date", "Reason"
             }
         ) {
+           /**
+             *
+             */
+            private static final long serialVersionUID = 1L;
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
@@ -277,20 +569,36 @@ public class PatientPageFrm extends javax.swing.JPanel {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         });
         jScrollPane5.setViewportView(jTable1);
 
+        if(user.getUSER_ROLE() != UHART.Models.Staff_Model.USER_ROLE.REGISTER)
+        {
+            if(!patient.getMedicalHistory().isEmpty())
+            {
+                DefaultTableModel model =(DefaultTableModel) jTable1.getModel();
+                for(MedicalHistory medHist : patient.getMedicalHistory())
+                {
+                    model.addRow(new Object[] {medHist.getDate(), medHist.getReason()});
+                }
+            }            
+        }
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
             },
             new String [] {
-                "Nurse", "Date", "Progress"
+                "Nurse", "Date", "Progess"
             }
         ) {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 1L;
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
@@ -301,30 +609,103 @@ public class PatientPageFrm extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(jTable2);
 
-        jLabel26.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        if(user.getUSER_ROLE() != UHART.Models.Staff_Model.USER_ROLE.REGISTER)
+        {           
+            if(patient.getProgressReports() != null)
+            {
+                DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
+                for(ProgressReport prog : patient.getProgressReports())
+                {
+                    model.addRow(new Object[] {prog.getNurseName(), prog.getDate(), prog.getNote()});
+                }
+            }
+            
+        }
+
+        jLabel26.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel26.setText("Ordering tests");
 
-        jTextField20.setText("jTextField20");
+        jTextField20.setText("diagnosis");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Tests_procedures.ANGIOGRAM.toString(),
+            UHART.Models.Tests_procedures.BLOODTEST.toString(),
+            UHART.Models.Tests_procedures.CTSCAN.toString(),
+            UHART.Models.Tests_procedures.ECHOCARDIOGRAM.toString(),
+            UHART.Models.Tests_procedures.LATERALNECKXRAY.toString(),
+            UHART.Models.Tests_procedures.REHABILITATION.toString(),
+            UHART.Models.Tests_procedures.STRESSTEST.toString(),
+            UHART.Models.Tests_procedures.SURGERY.toString(),
+            UHART.Models.Tests_procedures.URINETEST.toString()
+        }));
 
-        jLabel7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel7.setText("Allergies:");
 
-        jLabel8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel8.setText("Symptons:");
 
-        jTextField7.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField7.setText("jTextField1");
+        jTextField7.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField7.setText(allergies);
+        jTextField7.setEditable(false);
 
-        jTextField8.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField8.setText("jTextField1");
+        symptoms = "";
+        if(patient.getSymptoms() != null)
+        {
+            for(Symptoms symptom: patient.getSymptoms())
+            {
+                if(symptoms.isEmpty())
+                {
+                    symptoms = symptom.toString();
+                }
+                else
+                {
+                    symptoms += ", " +symptom.toString();
+                }
+            }
+        }
+
+        jTextField8.setFont(new java.awt.Font("Ã‹ÃŽÃŒÃ¥", 0, 20)); // NOI18N
+        jTextField8.setText(symptoms);
+        jTextField8.setEditable(false);
+
+        medications = "";
+        if(patient.getMedications() != null)
+        {
+            for(String medication: patient.getMedications())
+            {
+                if(medications.isEmpty())
+                {
+                    medications = medication.toString();
+                }
+                else
+                {
+                    medications += ", " +medication.toString();
+                }
+            }    
+        }
+              
+
+        diagnosis = "";
+        if(patient.getDiagnosis() != null)
+        {
+            for(String diagnostic: patient.getDiagnosis())
+            {
+                if(diagnosis.isEmpty())
+                {
+                    diagnosis = diagnostic.toString();
+                }
+                else
+                {
+                    diagnosis += ", " +diagnostic.toString();
+                }
+            }   
+        }
 
         jButton5.setText("Add");
 
         jButton6.setText("Add");
 
-        jTextField21.setText("jTextField20");
+        jTextField21.setText(medications);
 
         jButton7.setText("Add");
 
@@ -334,27 +715,25 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jLabel30.setText("Progress");
 
-        jTextField22.setText("jTextField22");
+        jTextField22.setText("");
 
-        jTextField23.setText("jTextField23");
+        jTextField23.setText("");
 
-        jTextField24.setText("jTextField24");
+        jTextField24.setText("");
 
         jButton8.setText("Add Nurse Information");
+        jButton8.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Add");
-<<<<<<< Updated upstream
-=======
-
-        jLabel31.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jLabel31.setText("Ordering tests");
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
-
-        jButton10.setText("Print");
->>>>>>> Stashed changes
+        jButton9.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -536,16 +915,22 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jPanel2);
 
-        jLabel13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel13.setText("Zip:");
 
-        jLabel14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel14.setText("Country:");
 
-        jTextField13.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jTextField13.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jTextField13.setText("jTextField1");
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                loginManager.showMainPanel(user);
+            }
+        });
 
         jButton2.setText("Edit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -555,36 +940,70 @@ public class PatientPageFrm extends javax.swing.JPanel {
         });
 
         jButton3.setText("Save");
+        jButton3.setVisible(false);
+        jButton3.addActionListener(new ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jTextField14.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField14.setText("jTextField1");
+        jTextField14.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField14.setText(patient.getAddress().getcountry());
+        jTextField14.setEditable(false);
 
-        jTextField15.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jTextField15.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jTextField15.setText("jTextField1");
 
-        jLabel20.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel20.setText("Date of Birth:");
         jLabel20.setToolTipText("");
 
-        jLabel21.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel21.setText("Name: ");
         jLabel21.setToolTipText("");
 
-        jTextField16.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField16.setText("jTextField1");
+        jTextField16.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
+        jTextField16.setText(patient.getDateOfBirthString());
+        jTextField16.setEditable(false);
 
-        jLabel23.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel23.setText("Bill: ");
 
-        jTextField19.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
-        jTextField19.setText("jTextField1");
+        jTextField19.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N\
+        jTextField19.setEditable(false);
+        if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
+        {
+            if(patient.getBill().getPrice() == 0)
+            {
+                jTextField19.setText("$0");
+                jCheckBox1.setSelected(true);
+            }
+            else
+            {
+                jTextField19.setText("$" +patient.getBill().getPrice());
+            }
+    
+        }       
 
         jCheckBox1.setText("Bill Paid");
+        jCheckBox1.setVisible(false);
+    
+        try {
+            if(patient.getAdmittedBool())
+            {
+                jCheckBox2.setSelected(true);
+            }
+        }
+        catch(Exception e)
+        {
+            jCheckBox2.setSelected(false);
+        }
 
-        jLabel24.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel24.setText("Bill state");
+        jLabel24.setVisible(false);
 
-        jLabel27.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("ï¿½ï¿½ï¿½ï¿½", 0, 20)); // NOI18N
         jLabel27.setText("Patient Admitted");
 
         jButton11.setText("Check out");
@@ -734,7 +1153,6 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
-<<<<<<< Updated upstream
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -745,9 +1163,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(jScrollPane1, gridBagConstraints);
-=======
-        add(jScrollPane1);
->>>>>>> Stashed changes
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
 
     //EDIT
@@ -765,7 +1181,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
             jTextField6.setEditable(true);
             jTextField7.setEditable(true);
             jTextField8.setEditable(true);
-            jTextField9.setEditable(true);
+            jTextField19.setEditable(true);
             jTextField10.setEditable(true);
             jTextField11.setEditable(true);
             jTextField12.setEditable(true);
@@ -795,7 +1211,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField6.setEditable(false);
         jTextField7.setEditable(false);
         jTextField8.setEditable(false);
-        jTextField9.setEditable(false);
+        jTextField19.setEditable(false);
         jTextField10.setEditable(false);
         jTextField11.setEditable(false);
         jTextField12.setEditable(false);
@@ -817,6 +1233,10 @@ public class PatientPageFrm extends javax.swing.JPanel {
             jTextField19.setText("$" +patient.getBill().getPrice());
             db.markBillPaid(patientID);
         }    
+        if(jCheckBox2.isSelected() && patient.getAdmittedBool() == null)
+        {
+            db.admit(patientCollection, patientID);
+        }
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -835,9 +1255,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField17.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
-<<<<<<< Updated upstream
-=======
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
@@ -854,7 +1272,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField24.setText("");
     }
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String test = jComboBox1.getSelectedItem().toString();
         if(!patient.getTests().contains(test))
         {
@@ -907,7 +1325,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         }        
 
     }
->>>>>>> Stashed changes
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
