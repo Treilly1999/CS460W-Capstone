@@ -400,6 +400,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(jScrollPane1, gridBagConstraints);
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
     
 
