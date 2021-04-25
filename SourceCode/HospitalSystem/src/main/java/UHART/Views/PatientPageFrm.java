@@ -138,6 +138,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         jCheckBox2 = new javax.swing.JCheckBox();
         jLabel27 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
 
         setNextFocusableComponent(jScrollPane1);
         setLayout(new java.awt.GridBagLayout());
@@ -922,7 +923,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel14.setText("Country:");
 
         jTextField13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField13.setText("jTextField1");
+        jTextField13.setText(patient.getAddress().getZipcode());
+        jTextField13.setEditable(false);
 
         jButton1.setText("Back");
         jButton1.addActionListener(new ActionListener(){
@@ -952,7 +954,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField14.setEditable(false);
 
         jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jTextField15.setText("jTextField1");
+        jTextField15.setText(patient.getName());
+        jTextField15.setEditable(false);
 
         jLabel20.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel20.setText("Date of Birth:");
