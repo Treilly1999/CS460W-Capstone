@@ -387,7 +387,10 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 }
                 else
                 {
-                    Nurse.printDischargeInstructions(patient);
+                    if(!jTextArea2.getText().equals(""))
+                    {
+                        Nurse.printDischargeInstructions(patient);
+                    }                    
                 }
 
             }
