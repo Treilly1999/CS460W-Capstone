@@ -1,0 +1,22 @@
+Meeting Minutes 4/26/2021
+
+Start Time: 11:25am
+
+Team Lead: Yixun
+Recorder: Tyler
+
+Purpose: To prepare for presentation
+Resources: https://github.com/Treilly1999/CS460W-Capstone/
+Memebers present: Yixun, Jakob, Tyler
+
+Notes:
+1. Talk about the flow the presentation
+	-Start with Register -> Nurse -> Doctor -> Billing
+2. Come up with five questions
+	- What design philosophy? MVC ect.
+	- How did you secure the data? AES/SHA256?
+	- How did you resize the window layout?
+	- How did you design the classes hierarchy?
+	- How did you decide the test cases?
+
+End time: 11:36am

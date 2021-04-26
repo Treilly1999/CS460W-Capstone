@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import UHART.Controllers.DBConnection;
 import UHART.Controllers.LoginManager;
 import UHART.Models.*;
+import UHART.Models.Staff.Nurse;
 import UHART.Models.Staff_Model.USER_ROLE;
 
 /**
@@ -153,6 +154,12 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jTextField24.setVisible(false);
         jCheckBox2.setVisible(false);        
         jButton8.setVisible(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
+        jTextArea1.setVisible(false);
+        jTextArea2.setVisible(false);
+        jButton10.setVisible(false);
         /*
         Author: Tyler
         Description: Access Control
@@ -184,7 +191,6 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jLabel19.setVisible(false);
                 jLabel20.setVisible(false);
                 jLabel22.setVisible(false);
-                jTextArea1.setVisible(false);
                 jButton4.setVisible(false);
                 jComboBox2.setVisible(false);
                 jComboBox3.setVisible(false);
@@ -192,8 +198,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jScrollPane3.setVisible(false);
                 jScrollPane2.setVisible(false);
                 break;
-            case NURSE:
-                jTextArea1.setVisible(false);
+            case NURSE:              
+                jTextArea2.setVisible(true);
+                jButton10.setVisible(true);  
                 jTextField19.setVisible(false);
                 jLabel23.setVisible(false);
                 jLabel24.setVisible(false);
@@ -225,10 +232,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jButton7.setVisible(false);
                 jButton9.setVisible(false);
                 jLabel27.setVisible(true);
-                jLabel26.setVisible(false);           
+                jLabel26.setVisible(false);     
+                jTextArea1.setRows(0);
+                jTextArea1.setRows(0);      
                 break;
             case REGISTER:
-                jTextArea1.setVisible(false);
                 jTextField19.setVisible(false);
                 jTextField20.setVisible(false);
                 jTextField21.setVisible(false);
@@ -251,6 +259,9 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jLabel22.setVisible(false);
                 break;
             case DOCTOR:
+                jTextArea2.setVisible(true);
+                jButton10.setVisible(true);  
+                jTextArea1.setVisible(true);
                 jTable2.setVisible(true);
                 jTextField19.setVisible(false);
                 jLabel23.setVisible(false);
@@ -262,12 +273,11 @@ public class PatientPageFrm extends javax.swing.JPanel {
                 jLabel19.setVisible(false);
                 jButton4.setVisible(false);
                 jCheckBox1.setVisible(false);
-                jTextArea1.setColumns(20);
-                jTextArea1.setRows(5);
-                jScrollPane3.setViewportView(jTextArea1);
                 break;
         }
 
+        
+        
         jLabel1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
@@ -288,7 +298,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel6.setText("Physician Number:");
 
         jLabel10.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel10.setText("Steret Number:");
+        jLabel10.setText("Street Number:");
 
         jLabel11.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel11.setText("City:");
@@ -347,11 +357,42 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jLabel15.setText("Symptom:");
+        jLabel15.setText("Symptom:");      
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jLabel31.setFont(new java.awt.Font("宋体", 0, 20)); 
+        jLabel31.setText("Discharge Instructions:");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane4.setViewportView(jTextArea2);
+
+        if(user.getUSER_ROLE() == USER_ROLE.DOCTOR)
+        {
+            jButton10.setText("Set Instructions");
+            jTextArea2.setEditable(true);
+        }
+        else if(user.getUSER_ROLE() == USER_ROLE.NURSE)
+        {
+            jTextArea2.setEditable(false);
+            jTextArea2.setText(patient.getDischargeInstructions());
+            jButton10.setText("Print");
+        }
+        
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {            
+                
+                if(user.getUSER_ROLE() == USER_ROLE.DOCTOR)
+                {
+                    db.createDischargeInstructions(patientCollection, patientID, jTextArea2.getText());
+                }
+                else
+                {
+                    Nurse.printDischargeInstructions(patient);
+                }
+
+            }
+        });
+
 
         jLabel16.setText("Diagnosis:");
 
@@ -503,13 +544,6 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //symptoms
-                //jTextField8
-            }
-        });
-
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(!jTextArea1.getText().isEmpty())
                 {
                     String[] symptomValues = jTextArea1.getText().split(",");    
@@ -538,6 +572,8 @@ public class PatientPageFrm extends javax.swing.JPanel {
                         }                        
                         
                     }
+
+                    jTextArea1.setText("");
                     
                 }
 
@@ -626,8 +662,6 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel26.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel26.setText("Ordering tests");
 
-        jTextField20.setText("diagnosis");
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { UHART.Models.Tests_procedures.ANGIOGRAM.toString(),
             UHART.Models.Tests_procedures.BLOODTEST.toString(),
             UHART.Models.Tests_procedures.CTSCAN.toString(),
@@ -643,7 +677,7 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel7.setText("Allergies:");
 
         jLabel8.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel8.setText("Symptons:");
+        jLabel8.setText("Symptoms:");
 
         jTextField7.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jTextField7.setText(allergies);
@@ -990,7 +1024,10 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         jCheckBox1.setText("Bill Paid");
         jCheckBox1.setVisible(false);
-    
+        
+        jButton11.setText("Check out");
+        jButton11.setVisible(false);
+
         try {
             if(patient.getAdmittedBool())
             {
@@ -1009,7 +1046,20 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jLabel27.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel27.setText("Patient Admitted");
 
-        jButton11.setText("Check out");
+        
+        if(user.getUSER_ROLE() == USER_ROLE.NURSE && patient.getCheckOut() == false && patient.getAdmittedBool() == true)
+        {
+            jButton11.setVisible(true);
+        }
+        jButton11.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                jCheckBox2.setSelected(false);
+                db.checkOut(patientCollection, patientID);
+                jButton11.setVisible(false);
+            }
+        });
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1236,9 +1286,13 @@ public class PatientPageFrm extends javax.swing.JPanel {
             jTextField19.setText("$" +patient.getBill().getPrice());
             db.markBillPaid(patientID);
         }    
-        if(jCheckBox2.isSelected() && patient.getAdmittedBool() == null)
+        if(jCheckBox2.isSelected() && patient.getAdmittedBool() == null || jCheckBox2.isSelected() && patient.getAdmittedBool() == false)
         {
             db.admit(patientCollection, patientID);
+            if(user.getUSER_ROLE() == USER_ROLE.NURSE)
+            {
+                jButton11.setVisible(true);
+            }
         }
     }
 

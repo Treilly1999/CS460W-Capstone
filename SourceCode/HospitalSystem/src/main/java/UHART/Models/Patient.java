@@ -45,8 +45,8 @@ public class Patient {
     private String dischargeInstructions;
     private String assignedDoctor;
 
-    private Boolean admitted;
-    private Boolean checkedOut;
+    private Boolean admitted = false;
+    private Boolean checkedOut = false;
     private Date dateAdmitted;
     private Date dateLeft;
     

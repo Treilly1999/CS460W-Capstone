@@ -7,7 +7,7 @@ import UHART.Models.Address;
 
 public class Doctor extends UHART.Models.Staff_Model {
 	ArrayList<Patient> patients;
-	Doctor(int i, String p, Address a, String n)
+	public Doctor(int i, String p, Address a, String n)
 	{
 		id = i;
 		phoneNumber = p;
