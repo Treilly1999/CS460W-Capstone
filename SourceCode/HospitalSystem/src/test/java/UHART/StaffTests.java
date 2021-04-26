@@ -4,12 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.bson.Document;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import UHART.*;
+import UHART.Models.Address;
+import UHART.Models.Bill;
+import UHART.Models.Medications;
+import UHART.Models.Patient;
+import UHART.Models.Staff_Model;
+import UHART.Models.Symptoms;
+import UHART.Models.Tests_procedures;
+import UHART.Models.Staff.Doctor;
+import UHART.Models.Staff.Nurse;
+import UHART.Models.Staff_Model.USER_ROLE;
 
 public class StaffTests
 {
@@ -18,12 +34,12 @@ public class StaffTests
 	static ArrayList<String> allergies = new ArrayList<>();
 	static Address address = new Address("1234 road road", "12345" , "CT", "USA", "EH");
 	static Patient patient = new Patient("1", "Name", date, "111-111-1111", 111111111, "Dr. Doctor", "111-111-1112","Anthem Blue Cross", symptoms, "Female", allergies, address);
-	static Staff_Model nurse = new Staff_Model(USER_ROLE.NURSE, 1, "Nurse", "nurse", "nurse");
-	static Staff_Model doctor = new Staff_Model(USER_ROLE.DOCTOR, 2, "Doctor", "doctor", "doctor");
+	static Nurse nurse = new Nurse(1, "p", address, "n");
+	static Doctor doctor = new Doctor(1, "p", address, "n");
 	static Bill bill = new Bill(false);
 	
 	
-	public StaffTests
+	public StaffTests()
 	{
 		
 	}
@@ -54,10 +70,10 @@ public class StaffTests
 	@Test
 	public void testPrintDischargeInstructions() throws Throwable
 	{
-		patient.setDischargeInstruction("Lorem ipsum dolor sit amet");
+		patient.setDischargeInstructions("Lorem ipsum dolor sit amet");
 		nurse.printDischargeInstructions(patient);
 		File actual = new File("Name.txt");
 		File expected = new File("expected.txt");
-		assertThat(actual).hasSameContentAs(expected);
+		assertEquals(expected, actual);
 	}
 }

@@ -199,6 +199,13 @@ public class DBConnection {
             {
                 System.out.println("no tests found");
             }    
+            try {
+                dischargeInstructions = patients.getString("dischargeInstructions");
+            }
+            catch(Exception e)
+            {
+                System.out.println("No discharge instructions yet");
+            }
 
             for(Document addr : (List<Document>)patients.get("address"))
             {
@@ -479,6 +486,9 @@ public class DBConnection {
             document.put("id", patient.getID());        
             document.put("provider", aes.encrypt(patient.getProvider()));   
             document.put("gender", patient.getGender());
+            document.put("admitted", false);
+            document.put("checkedOut", false);
+            document.put("dischargeInstructions", "");
             
             patientCollection.insertOne(document);      
             
@@ -495,6 +505,7 @@ public class DBConnection {
             {
                 createAllergies(patient.getAllergies().get(i), user, patientCollection, patientID);
             }
+            
             
         } catch (Exception e)
         {
@@ -651,6 +662,7 @@ public class DBConnection {
     public void admit(MongoCollection<Document> patientCollection, Document find)
     {
         patientCollection.updateOne(find, new Document("$set", new Document("admitted", true)));
+        patientCollection.updateOne(find, new Document("$set", new Document("checkedOut", false)));
     }
 
     public void changePassword(Staff_Model user, String password)
@@ -663,6 +675,11 @@ public class DBConnection {
     {
         patientCollection.updateOne(find, new Document("$set", new Document("admitted", false)));
         patientCollection.updateOne(find, new Document("$set", new Document("checkedOut", true)));
+    }
+
+    public void createDischargeInstructions(MongoCollection<Document> patientCollection, Document find, String instructions)
+    {
+        patientCollection.updateOne(find, new Document("$set", new Document("dischargeInstructions", instructions)));
     }
 
     

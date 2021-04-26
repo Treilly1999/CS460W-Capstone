@@ -10,7 +10,7 @@ import UHART.Models.Address;
 Author: Jakob
 */
 public class Nurse extends UHART.Models.Staff_Model{
-	Nurse(int i, String p, Address a, String n)
+	public Nurse(int i, String p, Address a, String n)
 	{
 		id = i;
 		phoneNumber = p;
@@ -36,7 +36,7 @@ public class Nurse extends UHART.Models.Staff_Model{
 		// scan.close();
 	}
 	
-	public void printDischargeInstructions(Patient p)
+	public static void printDischargeInstructions(Patient p)
 	{
 		String filename = p.getName() + ".txt";
 		try

@@ -39,10 +39,11 @@ public class AddPatientFrm extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents(final LoginManager loginManager, final Staff_Model user) {
-
+        java.awt.GridBagConstraints gridBagConstraints;
         loginManager.setContentPane(this);
-         
+        //java.awt.GridBagConstraints gridBagConstraints;
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,6 +80,8 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
 
+        setLayout(new java.awt.GridBagLayout());
+
         jLabel1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel1.setText("Gender:");
         jLabel1.setToolTipText("");
@@ -99,7 +102,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel6.setText("Physician Number:");
 
         jLabel7.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel7.setText("Allergies seperated by commas:");
+        jLabel7.setText("Allergies seperated by commns:");
 
         jLabel8.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel8.setText("Symptons seperated by commas:");
@@ -108,7 +111,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel9.setText("Medications seperated by commas:");
 
         jLabel10.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel10.setText("Street Number:");
+        jLabel10.setText("Steret Number:");
 
         jLabel11.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel11.setText("City:");
@@ -116,29 +119,28 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel12.setText("State:");
 
-        //NAME
         jTextField1.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //DOB
+
         jTextField2.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //GENDER
+
         jTextField3.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //PROVIDER
+
         jTextField4.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //PHONE
+
         jTextField5.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //SSN
+
         jTextField6.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //PHYSICIAN
+
         jTextField7.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //PHYISICIAN PHONE
+
         jTextField8.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //allergies        
+
         jTextField9.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //SYMPTOMS
+
         jTextField10.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //meds
+
         jTextField11.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //street
+
         jTextField12.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
@@ -147,8 +149,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel14.setText("Country:");
 
-        //city
-        jTextField13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N       
+        jTextField13.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
 
         jButton1.setText("Back");
         jButton1.addActionListener(new ActionListener(){
@@ -157,7 +158,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Add Patient");
+        jButton3.setText("Add patient");
         jButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                             if(!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty() && !jTextField4.getText().isEmpty()
@@ -246,20 +247,18 @@ public class AddPatientFrm extends javax.swing.JPanel {
                         }
 		});
 
-        //state
         jTextField14.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        //zip
-        jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18
+
+        jTextField15.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
-        jLabel20.setText("Date of Birth mm/dd/yyyy:");
+        jLabel20.setText("Date of Birth:");
         jLabel20.setToolTipText("");
 
         jLabel21.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
         jLabel21.setText("Name: ");
         jLabel21.setToolTipText("");
 
-        //country
         jTextField16.setFont(new java.awt.Font("����", 0, 20)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -292,7 +291,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                             .addComponent(jTextField11)
                             .addComponent(jTextField10)
                             .addComponent(jTextField9)
@@ -389,22 +388,19 @@ public class AddPatientFrm extends javax.swing.JPanel {
                 .addGap(46, 46, 46))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jScrollPane1.setViewportView(jPanel1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 695;
+        gridBagConstraints.ipady = 629;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(jScrollPane1, gridBagConstraints);
+        loginManager.validate();
     }// </editor-fold>//GEN-END:initComponents
     
 
@@ -428,6 +424,7 @@ public class AddPatientFrm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
