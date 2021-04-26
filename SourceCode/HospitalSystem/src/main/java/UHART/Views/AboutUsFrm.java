@@ -10,6 +10,9 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+
+import org.checkerframework.checker.units.qual.A;
+
 import UHART.Models.Staff_Model;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -49,17 +52,17 @@ public class AboutUsFrm extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		 try {
+        		try {
         			   
         			   URI uri= new URI("https://github.com/Treilly1999/CS460W-Capstone");
         			   
         			   java.awt.Desktop.getDesktop().browse(uri);
         			    System.out.println("Web page opened in browser");
         			 
-        			  } catch (Exception e) {
+        			  } catch (Exception A) {
         			   
-        			   e.printStackTrace();
-        			  }
+        			   A.printStackTrace();
+        			}
         	}
         });
 
