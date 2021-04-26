@@ -348,10 +348,22 @@ public class PatientPageFrm extends javax.swing.JPanel {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jLabel15.setText("Symptom:");
+        
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
+
+        jLabel31.setFont(new java.awt.Font("宋体", 0, 20)); 
+        jLabel31.setText("Ordering tests:");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane4.setViewportView(jTextArea2);
+
+        jButton10.setText("Print");
+        
+
 
         jLabel16.setText("Diagnosis:");
 
