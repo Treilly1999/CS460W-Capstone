@@ -6,7 +6,13 @@
 package UHART.Views;
 
 import UHART.Controllers.LoginManager;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import UHART.Models.Staff_Model;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -41,6 +47,21 @@ public class AboutUsFrm extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 try {
+        			   
+        			   URI uri= new URI("https://github.com/Treilly1999/CS460W-Capstone");
+        			   
+        			   java.awt.Desktop.getDesktop().browse(uri);
+        			    System.out.println("Web page opened in browser");
+        			 
+        			  } catch (Exception e) {
+        			   
+        			   e.printStackTrace();
+        			  }
+        	}
+        });
 
         setLayout(new java.awt.GridBagLayout());
 
