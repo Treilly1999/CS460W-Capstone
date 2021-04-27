@@ -69,10 +69,10 @@ public class DBTest
 
         dbTest.createMedicalHistory(medHist, searchDoc);
 
-        ArrayList<Patient> resultList = dbTest.parsePatients(searchDoc);
+        Patient patient = dbTest.parsePatient(searchDoc);
 
-        assertEquals("04/21/2021", resultList.get(0).getMedicalHistory().get(0).getDate());
-        assertEquals("Choking", resultList.get(0).getMedicalHistory().get(0).getReason());
+        assertEquals("04/21/2021", patient.getMedicalHistory().get(0).getDate());
+        assertEquals("Choking", patient.getMedicalHistory().get(0).getReason());
     }
 
     // public static Test suite()
@@ -87,31 +87,31 @@ public class DBTest
         Document searchParam = new Document();
         searchParam.put("ssn", aes.encrypt("123456789"));
 
-        ArrayList<Patient> result = dbTest.parsePatients(searchParam);
+        Patient patient = dbTest.parsePatient(searchParam);
         
         //Then
-        Assertions.assertEquals("123456789", result.get(0).getSSN() + "");
-        assertEquals("Tyler Reilly", result.get(0).getName());
-        assertEquals("312-805-9892", result.get(0).getPhone());
-        assertEquals("Dr. Craig", result.get(0).getPhysician());
-        assertEquals("Anthem", result.get(0).getProvider());
-        assertEquals("860-860-8600", result.get(0).getPhysicianNumber());
-        assertEquals("Anthem", result.get(0).getProvider());
-        assertEquals("Male", result.get(0).getGender());
-        assertEquals("21 Briarwood Ln", result.get(0).getAddress().getStreet());
-        assertEquals("East Hartford", result.get(0).getAddress().getCity());
-        assertEquals("CT", result.get(0).getAddress().getState());
-        assertEquals("06118", result.get(0).getAddress().getZipcode());
-        assertEquals("USA", result.get(0).getAddress().getcountry());
-        assertEquals("Peanut", result.get(0).getAllergies().get(0));
-        assertEquals("Fever", result.get(0).getSymptoms().get(0).getSymptom());
-        assertEquals("Choking", result.get(0).getMedicalHistory().get(0).getReason());
-        assertEquals("4/12/2020", result.get(0).getMedicalHistory().get(0).getDate());
-        assertEquals("abdominal pain", result.get(0).getDiagnosis().get(0));        
-        assertEquals("acetaminophen", result.get(0).getMedications().get(0));    
-        assertTrue(1503 == result.get(0).getBill().getPrice());
+        Assertions.assertEquals("123456789", patient.getSSN() + "");
+        assertEquals("Tyler Reilly", patient.getName());
+        assertEquals("312-805-9892", patient.getPhone());
+        assertEquals("Dr. Craig", patient.getPhysician());
+        assertEquals("Anthem", patient.getProvider());
+        assertEquals("860-860-8600", patient.getPhysicianNumber());
+        assertEquals("Anthem", patient.getProvider());
+        assertEquals("Male", patient.getGender());
+        assertEquals("21 Briarwood Ln", patient.getAddress().getStreet());
+        assertEquals("East Hartford", patient.getAddress().getCity());
+        assertEquals("CT", patient.getAddress().getState());
+        assertEquals("06118", patient.getAddress().getZipcode());
+        assertEquals("USA", patient.getAddress().getcountry());
+        assertEquals("Peanut", patient.getAllergies().get(0));
+        assertEquals("Fever", patient.getSymptoms().get(0).getSymptom());
+        assertEquals("Choking", patient.getMedicalHistory().get(0).getReason());
+        assertEquals("4/12/2020", patient.getMedicalHistory().get(0).getDate());
+        assertEquals("abdominal pain", patient.getDiagnosis().get(0));        
+        assertEquals("acetaminophen", patient.getMedications().get(0));    
+        assertTrue(0 == patient.getBill().getPrice());
         //assertEquals("angiogram", result.get(0).getTests().get(3));
-        assertEquals("Doing much better. They are starting to walk again.", result.get(0).getProgressReports().get(0).getNote());
+        assertEquals("Doing much better. They are starting to walk again.", patient.getProgressReports().get(0).getNote());
 
         
     }
@@ -172,20 +172,20 @@ public class DBTest
         Document searchParam = new Document();
         searchParam.put("ssn", aes.encrypt("123456789"));
 
-        ArrayList<Patient> result = dbTest.parsePatients(searchParam);
+        Patient patient = dbTest.parsePatient(searchParam);
 
         Document searchParam2 = new Document();
-        searchParam2.put("name", aes.encrypt("Tyler Reilly"));
+        searchParam2.put("name", "Tyler Reilly");
 
-        ArrayList<Patient> result2 = dbTest.parsePatients(searchParam2);
+        Patient patient2 = dbTest.parsePatient(searchParam2);
 
         Document loginQuery = new Document();
         loginQuery.put("userName", "nurse");
 
         lcTest = new LoginController(loginQuery);
 
-        assertEquals(result, result2);
-        assertNotSame(result2, lcTest);
+        assertEquals(patient.getAddress().getCity(), patient2.getAddress().getCity());
+        assertNotSame(patient2, lcTest);
     }
 
     /*
@@ -198,9 +198,9 @@ public class DBTest
         System.out.println("--------RUNNING TEST MARK BILL PAID---------");
         dbTest.markBillPaid(searchDoc);
 
-        ArrayList<Patient> billPaid = dbTest.parsePatients(searchDoc);
+        Patient patient = dbTest.parsePatient(searchDoc);
 
-        assertTrue(billPaid.get(0).getBill().getPrice() == 0);
+        assertTrue(patient.getBill().getPrice() == 0);
 
     }
 
@@ -212,18 +212,18 @@ public class DBTest
     public void testAdmitAndCheckOut()
     {
         System.out.println("--------RUNNING TEST ADMIT ---------");
-        dbTest.admit(col, searchDoc);
+        dbTest.admit(searchDoc);
 
-        ArrayList<Patient> admitted = dbTest.parsePatients(searchDoc);
+        Patient admitted = dbTest.parsePatient(searchDoc);
 
-        assertTrue(admitted.get(0).getAdmittedBool());
+        assertTrue(admitted.getAdmittedBool());
 
-        dbTest.checkOut(col, searchDoc);
+        dbTest.checkOut(searchDoc);
 
-        ArrayList<Patient> checkedOut = dbTest.parsePatients(searchDoc);
+        Patient checkedOut = dbTest.parsePatient(searchDoc);
 
-        assertTrue(!checkedOut.get(0).getAdmittedBool());
-        assertTrue(checkedOut.get(0).getCheckOut());
+        assertTrue(!checkedOut.getAdmittedBool());
+        assertTrue(checkedOut.getCheckOut());
 
     }
 
@@ -231,11 +231,11 @@ public class DBTest
     public void testCreateTestProcedures()
     {
         System.out.println("--------RUNNING TEST TEST PROCEDURES---------");
-        dbTest.createTestsProcedures(UHART.Models.Tests_procedures.ANGIOGRAM, testUserDoc, col, searchDoc);
+        dbTest.createTestsProcedures(UHART.Models.Tests_procedures.ANGIOGRAM, testUserDoc, searchDoc);
  
-        ArrayList<Patient> testTests = dbTest.parsePatients(searchDoc);
+        Patient testTests = dbTest.parsePatient(searchDoc);
  
-        assertEquals(UHART.Models.Tests_procedures.ANGIOGRAM.toString(), testTests.get(0).getTests().get(0));
+        assertEquals(UHART.Models.Tests_procedures.ANGIOGRAM.toString(), testTests.getTests().get(0));
     }
 
     @Test
@@ -244,9 +244,9 @@ public class DBTest
         System.out.println("--------RUNNING TEST DIAGNOSIS ---------");
         dbTest.createDiagnosis(UHART.Models.Diagnoses.ABDOMINALPAIN.toString(), testUserDoc, searchDoc);
  
-        ArrayList<Patient> testTests = dbTest.parsePatients(searchDoc);
+        Patient testTests = dbTest.parsePatient(searchDoc);
  
-        assertEquals(UHART.Models.Diagnoses.ABDOMINALPAIN.toString(), testTests.get(0).getDiagnosis().get(0));
+        assertEquals(UHART.Models.Diagnoses.ABDOMINALPAIN.toString(), testTests.getDiagnosis().get(0));
     }
 
     @Test
@@ -255,13 +255,13 @@ public class DBTest
         System.out.println("--------RUNNING TEST PROGRESS REPORTS---------");
         ProgressReport prog = new ProgressReport("Sydnie", "04/21/2021", "TEST");
 
-        dbTest.createProgressReports(prog, testUserNur, col, searchDoc);
+        dbTest.createProgressReports(prog, testUserNur, searchDoc);
  
-        ArrayList<Patient> testTests = dbTest.parsePatients(searchDoc);
+        Patient testTests = dbTest.parsePatient(searchDoc);
  
-        assertEquals("TEST", testTests.get(0).getProgressReports().get(0).getNote());
-        assertEquals("Sydnie", testTests.get(0).getProgressReports().get(0).getNurseName());
-        assertEquals("04/21/2021", testTests.get(0).getProgressReports().get(0).getDate());
+        assertEquals("TEST", testTests.getProgressReports().get(0).getNote());
+        assertEquals("Sydnie", testTests.getProgressReports().get(0).getNurseName());
+        assertEquals("04/21/2021", testTests.getProgressReports().get(0).getDate());
     }
 
     @Test
@@ -270,9 +270,9 @@ public class DBTest
         System.out.println("--------RUNNING TEST MEDICATIONS ---------");
         dbTest.createMedications(UHART.Models.Medications.ACETAMINOPHEN.toString(), testUserDoc, searchDoc);
  
-        ArrayList<Patient> testTests = dbTest.parsePatients(searchDoc);
+        Patient testTests = dbTest.parsePatient(searchDoc);
  
-        assertEquals(UHART.Models.Medications.ACETAMINOPHEN.toString(), testTests.get(0).getMedications().get(0));
+        assertEquals(UHART.Models.Medications.ACETAMINOPHEN.toString(), testTests.getMedications().get(0));
     }
 
     //TODO: Add cleanup

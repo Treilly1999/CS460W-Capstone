@@ -20,16 +20,17 @@ import org.bson.Document;
  * @author Tyler
  */
 
-
 public class JTableButtonModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {"Patients"};
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {JButton.class};
                 private static Object[] rows;
-                private ArrayList<Patient> patients;
+                private ArrayList<Patient> patients = new ArrayList<>();
                 private DBConnection db = new DBConnection();
                 private LoginManager loginManager;
                 private Staff_Model user;
+                private Patient patient;
+                private Boolean moreThanOne = false;
 		
                 public JTableButtonModel(LoginManager loginManager, Staff_Model user)
                 {
@@ -38,33 +39,45 @@ public class JTableButtonModel extends AbstractTableModel {
                 }
                 
                 public ArrayList<Patient> getPatients() { return patients; }
+                private Patient getPatient() {return patient; }
                 
                 public void setRows(Document search)
                 {
                     if(search == null)
                      {
                          //Finds every single patient
-                         patients = db.parsePatients(null);
+                         patients = db.parsePatients();
+                         moreThanOne = true;
                      }
                      else
                      {            
                          //finds individual patient
-                         patients = db.parsePatients(search);
+                         patient = db.parsePatient(search);
+                         //patients.add(patient);
                      }
                          String name;
 
-                         rows = new Object[patients.size()];
-
-                        
+                    if(moreThanOne)
+                    {
+                        rows = new Object[patients.size()];
+                    
                         for(int k = 0; k < rows.length; k++)
                         {
                             name = patients.get(k).getName();                   
-
-                            rows[k] = new JButton(name);
-
-
+    
+                            rows[k] = new JButton(name);       
                         }
-                           
+                    }
+                    else
+                    {
+                        rows = new Object[1];
+                    
+                        name = patient.getName();                   
+
+                        rows[0] = new JButton(name);
+                        
+                    }
+                                               
                 }
                 
 		@Override public int getColumnCount() {
@@ -85,12 +98,27 @@ public class JTableButtonModel extends AbstractTableModel {
 
 		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {			                           
-				case 0: final JButton button = new JButton(getPatients().get(rowIndex).getName());
-						button.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								loginManager.showPatientPanel(getPatients().get(rowIndex), user);
-							}
-						});
+				case 0: final JButton button = new JButton();
+
+                        if(moreThanOne)
+                        {
+                            button.setText(getPatients().get(rowIndex).getName());
+                            button.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent arg0) {
+                                    loginManager.showPatientPanel(getPatients().get(rowIndex), user);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            button.setText(getPatient().getName());
+                            button.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent arg0) {
+                                    loginManager.showPatientPanel(getPatient(), user);
+                                }
+                            });
+                        }
+						
 						return button;
 				default: return "Error";
 			}

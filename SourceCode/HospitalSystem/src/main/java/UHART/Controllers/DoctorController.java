@@ -19,6 +19,7 @@ public class DoctorController
 {
     
     private ArrayList<Patient> patients;    
+    private Patient patient;
     private DBConnection db = new DBConnection();
     private String col[] = {"Name", "SSN"};
     
@@ -34,12 +35,12 @@ public class DoctorController
         if(search == null)
         {
             //Finds every single patient
-            patients = db.parsePatients(null);
+            patients = db.parsePatients();
         }
         else
         {            
             //finds individual patient
-            patients = db.parsePatients(search);
+            patient = db.parsePatient(search);
         }
         
         for(int i = 0; i < patients.size(); i++)
