@@ -35,7 +35,7 @@ public class DoctorController
         if(search == null)
         {
             //Finds every single patient
-            patients = db.parsePatients();
+            //patients = db.parsePatients();
         }
         else
         {            

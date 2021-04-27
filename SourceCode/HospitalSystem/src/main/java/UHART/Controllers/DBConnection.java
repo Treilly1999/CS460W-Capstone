@@ -15,7 +15,8 @@ import UHART.Models.Bill;
  import com.mongodb.MongoClient;
  import UHART.Models.Patient;
  import UHART.Models.ProgressReport;
- import UHART.Models.Staff_Model;
+import UHART.Models.Search;
+import UHART.Models.Staff_Model;
  import UHART.Models.Symptoms;
  import UHART.Models.Tests_procedures;
  import com.mongodb.client.MongoCollection;
@@ -54,15 +55,14 @@ public class DBConnection {
     
     /*
     Author: Tyler
-    Description: Parses the database for all patients or specific patients that
-    match a query. 
+    Description: Get names for search table. Once a name is clicked on the table, it will build the model for the patient.
     
     USE PATIENT SSN || NAME || ID to search
     */
-    public ArrayList<Patient> parsePatients()
+    public ArrayList<Search> parsePatients()
     {       
         
-        ArrayList<Patient> patientList = new ArrayList<Patient>();
+        ArrayList<Search> patientList = new ArrayList<Search>();
           
         
         ArrayList<Document> patients = new ArrayList<Document>();
@@ -82,11 +82,28 @@ public class DBConnection {
         
         for(Document patient: patients)
         {
-            patientList.add(buildPatient(patient));
+            patientList.add(buildNameForSearch(patient));
         }
 
         return patientList;
     }
+
+    /*
+    Author: Tyler Reilly
+    Description: Get names for search table. Once a name is clicked on the table, it will build the model for the patient.
+    */
+    public Search buildNameForSearch(Document patient)
+    {
+        String name;
+        int ssn;
+
+        name = patient.getString("name");
+        ssn = Integer.parseInt(aes.decrypt(patient.getString("ssn")));
+
+        Search search = new Search(name, ssn, patient);
+        return search;
+    }
+
     
     //Return single patient
     public Patient parsePatient(Document query)

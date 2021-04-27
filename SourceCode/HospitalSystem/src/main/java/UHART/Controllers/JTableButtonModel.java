@@ -6,6 +6,7 @@
 package UHART.Controllers;
 
 import UHART.Models.Patient;
+import UHART.Models.Search;
 import UHART.Models.Staff_Model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +26,13 @@ public class JTableButtonModel extends AbstractTableModel {
 		private static final String[] COLUMN_NAMES = new String[] {"Patients"};
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {JButton.class};
                 private static Object[] rows;
-                private ArrayList<Patient> patients = new ArrayList<>();
+                private ArrayList<Search> patients = new ArrayList<>();
                 private DBConnection db = new DBConnection();
                 private LoginManager loginManager;
                 private Staff_Model user;
                 private Patient patient;
                 private Boolean moreThanOne = false;
+                private AES256 aes = new AES256();
 		
                 public JTableButtonModel(LoginManager loginManager, Staff_Model user)
                 {
@@ -38,7 +40,7 @@ public class JTableButtonModel extends AbstractTableModel {
                     this.user = user;
                 }
                 
-                public ArrayList<Patient> getPatients() { return patients; }
+                public ArrayList<Search> getPatients() { return patients; }
                 private Patient getPatient() {return patient; }
                 
                 public void setRows(Document search)
@@ -105,7 +107,11 @@ public class JTableButtonModel extends AbstractTableModel {
                             button.setText(getPatients().get(rowIndex).getName());
                             button.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent arg0) {
-                                    loginManager.showPatientPanel(getPatients().get(rowIndex), user);
+
+                                    Document searchDoc = new Document();
+                                    searchDoc.put("ssn", aes.encrypt("" + getPatients().get(rowIndex).getSSN()));
+
+                                    loginManager.showPatientPanel(db.buildPatient(getPatients().get(rowIndex).getPatientDoc()), user);
                                 }
                             });
                         }
