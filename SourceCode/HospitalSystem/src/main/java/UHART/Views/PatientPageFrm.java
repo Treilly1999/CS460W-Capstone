@@ -344,17 +344,21 @@ public class PatientPageFrm extends javax.swing.JPanel {
         }
 
         String diagnosis = "";
-        for(String diagnostic: patient.getDiagnosis())
+        if(patient.getDiagnosis() != null)
         {
-            if(diagnosis.isEmpty())
+            for(String diagnostic: patient.getDiagnosis())
             {
-                diagnosis = diagnostic;
-            }
-            else
-            {
-                diagnosis += ", " +diagnostic;
+                if(diagnosis.isEmpty())
+                {
+                    diagnosis = diagnostic;
+                }
+                else
+                {
+                    diagnosis += ", " +diagnostic;
+                }
             }
         }
+        
         jTextField20.setText(diagnosis);
 
         jTextField10.setFont(new java.awt.Font("ËÎÌå", 0, 20)); // NOI18N
