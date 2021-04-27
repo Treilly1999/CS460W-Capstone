@@ -1,2 +1,2 @@
--No front end for discharge instructions
--Multiple instances of app not fully tested
+-Currently no charges per night
+-Biller cannot print bill
