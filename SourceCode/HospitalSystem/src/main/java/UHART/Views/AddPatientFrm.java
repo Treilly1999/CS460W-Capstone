@@ -212,18 +212,18 @@ public class AddPatientFrm extends javax.swing.JPanel {
                                         address = new Address(jTextField10.getText(),jTextField13.getText(), jTextField12.getText(), jTextField14.getText(), jTextField11.getText());
                                         Date dob = new SimpleDateFormat("MM/dd/yyyy").parse(jTextField16.getText());
 
-                                        //TODO: Remove null allergylist
                                         patient = new Patient(id.toString(), jTextField15.getText(), dob, jTextField3.getText(),
                                         Integer.parseInt(jTextField4.getText()), jTextField5.getText(), jTextField6.getText(),jTextField2.getText(), 
                                         symptomList, jTextField1.getText(), allergyList, address);       
                                         
                                         //System.out.println(patient.toString());
 
-                                        String state = db.createPatient(patient, user);
+                                        Boolean state = db.createPatient(patient, user);
 
-                                        //TODO: Add condition for failure to add patient
-                                        //loginManager.showMainPanel(user);
-                                        loginManager.showPatientPanel(patient, user);
+                                        if(state)
+                                        {
+                                            loginManager.showPatientPanel(patient, user);
+                                        }
 
                                     }
                                     else

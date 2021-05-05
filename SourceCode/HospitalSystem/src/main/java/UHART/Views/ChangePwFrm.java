@@ -44,8 +44,6 @@ public class ChangePwFrm extends javax.swing.JPanel {
         //loginManager.setVisible(false);
         loginManager.setContentPane(this);
 
-
-        //TODO: Implement backend
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -189,7 +187,6 @@ public class ChangePwFrm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         loginManager.showMainPanel(user);
     }//GEN-LAST:event_jButton1ActionPerformed
 

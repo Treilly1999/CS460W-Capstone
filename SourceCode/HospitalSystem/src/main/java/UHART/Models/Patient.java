@@ -17,11 +17,7 @@ import java.util.UUID;
  * Patient object model
  */
 public class Patient {    
-    
-    //TODO: Implement Billing variables
-    
-    //BILL OBJECT?
-    //private Bill b;    
+      
     private Bill bill;
     private String  name;
     private int  age;     
@@ -67,7 +63,6 @@ public class Patient {
         
     }
     
-    //TODO: Add allergy list
     //Initial creation without the variables that are added once they are in the system
     public Patient(String id, String name, Date dateOfBirth, String phoneNumber, Integer ssn, String physicianName, 
             String physicianNumber, String provider, ArrayList<Symptoms> symptoms, String gender,
@@ -235,8 +230,7 @@ public class Patient {
     Author: Jakob
     */
     public Bill getBill() {return bill;}
-    //TODO: Fix addPayment
-    //public void addPayment(int i) {bill = bill+i;}
+ 
     public void markPaid() {bill.markPaid();}
 
     public ArrayList<String> getCurrentMedication() { return currentMedications; }

@@ -46,9 +46,7 @@ public class LoginManager extends JFrame {
   
   private LoginFrm loginFrame;
   private AddPatientFrm registerFrame;
-  private AddDiagnosisFrm diagnosisFrame;
   private BillFrm billFrame;
-  private CheckInfoFrm checkInfo;
   private UpdatePFrm updatePatient;
   private MainFrm main;
   private PatientPageFrm patientProfile;
@@ -84,24 +82,6 @@ public class LoginManager extends JFrame {
 				try {
 					updatePatient = new UpdatePFrm(login, user);
                                        
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-  }
-  
-   /**
-   * Author: Tyler
-   * Description: Will show the Doctor application screen.
-   */ 
-  public void showDiagnosisPanel(final Staff_Model user) 
-  {
-      final LoginManager login = this;
-      EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					diagnosisFrame = new AddDiagnosisFrm(login, user);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

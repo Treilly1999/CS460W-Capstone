@@ -72,11 +72,18 @@ public class JTableButtonModel extends AbstractTableModel {
                     }
                     else
                     {
-                        rows = new Object[1];
+                        if(getPatient() != null)
+                        {
+                            rows = new Object[1];
                     
-                        name = patient.getName();                   
-
-                        rows[0] = new JButton(name);
+                            name = patient.getName();                   
+    
+                            rows[0] = new JButton(name);
+                        }
+                        else
+                        {
+                            rows = new Object[0];
+                        }
                         
                     }
                                                
@@ -117,12 +124,20 @@ public class JTableButtonModel extends AbstractTableModel {
                         }
                         else
                         {
-                            button.setText(getPatient().getName());
-                            button.addActionListener(new ActionListener() {
-                                public void actionPerformed(ActionEvent arg0) {
-                                    loginManager.showPatientPanel(getPatient(), user);
-                                }
-                            });
+                            if(getPatient() != null)
+                            {
+                                button.setText(getPatient().getName());
+                                button.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent arg0) {
+                                        loginManager.showPatientPanel(getPatient(), user);
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                button.setVisible(false);
+                            }
+                            
                         }
 						
 						return button;

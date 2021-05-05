@@ -96,14 +96,7 @@ public class MainFrm {
                         loginManager.showRegisterPanel(user);
                     }
                 });
-		
-		JButton btnAddDiagno = new JButton("Add Diagnosis Information");
-		btnAddDiagno.setFont(new Font("����", Font.PLAIN, 20));
-                btnAddDiagno.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        loginManager.showDiagnosisPanel(user);
-                    }
-                });
+	
 		
 		JButton btnUpdatePatientRecord = new JButton("Update Patient Record");
 		btnUpdatePatientRecord.setFont(new Font("����", Font.PLAIN, 20));
@@ -132,7 +125,6 @@ public class MainFrm {
                 
                 if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.REGISTER)
                 {
-                    btnAddDiagno.setVisible(false);
                     btnUpdatePatientRecord.setVisible(false);                    
                     btnBilling.setVisible(false);        
 					
@@ -142,21 +134,18 @@ public class MainFrm {
                 {
                     btnNewButton.setVisible(false);
                     btnBilling.setVisible(false);
-					btnAddDiagno.setVisible(false);
                     btnUpdatePatientRecord.setVisible(false);  
                 }
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
                 {
                     btnNewButton.setVisible(false);
                     btnBilling.setVisible(false);
-					btnAddDiagno.setVisible(false);
                     btnUpdatePatientRecord.setVisible(false);    
                 }
                 else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
                 {
                     btnNewButton.setVisible(false);
-                    btnUpdatePatientRecord.setVisible(false);
-					btnAddDiagno.setVisible(false);                  
+                    btnUpdatePatientRecord.setVisible(false);              
                     btnBilling.setVisible(false);        
                 }
                 
@@ -166,7 +155,6 @@ public class MainFrm {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(36)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAddDiagno, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnUpdatePatientRecord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnCheckPatientRecord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnBilling, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,8 +167,6 @@ public class MainFrm {
 					.addGap(91)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 					.addGap(50)
-					.addComponent(btnAddDiagno, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-					.addGap(38)
 					.addComponent(btnUpdatePatientRecord, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 					.addGap(51)
 					.addComponent(btnCheckPatientRecord, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)

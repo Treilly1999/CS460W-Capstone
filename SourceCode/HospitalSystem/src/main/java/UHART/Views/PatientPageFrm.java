@@ -1301,7 +1301,6 @@ public class PatientPageFrm extends javax.swing.JPanel {
 
         if(jCheckBox1.isSelected())
         {
-            //TODO: Implement billing features
             patient.markPaid();
             jTextField19.setText("$" +patient.getBill().getPrice());
             db.markBillPaid(patientID);

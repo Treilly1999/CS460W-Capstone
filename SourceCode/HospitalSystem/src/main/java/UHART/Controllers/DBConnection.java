@@ -36,7 +36,6 @@ import UHART.Models.Staff_Model;
  */
 public class DBConnection {
     
-    //TODO: Research MongoDB date object    
     private AES256 aes = new AES256();
   
     private static MongoClient mongoClient;
@@ -124,10 +123,16 @@ public class DBConnection {
             }
         }             
        
-        Patient patient = buildPatient(patientDoc);
-        
 
-        return patient;
+        if(!patientDoc.isEmpty())
+        {
+            Patient patient = buildPatient(patientDoc);
+            return patient;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /*
@@ -142,8 +147,7 @@ public class DBConnection {
               dischargeInstructions = "",  assignedDoctor = "",
               provider = "", phoneNumber = "", id = "";
         int age = 1, ssn = 1;
-        Boolean admitted = false, checkedOut = false;   
-        //TODO: Convert to date
+        Boolean admitted = false, checkedOut = false; 
         Date dateOfBirth = new Date();
         Date dateAdmitted = new Date();
         Date dateLeft = new Date();
@@ -321,116 +325,9 @@ public class DBConnection {
         return (List<T>)returnList;  
     }
     
- // ---------------------------------------------------------
-   /*
-    Author: Tyler Reilly
-    Description: Updates one or many of the found documents with update.
-    TODO: Refactor without objModel
-    */    
-    public Boolean update(Staff_Model user, Patient patient, String type, Object objModel)
-    {
-        //Query
-        Document patientID = new Document();
-        patientID.put("id", patient.getID());
-        
-        Boolean successful = false;
-        MongoCollection<Document> collection = database.getCollection("patients");
-        Document update = new Document();
-        
-        //TODO: Convert to switch
-        if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.DOCTOR)
-        {
-            if(type.equals("medications"))
-            {
-                for(int i = 0; i < patient.getMedications().size(); i++)
-                {
-                    createMedications(patient.getMedications().get(i), user, patientID);
-                    successful = true;
-                }
-            }
-            else if(type.equals("diagnosis"))
-            {
-                for(int i = 0; i < patient.getDiagnosis().size(); i++)
-                {
-                    createDiagnosis(patient.getDiagnosis().get(i).toString(),user, patientID);
-                    successful = true;
-                }
-            }
-            else if(type.equals("tests"))
-            {
-                for(int i = 0; i <patient.getTests().size(); i++)
-                {
-                    //createTestsProcedures(patient.getTests().get(i), user, collection, patientID);
-                    successful = true;
-                }
-            }
-        }
-        else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.NURSE)
-        {
-            if(type.equals("progressReport"))
-            {
-                ProgressReport progress = (ProgressReport)objModel;
-                createProgressReports(progress, user, patientID);
-                successful = true;
-            }
-            else if(type.equals("admitted"))
-            {
-                String admission = (String)objModel;
-                update.put("admitted", admission);
-                updateDocument(collection, patientID, update, false);
-                successful = true;
-            }
-        }
-        //TODO: Implement Billing
-        else if(user.getUSER_ROLE() == UHART.Models.Staff_Model.USER_ROLE.BILLING)
-        {
-            
-        }
-        
-        return successful;        
-    }
  
-            
-    
-    public Boolean updateDocument(MongoCollection<Document> collection, Document find, Document update, Boolean multiple)
-    {        
-        Boolean successUpdate = false;
-        
-        if(multiple)
-        {
-            collection.updateMany(eq(find), new Document("$set", update));
-            successUpdate = true;            
-        }
-        else
-        {
-            collection.updateOne(eq(find), new Document("$set", update));
-            successUpdate = true;
-        }
-        
-        return successUpdate;
-    }
     
 //---------------------------------------------------
-    //TODO: TEST MORE
-    public void removeEntry(Document query, Boolean allMatch)
-    {
-        //MongoClient mongoClient = new MongoClient("localhost", 27017);
-       // MongoDatabase database = mongoClient.getDatabase("hospital");
-        MongoCollection<Document> collection = database.getCollection("patients");    
-                 
-        if(allMatch == true)
-        {
-            collection.deleteMany(query);
-            System.out.println("Deleted all documents in " + database.getName() + " that matched " + query.toString());
-        }
-        else
-        {
-            collection.deleteOne(query);
-            System.out.println("Deleted a single document in " + database.getName() + " that matched " + query.toString());
-        }
-        
-    }   
-
     public void markBillPaid(Document query)
     {
         
@@ -445,13 +342,12 @@ public class DBConnection {
     /*
     Author: Tyler Reilly
     Description: Creates a patient using a patient object.
-    TODO: Return boolean
     */
-    public String createPatient(Patient patient, Staff_Model user)    {          
+    public Boolean createPatient(Patient patient, Staff_Model user)    {          
             
         Document document = new Document();        
        
-        String state = "SUCCESSFUL";  
+        Boolean state = false;  
         
         try
         {
@@ -487,10 +383,11 @@ public class DBConnection {
                 createAllergies(patient.getAllergies().get(i), user, patientID);
             }
             
+            state = true;
             
         } catch (Exception e)
         {
-            state = "FAILURE";
+            state = false;
         }
         
         return state;

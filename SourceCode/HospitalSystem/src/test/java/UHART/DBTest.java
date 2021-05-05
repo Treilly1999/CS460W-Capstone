@@ -59,9 +59,8 @@ public class DBTest
         symptoms.add(symp);
         allergies.add("peanut");
         
-        String result = dbTest.createPatient(patient, testUserNur);
 
-        assertEquals("SUCCESSFUL", result);
+        assertTrue(dbTest.createPatient(patient, testUserNur));
 
         searchDoc.put("name", patient.getName());
 
